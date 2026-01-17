@@ -52,7 +52,7 @@ export default function PrivacyPage() {
 
         {/* Introduction */}
         <p className="text-lg leading-relaxed">
-          This Privacy Policy describes how {candidateName} for {office} ("we," "our," or "us")
+          This Privacy Policy describes how {candidateName} for {office} (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;)
           collects, uses, and protects your personal information when you visit our campaign
           website and interact with our services.
         </p>
@@ -97,7 +97,7 @@ export default function PrivacyPage() {
           <ul className="mt-4 space-y-2">
             <li>
               <strong>Campaign Updates and Communications:</strong> To send you campaign news,
-              event invitations, and updates about {candidateName}'s campaign for {office}.
+              event invitations, and updates about {candidateName}&apos;s campaign for {office}.
             </li>
             <li>
               <strong>Volunteer Coordination:</strong> To organize volunteer activities, assign
@@ -192,7 +192,7 @@ export default function PrivacyPage() {
           </ul>
           <p className="mt-4 leading-relaxed">
             To exercise these rights, please contact us using the information provided in the
-            "Contact Us" section below.
+            &quot;Contact Us&quot; section below.
           </p>
         </section>
 
@@ -241,7 +241,7 @@ export default function PrivacyPage() {
           <p className="mt-4 leading-relaxed">
             We may update this Privacy Policy from time to time. We will notify you of any
             material changes by posting the new Privacy Policy on this page and updating the
-            "Last updated" date. We encourage you to review this Privacy Policy periodically.
+            &quot;Last updated&quot; date. We encourage you to review this Privacy Policy periodically.
           </p>
         </section>
 

@@ -13,7 +13,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     { className, type = "text", label, error, errorMessage, id, ...props },
     ref
   ) => {
-    const inputId = id || `input-${React.useId()}`;
+    // Always call useId hook unconditionally
+    const generatedId = React.useId();
+    const inputId = id || `input-${generatedId}`;
     const hasError = error || errorMessage;
 
     return (

@@ -156,7 +156,7 @@ export function YardSignForm() {
       {isSuccess && (
         <div className="rounded-lg bg-success/10 border border-success/20 p-4 text-sm text-success">
           <p className="font-semibold">Your yard sign request has been received!</p>
-          <p>We'll deliver it within 1-2 weeks.</p>
+          <p>We&apos;ll deliver it within 1-2 weeks.</p>
         </div>
       )}
 

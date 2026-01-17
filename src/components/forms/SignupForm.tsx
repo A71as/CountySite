@@ -122,7 +122,7 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
       {/* Success message */}
       {isSuccess && (
         <div className="rounded-lg bg-success/10 border border-success/20 p-4 text-sm text-success">
-          <p className="font-semibold">You're in! 🎉</p>
+          <p className="font-semibold">You&apos;re in! 🎉</p>
           <p>Check your email for next steps.</p>
         </div>
       )}

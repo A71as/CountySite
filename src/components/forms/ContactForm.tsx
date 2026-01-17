@@ -105,7 +105,7 @@ export function ContactForm() {
       {isSuccess && (
         <div className="rounded-lg bg-success/10 border border-success/20 p-4 text-sm text-success">
           <p className="font-semibold">Message sent!</p>
-          <p>We'll get back to you as soon as possible.</p>
+          <p>We&apos;ll get back to you as soon as possible.</p>
         </div>
       )}
 

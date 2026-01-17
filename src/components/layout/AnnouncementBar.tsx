@@ -20,10 +20,12 @@ export function AnnouncementBar() {
     }
   }, []);
 
-  const countdown = electionDate ? useCountdown(electionDate) : null;
+  // Always call hook - use a far future date as fallback to avoid errors
+  const defaultDate = new Date("2099-12-31");
+  const countdown = useCountdown(electionDate || defaultDate);
 
   // Don't render if dismissed or no election date
-  if (isDismissed || !electionDate || !countdown) {
+  if (isDismissed || !electionDate) {
     return null;
   }
 

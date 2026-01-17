@@ -53,8 +53,8 @@ export default function TermsPage() {
 
         {/* Introduction */}
         <p className="text-lg leading-relaxed">
-          These Terms of Service ("Terms") govern your access to and use of the website operated
-          by {candidateName} for {office} ("we," "our," or "us"). By accessing or using this
+          These Terms of Service (&quot;Terms&quot;) govern your access to and use of the website operated
+          by {candidateName} for {office} (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). By accessing or using this
           website, you agree to be bound by these Terms.
         </p>
 
@@ -75,7 +75,7 @@ export default function TermsPage() {
           <h2 className="font-heading text-2xl font-bold text-gray-900">Use of Website</h2>
           <p className="mt-4 leading-relaxed">
             This website is provided for informational purposes and to facilitate campaign
-            communications, volunteer activities, and support for {candidateName}'s campaign for{" "}
+            communications, volunteer activities, and support for {candidateName}&apos;s campaign for{" "}
             {office}.
           </p>
           <p className="mt-4 leading-relaxed">
@@ -187,7 +187,7 @@ export default function TermsPage() {
         <section className="mt-12">
           <h2 className="font-heading text-2xl font-bold text-gray-900">Disclaimer</h2>
           <p className="mt-4 leading-relaxed">
-            This website is provided "as is" and "as available" without warranties of any kind,
+            This website is provided &quot;as is&quot; and &quot;as available&quot; without warranties of any kind,
             either express or implied, including but not limited to warranties of merchantability,
             fitness for a particular purpose, or non-infringement.
           </p>
@@ -229,8 +229,8 @@ export default function TermsPage() {
           <h2 className="font-heading text-2xl font-bold text-gray-900">Changes to Terms</h2>
           <p className="mt-4 leading-relaxed">
             We reserve the right to modify these Terms at any time. We will notify you of any
-            material changes by posting the updated Terms on this page and updating the "Last
-            updated" date. Your continued use of the website after any such changes constitutes
+            material changes by posting the updated Terms on this page and updating the &quot;Last
+            updated&quot; date. Your continued use of the website after any such changes constitutes
             your acceptance of the new Terms.
           </p>
           <p className="mt-4 leading-relaxed">

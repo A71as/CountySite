@@ -20,13 +20,13 @@ export function YardSign() {
               Show Your Support
             </h2>
             <p className="mt-4 text-lg text-gray-700 sm:text-xl">
-              Request a free yard sign and let your neighbors know you're voting
+              Request a free yard sign and let your neighbors know you&apos;re voting
               for <span className="font-semibold text-primary-600">{candidateName}</span>!
             </p>
           </div>
 
           <p className="text-gray-600 leading-relaxed">
-            Yard signs are the most visible way to build momentum. We'll deliver
+            Yard signs are the most visible way to build momentum. We&apos;ll deliver
             directly to your door.
           </p>
 

@@ -65,7 +65,7 @@ export function Donate() {
           <div className="space-y-4 text-gray-800">
             <p className="text-xl leading-relaxed font-medium">
               No corporate PAC money. No dark money. Just people like you who
-              believe in <span className="text-primary-600 font-bold">{county}'s</span> future.
+              believe in <span className="text-primary-600 font-bold">{county}&apos;s</span> future.
             </p>
             <p className="text-xl leading-relaxed font-medium">
               Contribute what you can to help us win.
