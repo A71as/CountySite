@@ -17,6 +17,11 @@ if (!supabaseServiceRoleKey) {
   throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY environment variable");
 }
 
+// Type assertions - these are safe because we've validated above
+const validatedSupabaseUrl: string = supabaseUrl;
+const validatedSupabaseAnonKey: string = supabaseAnonKey;
+const validatedSupabaseServiceRoleKey: string = supabaseServiceRoleKey;
+
 /**
  * Server-side Supabase client
  * Uses service role key for full database access
@@ -27,7 +32,7 @@ if (!supabaseServiceRoleKey) {
  * @returns Supabase client with service role permissions
  */
 export function createServerClient() {
-  return createClient(supabaseUrl, supabaseServiceRoleKey, {
+  return createClient(validatedSupabaseUrl, validatedSupabaseServiceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
@@ -45,11 +50,7 @@ export function createServerClient() {
  * @returns Supabase client with anon key permissions
  */
 export function createClientClient() {
-  if (!supabaseAnonKey) {
-    throw new Error("NEXT_PUBLIC_SUPABASE_ANON_KEY is required for client-side client");
-  }
-
-  return createClient(supabaseUrl, supabaseAnonKey, {
+  return createClient(validatedSupabaseUrl, validatedSupabaseAnonKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
