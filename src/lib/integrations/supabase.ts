@@ -1,26 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Supabase configuration
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!supabaseUrl) {
-  throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL environment variable");
+// Helper to get and validate environment variable
+function getRequiredEnv(key: string): string {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Missing ${key} environment variable`);
+  }
+  return value;
 }
-
-if (!supabaseAnonKey) {
-  throw new Error("Missing NEXT_PUBLIC_SUPABASE_ANON_KEY environment variable");
-}
-
-if (!supabaseServiceRoleKey) {
-  throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY environment variable");
-}
-
-// Type assertions - these are safe because we've validated above
-const validatedSupabaseUrl: string = supabaseUrl;
-const validatedSupabaseAnonKey: string = supabaseAnonKey;
-const validatedSupabaseServiceRoleKey: string = supabaseServiceRoleKey;
 
 /**
  * Server-side Supabase client
@@ -32,7 +19,10 @@ const validatedSupabaseServiceRoleKey: string = supabaseServiceRoleKey;
  * @returns Supabase client with service role permissions
  */
 export function createServerClient() {
-  return createClient(validatedSupabaseUrl, validatedSupabaseServiceRoleKey, {
+  const supabaseUrl = getRequiredEnv("NEXT_PUBLIC_SUPABASE_URL");
+  const supabaseServiceRoleKey = getRequiredEnv("SUPABASE_SERVICE_ROLE_KEY");
+  
+  return createClient(supabaseUrl, supabaseServiceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
@@ -50,7 +40,10 @@ export function createServerClient() {
  * @returns Supabase client with anon key permissions
  */
 export function createClientClient() {
-  return createClient(validatedSupabaseUrl, validatedSupabaseAnonKey, {
+  const supabaseUrl = getRequiredEnv("NEXT_PUBLIC_SUPABASE_URL");
+  const supabaseAnonKey = getRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+  
+  return createClient(supabaseUrl, supabaseAnonKey, {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
