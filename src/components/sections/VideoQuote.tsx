@@ -2,7 +2,7 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { cn } from "@/lib/utils";
 
 export interface VideoQuoteProps {
-  quote: string;
+  quote?: string;
   attribution?: string;
   videoUrl?: string;
   id?: string;
