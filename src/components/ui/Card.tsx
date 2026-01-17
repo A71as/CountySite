@@ -18,9 +18,13 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       shadow = "md",
       hover = false,
       children,
+      // Exclude event handlers that conflict with Framer Motion
       onDrag,
       onDragStart,
       onDragEnd,
+      onAnimationStart,
+      onAnimationEnd,
+      onAnimationIteration,
       ...props
     },
     ref
