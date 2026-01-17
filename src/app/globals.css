@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font-heading: system-ui, -apple-system, sans-serif;
+  --font-body: system-ui, -apple-system, sans-serif;
+}
+
+/* Dark mode disabled - campaign site uses light backgrounds */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-body);
+    /* Retro-modern text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Selection highlight */
+  ::selection {
+    background-color: #0033A0;
+    color: #ffffff;
+  }
+
+  ::-moz-selection {
+    background-color: #0033A0;
+    color: #ffffff;
+  }
+
+  /* Focus-visible outline styles */
+  :focus-visible {
+    outline: 2px solid #0033A0;
+    outline-offset: 2px;
+  }
+
+  /* Remove default focus styles for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  /* Custom prose styles for campaign content */
+  .prose-campaign {
+    @apply prose prose-lg max-w-none;
+  }
+
+  .prose-campaign h1,
+  .prose-campaign h2,
+  .prose-campaign h3,
+  .prose-campaign h4 {
+    @apply text-primary-600 font-display font-bold tracking-tight;
+  }
+
+  .prose-campaign h1 {
+    @apply text-4xl sm:text-5xl;
+  }
+
+  .prose-campaign h2 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  .prose-campaign h3 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  .prose-campaign a {
+    @apply text-primary-600 underline hover:text-primary-700;
+  }
+
+  .prose-campaign ul,
+  .prose-campaign ol {
+    @apply space-y-2;
+  }
+
+  .prose-campaign ul {
+    @apply list-disc pl-6;
+  }
+
+  .prose-campaign ol {
+    @apply list-decimal pl-6;
+  }
+
+  .prose-campaign li {
+    @apply leading-relaxed;
+  }
+
+  .prose-campaign p {
+    @apply leading-relaxed;
+  }
+
+  /* Button base styles (if needed beyond Tailwind config) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 font-medium text-white transition-colors hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md border-2 border-primary-500 bg-white px-4 py-2 font-medium text-primary-500 transition-colors hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center rounded-md bg-accent-500 px-4 py-2 font-medium text-white transition-colors hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+}
+
+/* Custom scrollbar styling */
+@layer base {
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #0033A0;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #FF6B00;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #0033A0 #f1f1f1;
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Hide navigation and interactive elements */
+  nav,
+  button,
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent,
+  [role="button"],
+  a[href^="#"] {
+    display: none !important;
+  }
+
+  /* Ensure text is black on white */
+  body {
+    color: #000000 !important;
+    background: #ffffff !important;
+  }
+
+  /* Remove backgrounds and shadows */
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure links are visible and show URL */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #000000;
+  }
+
+  /* Page breaks */
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  p,
+  li {
+    page-break-inside: avoid;
+  }
+
+  /* Remove margins for print */
+  @page {
+    margin: 1cm;
+  }
+}

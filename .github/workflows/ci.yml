@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript check
+        run: npm run type-check
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npm run test:e2e
+        env:
+          # Skip Turnstile in CI by not setting the key
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: ""
+          TURNSTILE_SECRET_KEY: ""
+          # Set other required env vars for tests
+          NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
+          NEXT_PUBLIC_CANDIDATE_NAME: "Test Candidate"
+          NEXT_PUBLIC_OFFICE: "Test Office"
+          NEXT_PUBLIC_COUNTY: "Test County"
+          NEXT_PUBLIC_STATE: "Test State"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          # Set required env vars for build (use dummy values)
+          NEXT_PUBLIC_SITE_URL: "https://example.com"
+          NEXT_PUBLIC_CANDIDATE_NAME: "Test Candidate"
+          NEXT_PUBLIC_OFFICE: "Test Office"
+          NEXT_PUBLIC_COUNTY: "Test County"
+          NEXT_PUBLIC_STATE: "Test State"
+          NEXT_PUBLIC_SUPABASE_URL: "https://dummy.supabase.co"
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: "dummy-key"
+          SUPABASE_SERVICE_ROLE_KEY: "dummy-key"
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: "dummy-key"
+          TURNSTILE_SECRET_KEY: "dummy-key"
+          RESEND_API_KEY: "dummy-key"
+          EMAIL_FROM: "test@example.com"
+          UPSTASH_REDIS_REST_URL: "https://dummy.upstash.io"
+          UPSTASH_REDIS_REST_TOKEN: "dummy-token"
+
+      - name: Upload build artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: .next
+          retention-days: 7

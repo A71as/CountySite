@@ -1,0 +1,6 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="600" fill="#e5e7eb"/>
+  <circle cx="300" cy="250" r="80" fill="#d1d5db"/>
+  <text x="50%" y="380" font-family="Arial, sans-serif" font-size="18" fill="#6b7280" text-anchor="middle" dominant-baseline="middle">Mayor</text>
+  <text x="50%" y="410" font-family="Arial, sans-serif" font-size="14" fill="#9ca3af" text-anchor="middle" dominant-baseline="middle">600x600px</text>
+</svg>
