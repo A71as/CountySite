@@ -18,6 +18,9 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       shadow = "md",
       hover = false,
       children,
+      onDrag,
+      onDragStart,
+      onDragEnd,
       ...props
     },
     ref
