@@ -94,8 +94,8 @@ async function sendContactNotification(
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #0033A0; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #E92128; color: white; padding: 20px; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 24px;">New Contact Form Submission</h1>
         </div>
         
@@ -105,13 +105,13 @@ async function sendContactNotification(
             ${subject ? `<p style="margin: 0 0 10px 0;"><strong>Subject:</strong> ${subject}</p>` : ""}
           </div>
           
-          <div style="background-color: white; padding: 20px; border-radius: 8px; border-left: 4px solid #FF6B00;">
-            <p style="margin: 0 0 10px 0; font-weight: bold; color: #0033A0;">Message:</p>
+          <div style="background-color: white; padding: 20px; border-radius: 8px; border-left: 4px solid #E92128;">
+            <p style="margin: 0 0 10px 0; font-weight: bold; color: #111827;">Message:</p>
             <p style="margin: 0; white-space: pre-wrap;">${message}</p>
           </div>
           
           <p style="font-size: 14px; color: #6b7280; margin-top: 20px;">
-            Reply directly to: <a href="mailto:${fromEmail}" style="color: #FF6B00;">${fromEmail}</a>
+            Reply directly to: <a href="mailto:${fromEmail}" style="color: #E92128;">${fromEmail}</a>
           </p>
         </div>
       </body>

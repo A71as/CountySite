@@ -38,20 +38,32 @@ export function AnnouncementBar() {
   };
 
   return (
-    <div className="relative bg-accent-600 text-white">
+    <div className="relative bg-primary-600 text-white">
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center gap-4">
           {/* Countdown - hidden on mobile, shown on desktop */}
           <div className="hidden items-center gap-2 sm:flex">
-            <span className="text-lg">🗳️</span>
-            <span className="text-sm font-medium sm:text-base">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className="text-sm font-medium">
               Election Day: {formatCountdown()}
             </span>
           </div>
 
-          {/* Mobile: Just show emoji and text */}
+          {/* Mobile: Just show icon and text */}
           <div className="flex items-center gap-2 sm:hidden">
-            <span className="text-lg">🗳️</span>
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                clipRule="evenodd"
+              />
+            </svg>
             <span className="text-sm font-medium">
               {countdown.isExpired
                 ? "Election Day is here!"
@@ -64,13 +76,13 @@ export function AnnouncementBar() {
             href="#volunteer"
             className="hidden text-sm font-medium underline underline-offset-2 transition-opacity hover:opacity-80 sm:block"
           >
-            Join the campaign today
+            Get involved
           </Link>
 
           {/* Dismiss button */}
           <button
             onClick={() => setIsDismissed(true)}
-            className="ml-auto flex-shrink-0 rounded-md p-1 transition-colors hover:bg-accent-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-accent-600"
+            className="ml-auto flex-shrink-0 rounded-md p-1 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600"
             aria-label="Dismiss announcement"
           >
             <X className="h-5 w-5" aria-hidden="true" />

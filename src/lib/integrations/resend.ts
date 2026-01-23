@@ -67,8 +67,8 @@ export async function sendWelcomeEmail(to: string) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #0033A0; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #E92128; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 24px;">Welcome to ${candidateName}'s Campaign!</h1>
         </div>
         
@@ -82,21 +82,21 @@ export async function sendWelcomeEmail(to: string) {
             Together, we can build a stronger community and bring real change to ${county} County.
           </p>
           
-          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h2 style="color: #0033A0; margin-top: 0;">Get Involved</h2>
+          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #E92128;">
+            <h2 style="color: #111827; margin-top: 0;">Get Involved</h2>
             <ul style="list-style: none; padding: 0;">
               <li style="margin-bottom: 15px;">
-                <a href="${siteUrl}#volunteer" style="color: #FF6B00; text-decoration: none; font-weight: bold;">
+                <a href="${siteUrl}#volunteer" style="color: #E92128; text-decoration: none; font-weight: bold;">
                   → Volunteer with us
                 </a>
               </li>
               <li style="margin-bottom: 15px;">
-                <a href="${siteUrl}#yard-sign" style="color: #FF6B00; text-decoration: none; font-weight: bold;">
+                <a href="${siteUrl}#yard-sign" style="color: #E92128; text-decoration: none; font-weight: bold;">
                   → Request a yard sign
                 </a>
               </li>
               <li style="margin-bottom: 15px;">
-                <a href="${actBlueUrl}" style="color: #FF6B00; text-decoration: none; font-weight: bold;">
+                <a href="${actBlueUrl}" style="color: #E92128; text-decoration: none; font-weight: bold;">
                   → Donate to the campaign
                 </a>
               </li>
@@ -140,8 +140,8 @@ export async function sendVolunteerConfirmation(
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #0033A0; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #E92128; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 24px;">Thanks for Volunteering!</h1>
         </div>
         
@@ -155,15 +155,15 @@ export async function sendVolunteerConfirmation(
             to us as we work to bring change to ${county} County.
           </p>
           
-          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h2 style="color: #0033A0; margin-top: 0;">What's Next?</h2>
+          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #E92128;">
+            <h2 style="color: #111827; margin-top: 0;">What's Next?</h2>
             <p style="margin-bottom: 10px;">
               A volunteer coordinator will contact you within the next few days to discuss 
               opportunities that match your interests and availability.
             </p>
             <p style="margin: 0;">
               In the meantime, you can learn more about our campaign at 
-              <a href="${siteUrl}" style="color: #FF6B00;">${siteUrl}</a>
+              <a href="${siteUrl}" style="color: #E92128;">${siteUrl}</a>
             </p>
           </div>
           
@@ -201,8 +201,8 @@ export async function sendYardSignConfirmation(
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #FF6B00; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #E92128; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 24px;">Yard Sign Request Received</h1>
         </div>
         
@@ -216,13 +216,13 @@ export async function sendYardSignConfirmation(
             deliver it to the address below.
           </p>
           
-          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #FF6B00;">
-            <p style="margin: 0; font-weight: bold; color: #0033A0;">Delivery Address:</p>
+          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #E92128;">
+            <p style="margin: 0; font-weight: bold; color: #111827;">Delivery Address:</p>
             <p style="margin: 10px 0 0 0; font-size: 16px;">${address}</p>
           </div>
           
-          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <h2 style="color: #0033A0; margin-top: 0;">Estimated Delivery</h2>
+          <div style="background-color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #E92128;">
+            <h2 style="color: #111827; margin-top: 0;">Estimated Delivery</h2>
             <p style="margin: 0;">
               We'll deliver your yard sign within <strong>1-2 weeks</strong>. 
               Our team will contact you if we need any additional information.
@@ -259,8 +259,8 @@ export async function sendContactConfirmation(to: string, name: string) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background-color: #0033A0; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background-color: #E92128; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0;">
           <h1 style="margin: 0; font-size: 24px;">We Received Your Message</h1>
         </div>
         
@@ -276,7 +276,7 @@ export async function sendContactConfirmation(to: string, name: string) {
           
           <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">
             In the meantime, you can learn more about our campaign at 
-            <a href="${siteUrl}" style="color: #FF6B00;">${siteUrl}</a>
+            <a href="${siteUrl}" style="color: #E92128;">${siteUrl}</a>
           </p>
         </div>
         

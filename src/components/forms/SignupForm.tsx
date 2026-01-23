@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
@@ -61,7 +61,10 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          first_name: data.first_name,
+          last_name: data.last_name,
           email: data.email,
+          phone: data.phone,
           zip_code: data.zip_code,
           turnstileToken: turnstileToken,
           source: variant,
@@ -141,10 +144,21 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
       />
 
       {/* Form fields */}
-      <div className={cn(
-        "grid gap-4",
-        variant === "hero" ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"
-      )}>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
+        <Input
+          type="text"
+          label="First Name"
+          placeholder="First name"
+          error={errors.first_name?.message}
+          {...register("first_name")}
+        />
+        <Input
+          type="text"
+          label="Last Name"
+          placeholder="Last name"
+          error={errors.last_name?.message}
+          {...register("last_name")}
+        />
         <Input
           type="email"
           label="Email"
@@ -153,12 +167,22 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
           {...register("email")}
         />
         <Input
-          type="text"
-          label="ZIP Code"
-          placeholder="12345"
-          error={errors.zip_code?.message}
-          {...register("zip_code")}
+          type="tel"
+          label="Phone"
+          placeholder="(555) 123-4567"
+          error={errors.phone?.message}
+          {...register("phone")}
         />
+        <div className="sm:col-span-2">
+          <Input
+            type="text"
+            label="ZIP Code"
+            placeholder="07302"
+            error={errors.zip_code?.message}
+            {...register("zip_code")}
+            className="sm:max-w-[200px]"
+          />
+        </div>
       </div>
 
       {/* Turnstile */}
@@ -188,20 +212,26 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
         disabled={isSubmitting || !turnstileToken}
         className="w-full"
       >
-        {isSubmitting ? "Signing up..." : "Sign Up"}
+        {isSubmitting ? "Joining..." : "Join the Campaign"}
       </Button>
 
       {/* Legal text */}
-      <p className="text-xs leading-relaxed text-gray-500">
-        By signing up, you agree to receive campaign updates. Message and data
-        rates may apply. Text STOP to opt out.{" "}
+      <p className="text-xs leading-relaxed text-slate-500">
+        By signing up, you agree to receive campaign updates via email and text. 
+        Message and data rates may apply. Text STOP to opt out.{" "}
         <Link
           href="/privacy"
-          className="underline hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm"
+          className="underline hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm"
         >
           Privacy Policy
         </Link>
-        .
+        {" · "}
+        <Link
+          href="/terms"
+          className="underline hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm"
+        >
+          Terms of Service
+        </Link>
       </p>
     </form>
   );

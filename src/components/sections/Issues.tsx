@@ -1,135 +1,100 @@
 "use client";
 
 import {
+  Search,
   Home,
-  Briefcase,
-  Shield,
-  Leaf,
+  Baby,
   GraduationCap,
-  HeartPulse,
   LucideIcon,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 interface Issue {
   icon: LucideIcon;
   title: string;
   description: string;
+  number: string;
 }
 
 export function Issues() {
-  const county = process.env.NEXT_PUBLIC_COUNTY || "County";
+  const county = process.env.NEXT_PUBLIC_COUNTY || "Hudson";
 
+  // David Guirgis's Big 4 Policies
   const issues: Issue[] = [
     {
+      icon: Search,
+      title: "Audit Everything",
+      description:
+        "Hudson County has never had an independent audit. We don't know where $700 million goes each year. It's time for full transparency and accountability in county spending.",
+      number: "01",
+    },
+    {
       icon: Home,
-      title: "Affordable Housing",
+      title: "Social Housing on County Land",
       description:
-        "Fighting for rent stabilization, affordable development, and anti-displacement policies to keep families in their communities.",
+        "The county owns valuable land that could be used for permanently affordable, publicly-owned social housing—not luxury developments that price out working families.",
+      number: "02",
     },
     {
-      icon: Briefcase,
-      title: "Good Local Jobs",
+      icon: Baby,
+      title: "Universal Childcare",
       description:
-        "Supporting living wages, economic development, and small business growth to create opportunities for all residents.",
-    },
-    {
-      icon: Shield,
-      title: "Public Safety",
-      description:
-        "Advocating for community-based solutions, mental health resources, and violence prevention programs that work.",
-    },
-    {
-      icon: Leaf,
-      title: "Clean Environment",
-      description:
-        "Protecting our parks, ensuring clean water, and supporting the transition to clean energy for future generations.",
+        "Families in Hudson County pay some of the highest childcare costs in the nation. We can use county resources to make childcare accessible and affordable for all.",
+      number: "03",
     },
     {
       icon: GraduationCap,
-      title: "Quality Education",
+      title: "Free HCCC",
       description:
-        "Championing school funding, teacher support, and early childhood programs to give every child a strong start.",
-    },
-    {
-      icon: HeartPulse,
-      title: "Healthcare Access",
-      description:
-        "Expanding affordable care, mental health services, and reproductive healthcare access for all residents.",
+        "Hudson County Community College should be free for county residents. Investing in education pays dividends for our entire community.",
+      number: "04",
     },
   ];
 
   return (
-    <SectionWrapper id="issues" background="default" className="bg-white relative overflow-hidden">
-      {/* Retro decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-accent-500 rounded-full blur-3xl opacity-5 -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary-500 rounded-full blur-3xl opacity-5 translate-y-1/2 -translate-x-1/2" />
-      
-      {/* Section header */}
-      <div className="relative mb-16 text-center">
-        <div className="inline-block mb-4">
-          <span className="text-sm font-bold uppercase tracking-widest text-accent-500">Our Platform</span>
+    <SectionWrapper id="issues" background="default">
+      {/* Swiss-style header */}
+      <div className="mb-20 max-w-5xl">
+        <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium mb-6">
+          Platform
         </div>
-        <h2 className="font-display text-4xl leading-none text-primary-600 sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight">
-          Fighting for What Matters
+        <h2 className="font-heading text-4xl font-bold text-slate-900 sm:text-5xl lg:text-6xl leading-[1.1]">
+          Big Four Policies
         </h2>
-        <p className="mt-6 text-xl text-gray-800 sm:text-2xl font-medium max-w-2xl mx-auto">
-          Real solutions for the challenges facing {county} families.
+        <p className="mt-6 text-lg text-slate-600 max-w-2xl">
+          Real solutions for {county} County—not empty promises.
         </p>
       </div>
 
-      {/* Issues grid */}
-      <motion.div
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={{
-          visible: {
-            transition: {
-              staggerChildren: 0.1,
-            },
-          },
-        }}
-      >
+      {/* Grid layout - 2x2 for Big 4 */}
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:gap-16">
         {issues.map((issue, index) => {
           const Icon = issue.icon;
           return (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.03, y: -4 }}
-              className="group relative rounded-xl border-2 border-gray-200 bg-white p-8 shadow-lg transition-all hover:border-accent-500 hover:shadow-2xl"
-            >
-              {/* Retro accent bar */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-accent-500 rounded-t-xl"></div>
-              
-              {/* Icon - retro style */}
-              <div className="mb-6 relative">
-                <div className="absolute inset-0 bg-accent-500 rounded-lg opacity-10 group-hover:opacity-20 transition-opacity"></div>
-                <div className="relative">
-                  <Icon className="h-12 w-12 text-accent-500 group-hover:text-retro-red transition-colors" />
-                </div>
+            <div key={index} className="group relative">
+              {/* Large number - Swiss style */}
+              <div className="absolute -top-2 -left-2 text-8xl font-bold text-slate-100 leading-none select-none">
+                {issue.number}
               </div>
-
-              {/* Title - retro-modern typography */}
-              <h3 className="mb-4 font-display text-2xl font-bold text-navy leading-tight tracking-tight">
-                {issue.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-700 leading-relaxed text-base">
-                {issue.description}
-              </p>
-            </motion.div>
+              
+              <div className="relative">
+                {/* Red square icon */}
+                <div className="mb-6 w-14 h-14 bg-primary-500 flex items-center justify-center">
+                  <Icon className="h-7 w-7 text-white" aria-hidden="true" />
+                </div>
+                
+                {/* Content */}
+                <h3 className="mb-4 font-heading text-2xl font-bold text-slate-900 leading-tight">
+                  {issue.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  {issue.description}
+                </p>
+              </div>
+            </div>
           );
         })}
-      </motion.div>
+      </div>
     </SectionWrapper>
   );
 }

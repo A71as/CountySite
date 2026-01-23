@@ -41,13 +41,18 @@ export function News() {
   ];
 
   return (
-    <SectionWrapper id="news" background="cream" className="bg-cream">
+    <SectionWrapper id="news" background="cream">
       {/* Section header */}
       <div className="mb-12 text-center">
-        <h2 className="font-heading text-3xl font-bold text-primary-600 sm:text-4xl lg:text-5xl">
+        <div className="mb-3">
+          <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+            Press Coverage
+          </span>
+        </div>
+        <h2 className="font-display text-4xl leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
           In the News
         </h2>
-        <p className="mt-4 text-lg text-gray-700 sm:text-xl">
+        <p className="mt-4 text-lg text-slate-600 sm:text-xl">
           What people are saying
         </p>
       </div>
@@ -62,8 +67,8 @@ export function News() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group flex min-w-[280px] flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all hover:border-primary-300 hover:shadow-md",
-                "lg:min-w-0"
+                "group flex min-w-[280px] flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary-300",
+                "lg:min-w-0",
               )}
             >
               {/* Source */}
@@ -72,18 +77,18 @@ export function News() {
               </p>
 
               {/* Headline */}
-              <h3 className="mb-3 font-heading text-lg font-bold text-navy group-hover:text-primary-600">
+              <h3 className="mb-3 font-heading text-lg font-semibold text-slate-900 group-hover:text-primary-600 transition-colors">
                 {item.headline}
-                <ExternalLink className="ml-2 inline-block h-4 w-4 text-gray-400 group-hover:text-accent-500" />
+                <ExternalLink className="ml-2 inline-block h-4 w-4 text-slate-400 group-hover:text-accent-500" />
               </h3>
 
               {/* Excerpt */}
-              <p className="mb-4 flex-grow text-sm leading-relaxed text-gray-700">
+              <p className="mb-4 flex-grow text-sm leading-relaxed text-slate-600">
                 {item.excerpt}
               </p>
 
               {/* Date */}
-              <p className="text-xs text-gray-600">{item.date}</p>
+              <p className="text-xs text-slate-500">{item.date}</p>
             </a>
           ))}
         </div>

@@ -1,115 +1,87 @@
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Facebook, Instagram, Mail } from "lucide-react";
 
 export function Footer() {
-  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
-  const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
-  const county = process.env.NEXT_PUBLIC_COUNTY || "County";
-  const state = process.env.NEXT_PUBLIC_STATE || "State";
+  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
+  const office = process.env.NEXT_PUBLIC_OFFICE || "Hudson County Commissioner";
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@davidguirgis.com";
   const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
   const currentYear = new Date().getFullYear();
 
-  const quickLinks = [
-    { label: "About", href: "#about" },
+  // Navigation links matching top navbar
+  const navLinks = [
+    { label: "Commissioner", href: "#commissioner" },
     { label: "Issues", href: "#issues" },
     { label: "Endorsements", href: "#endorsements" },
-    { label: "Events", href: "#events" },
-    { label: "Volunteer", href: "#volunteer" },
-    { label: "Yard Signs", href: "#yard-signs" },
   ];
 
   const socialLinks = [
     {
-      name: "Facebook",
-      icon: Facebook,
-      href: "#",
-      ariaLabel: "Visit our Facebook page",
-    },
-    {
       name: "Instagram",
       icon: Instagram,
-      href: "#",
-      ariaLabel: "Visit our Instagram page",
+      href: "https://instagram.com/davidguirgis",
+      ariaLabel: "Follow David on Instagram",
     },
     {
-      name: "Twitter",
-      icon: Twitter,
-      href: "#",
-      ariaLabel: "Visit our Twitter page",
-    },
-    {
-      name: "YouTube",
-      icon: Youtube,
-      href: "#",
-      ariaLabel: "Visit our YouTube channel",
+      name: "Facebook",
+      icon: Facebook,
+      href: "https://facebook.com/davidguirgis",
+      ariaLabel: "Follow David on Facebook",
     },
   ];
 
   return (
-    <footer className="bg-navy text-white">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        {/* Four-column grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Column 1 - Branding */}
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-2xl font-heading font-bold">{candidateName}</h3>
-              <p className="mt-1 text-sm text-gray-300">for {office}</p>
+    <footer className="bg-slate-900 text-slate-100">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        {/* Top section - Logo + Nav + Social */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+          {/* Logo/Brand */}
+          <div className="lg:col-span-3">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-primary-500 flex items-center justify-center">
+                <span className="text-white font-heading text-2xl font-bold">D</span>
+              </div>
+              <div>
+                <span className="text-white font-heading text-xl font-bold block">
+                  {candidateName}
+                </span>
+                <span className="text-slate-400 text-sm">for {office}</span>
+              </div>
             </div>
-            <Button
-              href={actBlueUrl}
-              external
-              variant="accent"
-              size="md"
-              className="w-full sm:w-auto"
-            >
-              Donate
-            </Button>
           </div>
 
-          {/* Column 2 - Quick Links */}
-          <div>
-            <h4 className="mb-4 text-lg font-semibold">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-gray-300 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy rounded-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3 - Contact */}
-          <div>
-            <h4 className="mb-4 text-lg font-semibold">Contact</h4>
-            <address className="not-italic space-y-2 text-sm text-gray-300">
-              <p>
-                <a
-                  href="mailto:info@candidateforcounty.com"
-                  className="transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy rounded-sm"
+          {/* Navigation */}
+          <div className="lg:col-span-5">
+            <nav className="flex flex-wrap gap-x-8 gap-y-4">
+              <Link
+                href="/volunteer"
+                className="text-white font-semibold hover:text-primary-400 transition-colors"
+              >
+                Volunteer
+              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-slate-300 hover:text-white transition-colors"
                 >
-                  info@candidateforcounty.com
-                </a>
-              </p>
-              <p>
-                {county} County, {state}
-              </p>
-              <p className="text-gray-400">
-                Mailing address available upon request
-              </p>
-            </address>
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href={actBlueUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-400 font-semibold hover:text-primary-300 transition-colors"
+              >
+                Donate
+              </a>
+            </nav>
           </div>
 
-          {/* Column 4 - Social Media */}
-          <div>
-            <h4 className="mb-4 text-lg font-semibold">Follow Us</h4>
-            <div className="flex gap-4">
+          {/* Social + Contact */}
+          <div className="lg:col-span-4 lg:text-right">
+            <div className="flex lg:justify-end gap-4 mb-4">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -119,41 +91,58 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.ariaLabel}
-                    className="rounded-full p-2 text-gray-300 transition-colors hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy"
+                    className="w-10 h-10 flex items-center justify-center bg-slate-800 text-slate-300 transition-colors hover:bg-primary-500 hover:text-white"
                   >
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </a>
                 );
               })}
+              <a
+                href={`mailto:${contactEmail}`}
+                aria-label="Email the campaign"
+                className="w-10 h-10 flex items-center justify-center bg-slate-800 text-slate-300 transition-colors hover:bg-primary-500 hover:text-white"
+              >
+                <Mail className="h-5 w-5" aria-hidden="true" />
+              </a>
             </div>
+            <a
+              href={`mailto:${contactEmail}`}
+              className="text-slate-400 hover:text-white transition-colors text-sm"
+            >
+              {contactEmail}
+            </a>
           </div>
         </div>
 
-        {/* Legal section */}
-        <div className="mt-12 border-t border-gray-700 pt-8">
-          <div className="flex flex-col gap-4 text-sm text-gray-400 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
-              <p className="font-semibold text-white">
+        {/* Bottom section - Legal */}
+        <div className="mt-12 pt-8 border-t border-slate-800">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Paid for by */}
+            <div className="text-sm text-slate-400">
+              <p className="font-semibold text-slate-300">
                 Paid for by {candidateName} for {office}
               </p>
-              <p>Campaign finance information available upon request</p>
             </div>
-            <div className="flex flex-col gap-2 sm:items-end sm:text-right">
+
+            {/* Legal links + Copyright */}
+            <div className="flex flex-col gap-2 sm:items-end sm:text-right text-sm text-slate-500">
               <div className="flex gap-4">
                 <Link
                   href="/privacy"
-                  className="transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy rounded-sm"
+                  className="hover:text-slate-300 transition-colors"
                 >
-                  Privacy Policy
+                  Privacy
                 </Link>
                 <Link
                   href="/terms"
-                  className="transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-navy rounded-sm"
+                  className="hover:text-slate-300 transition-colors"
                 >
-                  Terms of Service
+                  Terms
                 </Link>
               </div>
-              <p>&copy; {currentYear} {candidateName}. All rights reserved.</p>
+              <p>&copy; {currentYear} {candidateName}</p>
+              {/* Photo credit placeholder - add photographer name when available */}
+              <p className="text-slate-600">Photography: [Credit Here]</p>
             </div>
           </div>
         </div>

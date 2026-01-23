@@ -4,166 +4,203 @@ import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { cn } from "@/lib/utils";
-import { IMAGE_PATHS } from "@/lib/constants/images";
+
+// =============================================================================
+// ENDORSEMENTS DATA - EASY TO EDIT
+// Add new endorsements by copying the template below:
+// {
+//   name: "Organization or Person Name",
+//   type: "organization" | "individual",
+//   logo: "/images/endorsements/logo.png", // Optional for organizations
+//   title: "Position or description", // Optional for individuals
+//   quote: "Their endorsement quote here",
+// }
+// =============================================================================
 
 interface Endorsement {
   name: string;
-  title: string;
-  quote: string;
-  image?: string;
+  type: "organization" | "individual";
+  logo?: string;
+  title?: string;
+  quote?: string;
 }
 
-export function Endorsements() {
-  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
-  const county = process.env.NEXT_PUBLIC_COUNTY || "County";
+// Main endorsements data - edit this array to add/remove endorsements
+const endorsements: Endorsement[] = [
+  // -------------------------------------
+  // ORGANIZATIONS
+  // -------------------------------------
+  {
+    name: "North Jersey DSA",
+    type: "organization",
+    logo: "/images/endorsements/dsa-logo.png",
+    quote: "David Guirgis represents the grassroots, working-class politics Hudson County needs. He's committed to fighting for housing justice, worker rights, and democratic accountability.",
+  },
+  {
+    name: "Working Families Party",
+    type: "organization",
+    logo: "/images/endorsements/wfp-logo.png",
+    quote: "We're proud to endorse David Guirgis for Hudson County Commissioner. He shares our vision of a county that works for working families, not developers and special interests.",
+  },
+  // -------------------------------------
+  // Add more organizations here...
+  // -------------------------------------
+  
+  // -------------------------------------
+  // INDIVIDUALS  
+  // -------------------------------------
+  // {
+  //   name: "Jane Doe",
+  //   type: "individual",
+  //   title: "Community Leader, Jersey City",
+  //   quote: "David has been organizing alongside our community for years...",
+  // },
+  // -------------------------------------
+  // Add more individuals here...
+  // -------------------------------------
+];
 
-  const endorsements: Endorsement[] = [
-    {
-      name: "Mayor Jane Smith",
-      title: "Mayor of Springfield",
-      quote:
-        "She understands how change is won—by building power and delivering for working people.",
-      image: IMAGE_PATHS.endorsements.mayor,
-    },
-    {
-      name: "John Martinez",
-      title: "President, Local 1234",
-      quote: `We need more workers representing us. ${candidateName} will fight for dignity and justice for all workers.`,
-      image: IMAGE_PATHS.endorsements.unionPresident,
-    },
-    {
-      name: "Sarah Johnson",
-      title: "Community Organizer",
-      quote: `${candidateName} has been in the trenches with us for years. She's the real deal.`,
-      image: IMAGE_PATHS.endorsements.organizer,
-    },
-  ];
+export function Endorsements() {
+  const organizations = endorsements.filter((e) => e.type === "organization");
+  const individuals = endorsements.filter((e) => e.type === "individual");
 
   return (
-    <SectionWrapper id="endorsements" background="default" className="relative overflow-hidden">
-      {/* Retro decorative elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-accent-500 rounded-full blur-3xl opacity-5 -translate-y-1/2 -translate-x-1/2" />
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary-500 rounded-full blur-3xl opacity-5 translate-y-1/2 translate-x-1/2" />
-      
-      {/* Section header */}
-      <div className="relative mb-16 text-center">
-        <div className="inline-block mb-4">
-          <span className="text-sm font-bold uppercase tracking-widest text-accent-500">Community Support</span>
+    <SectionWrapper id="endorsements" background="default">
+      {/* Swiss-style section header */}
+      <div className="mb-16">
+        <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium mb-4">
+          Coalition
         </div>
-        <h2 className="font-display text-4xl leading-none text-primary-600 sm:text-5xl lg:text-6xl xl:text-7xl tracking-tight">
-          Endorsements
+        <h2 className="font-heading text-4xl font-bold leading-[1.1] text-slate-900 sm:text-5xl lg:text-6xl max-w-xl">
+          Endorsed by leaders who fight for working people.
         </h2>
-        <p className="mt-6 text-xl text-gray-800 sm:text-2xl font-medium max-w-2xl mx-auto">
-          Trusted leaders and community members supporting our campaign
-        </p>
       </div>
 
-      {/* Endorsements list */}
-      <motion.div
-        className="space-y-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={{
-          visible: {
-            transition: {
-              staggerChildren: 0.2,
-            },
-          },
-        }}
-      >
-        {endorsements.map((endorsement, index) => {
-          const isEven = index % 2 === 1;
-          const hasImage = Boolean(endorsement.image);
-
-          return (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={cn(
-                "grid gap-8 lg:gap-12",
-                hasImage
-                  ? "grid-cols-1 lg:grid-cols-2"
-                  : "grid-cols-1 lg:max-w-3xl lg:mx-auto"
-              )}
-            >
-              {/* Image (left for odd, right for even) */}
-              {hasImage && (
-                <div
-                  className={cn(
-                    "order-2 lg:order-1",
-                    isEven && "lg:order-2"
-                  )}
-                >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-lg shadow-lg">
+      {/* Organization endorsements */}
+      {organizations.length > 0 && (
+        <div className="mb-16">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+          >
+            {organizations.map((endorsement, index) => (
+              <motion.div
+                key={endorsement.name}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.5 }}
+                className="border-l-[6px] border-primary-500 bg-white p-8"
+              >
+                {/* Logo */}
+                {endorsement.logo && (
+                  <div className="mb-6 h-16 relative">
                     <OptimizedImage
-                      src={endorsement.image!}
-                      alt={`${endorsement.name}, ${endorsement.title}`}
-                      fill
-                      priority={false}
-                      placeholder="blur"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      src={endorsement.logo}
+                      alt={`${endorsement.name} logo`}
+                      height={64}
+                      width={200}
+                      className="h-16 w-auto object-contain object-left"
                     />
                   </div>
-                </div>
-              )}
-
-              {/* Quote card (right for odd, left for even) */}
-              <div
-                className={cn(
-                  "order-1 flex items-center lg:order-2",
-                  isEven && "lg:order-1"
                 )}
+                
+                {/* Organization name (fallback if no logo) */}
+                {!endorsement.logo && (
+                  <h3 className="font-heading text-xl font-bold text-slate-900 mb-4">
+                    {endorsement.name}
+                  </h3>
+                )}
+
+                {/* Quote */}
+                {endorsement.quote && (
+                  <blockquote className="text-slate-700 leading-relaxed">
+                    &ldquo;{endorsement.quote}&rdquo;
+                  </blockquote>
+                )}
+
+                {/* Name below quote if logo present */}
+                {endorsement.logo && (
+                  <p className="mt-4 font-semibold text-slate-900">
+                    — {endorsement.name}
+                  </p>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      )}
+
+      {/* Individual endorsements */}
+      {individuals.length > 0 && (
+        <div>
+          <h3 className="font-heading text-2xl font-bold text-slate-900 mb-8">
+            Community Voices
+          </h3>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.1,
+                },
+              },
+            }}
+          >
+            {individuals.map((endorsement) => (
+              <motion.div
+                key={endorsement.name}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.5 }}
+                className="border border-slate-200 bg-white p-6"
               >
-                <motion.div
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className="relative w-full rounded-xl bg-white p-8 shadow-xl border-2 border-gray-100 lg:p-10"
-                >
-                  {/* Retro accent bar */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-accent-500 rounded-t-xl"></div>
-                  
-                  {/* Decorative quotation marks */}
-                  <div className="absolute left-6 top-6 text-accent-500 opacity-20">
-                    <svg
-                      width="100"
-                      height="100"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="h-20 w-20 lg:h-24 lg:w-24"
-                    >
-                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.996 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.984zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                    </svg>
-                  </div>
+                {endorsement.quote && (
+                  <blockquote className="text-slate-700 leading-relaxed mb-4 text-sm">
+                    &ldquo;{endorsement.quote}&rdquo;
+                  </blockquote>
+                )}
+                <div>
+                  <p className="font-semibold text-slate-900">
+                    {endorsement.name}
+                  </p>
+                  {endorsement.title && (
+                    <p className="text-sm text-slate-600">{endorsement.title}</p>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      )}
 
-                  {/* Quote content */}
-                  <div className="relative z-10">
-                    <blockquote className="mb-8">
-                      <p className="font-display text-2xl leading-tight text-navy sm:text-3xl lg:text-4xl tracking-tight">
-                        {endorsement.quote}
-                      </p>
-                    </blockquote>
-
-                    {/* Attribution */}
-                    <div className="border-t-2 border-accent-500/20 pt-6">
-                      <p className="font-display text-xl font-bold text-primary-600 uppercase tracking-wide">
-                        {endorsement.name}
-                      </p>
-                      <p className="mt-2 text-sm font-bold text-gray-600 uppercase tracking-wider">
-                        {endorsement.title}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+      {/* Call to action */}
+      <div className="mt-16 pt-12 border-t border-slate-200">
+        <p className="text-slate-600 text-center">
+          Want to add your voice?{" "}
+          <a 
+            href="mailto:hello@davidguirgis.com?subject=Endorsement%20for%20David%20Guirgis"
+            className="text-primary-600 font-semibold hover:text-primary-700 underline"
+          >
+            Get in touch
+          </a>
+        </p>
+      </div>
     </SectionWrapper>
   );
 }

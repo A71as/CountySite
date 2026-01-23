@@ -1,53 +1,56 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { VideoQuote } from "@/components/sections/VideoQuote";
 import { About } from "@/components/sections/About";
+import { Commissioner } from "@/components/sections/Commissioner";
+import { Donate } from "@/components/sections/Donate";
 import { Issues } from "@/components/sections/Issues";
 import { Endorsements } from "@/components/sections/Endorsements";
-import { Events } from "@/components/sections/Events";
-import { GetInvolved } from "@/components/sections/GetInvolved";
-import { YardSign } from "@/components/sections/YardSign";
-import { Donate } from "@/components/sections/Donate";
-import { News } from "@/components/sections/News";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
-const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
-const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
-const county = process.env.NEXT_PUBLIC_COUNTY || "County";
-const state = process.env.NEXT_PUBLIC_STATE || "State";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
+const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
+const office = process.env.NEXT_PUBLIC_OFFICE || "Hudson County Commissioner";
+const county = process.env.NEXT_PUBLIC_COUNTY || "Hudson";
+const state = process.env.NEXT_PUBLIC_STATE || "New Jersey";
 
 export const metadata: Metadata = {
   title: `${candidateName} for ${office}`,
-  description: `Join ${candidateName}'s campaign for ${office} in ${county} County, ${state}. Learn about our platform, volunteer opportunities, and how you can help bring change to our community.`,
+  description: `Join ${candidateName}'s campaign for ${office}. Fighting for transparent government, social housing, universal childcare, and free community college in ${county} County, ${state}.`,
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
     title: `${candidateName} for ${office}`,
-    description: `Join ${candidateName}'s campaign for ${office} in ${county} County, ${state}.`,
+    description: `Join ${candidateName}'s campaign for ${office}. Fighting for transparent government, social housing, universal childcare, and free community college.`,
     url: siteUrl,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: `${candidateName} for ${office}`,
-    description: `Join ${candidateName}'s campaign for ${office} in ${county} County, ${state}.`,
+    description: `Join ${candidateName}'s campaign for ${office}. Fighting for transparent government, social housing, universal childcare, and free community college.`,
   },
 };
 
 export default function HomePage() {
   return (
     <>
+      {/* Hero with contact form */}
       <Hero />
-      <VideoQuote />
+      
+      {/* Bio section */}
       <About />
-      <Issues />
-      <Endorsements />
-      <Events />
-      <GetInvolved />
-      <YardSign />
+      
+      {/* WTF is a County Commissioner + District Map */}
+      <Commissioner />
+      
+      {/* Donation solicitation */}
       <Donate />
-      <News />
+      
+      {/* Big 4 Policies */}
+      <Issues />
+      
+      {/* Endorsements */}
+      <Endorsements />
     </>
   );
 }

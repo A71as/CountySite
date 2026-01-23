@@ -6,8 +6,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Analytics } from "@/components/Analytics";
 import { StructuredData } from "@/components/StructuredData";
+import { ClientLayout } from "@/components/ClientLayout";
 
-// Configure fonts - retro-modern aesthetic
+// Configure fonts - elegant and professional
 const bebasNeue = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
@@ -17,12 +18,14 @@ const bebasNeue = Bebas_Neue({
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-heading",
   display: "swap",
 });
 
 const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
@@ -89,16 +92,21 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${inter.variable}`}
+    >
       <body
-        className={`${inter.className} bg-cream text-navy antialiased`}
+        className={`${inter.className} bg-background text-foreground antialiased`}
       >
-        <StructuredData />
-        <AnnouncementBar />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <Analytics />
+        <ClientLayout>
+          <StructuredData />
+          <AnnouncementBar />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <Analytics />
+        </ClientLayout>
       </body>
     </html>
   );

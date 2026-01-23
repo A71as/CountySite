@@ -3,8 +3,7 @@ import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "accent";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
@@ -25,18 +24,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+      "inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
     const variants = {
       primary:
-        "bg-primary-500 text-white hover:bg-primary-600 focus-visible:ring-primary-500 active:bg-primary-700",
+        "bg-primary-600 text-white shadow-sm hover:bg-primary-700 hover:shadow-md focus-visible:ring-primary-500 active:bg-primary-800",
       secondary:
-        "border-2 border-primary-500 text-primary-500 bg-white hover:bg-primary-50 focus-visible:ring-primary-500 active:bg-primary-100",
+        "border-2 border-slate-300 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-400 focus-visible:ring-slate-500 active:bg-slate-100",
       accent:
-        "bg-accent-500 text-white hover:bg-accent-600 focus-visible:ring-accent-500 active:bg-accent-700",
+        "bg-accent-600 text-white shadow-sm hover:bg-accent-700 hover:shadow-md focus-visible:ring-accent-500 active:bg-accent-800",
     };
 
     const sizes = {
@@ -49,7 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       baseStyles,
       variants[variant],
       sizes[size],
-      className
+      className,
     );
 
     // If href is provided, render as link
@@ -106,7 +105,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

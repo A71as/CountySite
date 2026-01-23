@@ -9,68 +9,85 @@ export function Hero() {
   const county = process.env.NEXT_PUBLIC_COUNTY || "County";
 
   return (
-    <SectionWrapper id="home" background="default" className="relative overflow-hidden">
-      {/* Retro decorative background elements */}
-      <div className="absolute inset-0 bg-retro-diagonal opacity-30 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500 rounded-full blur-3xl opacity-10 -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-500 rounded-full blur-3xl opacity-10 translate-y-1/2 -translate-x-1/2" />
-      
-      <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
-        {/* Left column - Image (appears second on mobile) */}
-        <div className="order-2 lg:order-1">
-          <div className="relative">
-            {/* Retro decorative shapes */}
-            <div className="absolute -left-4 -top-4 h-full w-full rounded-lg bg-accent-600 rotate-3 opacity-90 lg:-left-6 lg:-top-6" />
-            <div className="absolute -left-2 -top-2 h-full w-full rounded-lg bg-retro-red rotate-[-2deg] opacity-20 lg:-left-4 lg:-top-4" />
+    <SectionWrapper id="home" background="default">
+      <div className="grid grid-cols-1 gap-0 lg:grid-cols-12 lg:gap-12 min-h-[600px]">
+        {/* Left column - Content (flush left, 7 columns) */}
+        <div className="order-2 flex flex-col justify-center space-y-10 lg:order-1 lg:col-span-7 py-12 lg:py-0">
+          {/* Systematic label - Swiss style */}
+          <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium">
+            {office}
+          </div>
 
-            {/* Candidate hero image */}
-            <div className="relative z-10">
-              <OptimizedImage
-                src={IMAGE_PATHS.candidate.hero}
-                alt={`${candidateName} for ${office}`}
-                width={600}
-                height={800}
-                priority={true}
-                placeholder="blur"
-                className="rounded-lg shadow-2xl w-full h-auto border-4 border-white"
-              />
+          {/* Swiss-style headline - no decoration, pure hierarchy */}
+          <h1 className="font-heading text-5xl font-bold leading-[1.05] text-slate-900 sm:text-6xl lg:text-7xl max-w-xl">
+            {candidateName}
+          </h1>
+
+          {/* Subheadline with red accent bar - flush left */}
+          <div className="border-l-[6px] border-primary-500 pl-6 max-w-lg">
+            <p className="text-lg text-slate-700 leading-relaxed sm:text-xl">
+              Building stronger communities through transparent governance and
+              local accountability.
+            </p>
+          </div>
+
+          {/* Trust signals - grid-based, systematic */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4 pt-2 max-w-md">
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-primary-500 flex items-center justify-center flex-shrink-0">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span className="text-sm text-slate-700 leading-tight">
+                Local Resident
+              </span>
             </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 bg-primary-500 flex items-center justify-center flex-shrink-0">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span className="text-sm text-slate-700 leading-tight">
+                Community Leader
+              </span>
+            </div>
+          </div>
+
+          {/* Clean signup form */}
+          <div className="pt-6 max-w-md">
+            <SignupForm />
           </div>
         </div>
 
-        {/* Right column - Content (appears first on mobile) */}
-        <div className="order-1 flex flex-col justify-center space-y-8 lg:order-2">
-          {/* Retro badge */}
-          <div className="inline-flex items-center gap-2 self-start px-4 py-2 bg-accent-500 text-white rounded-full text-sm font-bold uppercase tracking-wider">
-            <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-            Campaign 2024
-          </div>
-
-          {/* Main heading - retro-modern style */}
-          <h1 className="font-display text-5xl leading-none text-navy sm:text-6xl lg:text-7xl xl:text-8xl tracking-tight">
-            <span className="block">Fighting for</span>
-            <span className="block text-accent-500 mt-2">{" "}{county}</span>
-            <span className="block mt-2">Families</span>
-          </h1>
-
-          {/* Subheading - more impactful */}
-          <p className="text-xl text-gray-800 sm:text-2xl font-medium leading-relaxed max-w-xl">
-            {candidateName} is running for {office} to deliver{" "}
-            <span className="text-primary-600 font-semibold">real solutions</span>{" "}
-            for {county} County. Join the movement for{" "}
-            <span className="text-accent-500 font-semibold">working families</span>.
-          </p>
-
-          {/* Call to action */}
-          <div className="space-y-6 pt-4">
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-accent-500"></div>
-              <p className="text-lg font-bold text-navy uppercase tracking-wider whitespace-nowrap">
-                Join the fight.
-              </p>
-              <div className="h-px flex-1 bg-accent-500"></div>
-            </div>
-            <SignupForm />
+        {/* Right column - Image (flush right, 5 columns) */}
+        <div className="order-1 lg:order-2 lg:col-span-5 relative min-h-[400px] lg:min-h-full">
+          <div className="absolute inset-0 lg:absolute lg:right-0 lg:left-auto lg:w-full bg-slate-100">
+            <OptimizedImage
+              src={IMAGE_PATHS.candidate.hero}
+              alt={`${candidateName} for ${office}`}
+              fill
+              priority={true}
+              placeholder="blur"
+              className="object-cover object-center"
+            />
           </div>
         </div>
       </div>

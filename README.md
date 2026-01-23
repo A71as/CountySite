@@ -5,6 +5,7 @@ A modern, accessible, and SEO-optimized political campaign website built with Ne
 ## Overview
 
 This is a full-stack campaign website featuring:
+
 - **Responsive Design**: Mobile-first approach with beautiful UI/UX
 - **Form Management**: Email signups, volunteer registration, yard sign requests, and contact forms
 - **Security**: Cloudflare Turnstile bot protection, rate limiting, and comprehensive security headers
@@ -18,30 +19,36 @@ This is a full-stack campaign website featuring:
 ## Tech Stack
 
 ### Core Framework
+
 - **Next.js 14** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **React 18** - UI library
 - **Tailwind CSS** - Utility-first CSS framework
 
 ### Form & Validation
+
 - **React Hook Form** - Form state management
 - **Zod** - Schema validation
 - **@hookform/resolvers** - Zod integration for React Hook Form
 
 ### Security & Infrastructure
+
 - **Cloudflare Turnstile** - Bot protection and CAPTCHA alternative
 - **Upstash Redis** - Rate limiting and caching
 - **Supabase** - PostgreSQL database and backend services
 
 ### Email & Communication
+
 - **Resend** - Transactional email service
 
 ### UI & Animation
+
 - **Framer Motion** - Animation library
 - **Lucide React** - Icon library
 - **clsx & tailwind-merge** - Conditional class utilities
 
 ### Testing & Quality
+
 - **Playwright** - End-to-end testing
 - **Axe-core** - Accessibility testing
 - **Lighthouse CI** - Performance auditing
@@ -304,7 +311,9 @@ CountySite/
 ### Updating Content
 
 #### Candidate Information
+
 Update environment variables in `.env.local`:
+
 - `NEXT_PUBLIC_CANDIDATE_NAME` - Candidate's full name
 - `NEXT_PUBLIC_OFFICE` - Office being sought
 - `NEXT_PUBLIC_COUNTY` - County name
@@ -312,25 +321,33 @@ Update environment variables in `.env.local`:
 - `NEXT_PUBLIC_ELECTION_DATE` - Election date (YYYY-MM-DD format)
 
 #### Issues Section
+
 Edit `src/components/sections/Issues.tsx` to update:
+
 - Issue titles
 - Descriptions
 - Icons (from Lucide React)
 
 #### Endorsements
+
 Edit `src/components/sections/Endorsements.tsx` to:
+
 - Add/remove endorsements
 - Update quotes
 - Add endorsement photos to `/public/images/endorsements/`
 
 #### Events
+
 Edit `src/components/sections/Events.tsx` to:
+
 - Add upcoming events
 - Update event details
 - Link to RSVP pages
 
 #### About Section
+
 Edit `src/components/sections/About.tsx` to:
+
 - Update candidate biography
 - Modify pull quotes
 - Add credentials/experience
@@ -338,28 +355,32 @@ Edit `src/components/sections/About.tsx` to:
 ### Styling
 
 #### Colors
+
 Edit `tailwind.config.ts` to customize the color palette:
 
 ```typescript
 colors: {
   primary: {
-    // Main brand color (blue)
-    50: '#E6F0FF',
+    // Main brand color (red)
+    50: '#FEF2F2',
     // ... other shades
-    900: '#001F54',
+    500: '#E92128',
   },
   accent: {
-    // Secondary brand color (orange)
-    50: '#FFF4E6',
+    // Accent color (red; matches primary in this brand)
+    50: '#FEF2F2',
     // ... other shades
-    900: '#CC5500',
+    500: '#E92128',
   },
 }
 ```
 
 #### Fonts
+
 Fonts are configured in `src/app/layout.tsx`:
-- **Headings**: Outfit (from Google Fonts)
+
+- **Display**: Bebas Neue (from Google Fonts)
+- **Headings**: Space Grotesk (from Google Fonts)
 - **Body**: Inter (from Google Fonts)
 
 To change fonts, update the font imports and CSS variables.
@@ -374,6 +395,7 @@ To change fonts, update the font imports and CSS variables.
    - Target file sizes: Hero < 200KB, Headshots < 50KB
 
 Required images:
+
 - `/public/images/candidate/hero.jpg` (1200x1600px)
 - `/public/images/candidate/about.jpg` (800x1000px)
 - `/public/images/candidate/action.jpg` (1200x800px)
@@ -383,6 +405,7 @@ Required images:
 ### Legal Compliance
 
 #### Disclaimer Requirements
+
 **IMPORTANT**: Update the footer disclaimer in `src/components/layout/Footer.tsx`:
 
 ```tsx
@@ -392,25 +415,31 @@ Required images:
 ```
 
 **Check your state's requirements** for:
+
 - Campaign finance disclosure language
 - Authorized by statements
 - Treasurer information
 - Contact information requirements
 
 #### Privacy Policy
+
 Review and update `src/app/privacy/page.tsx`:
+
 - Add actual campaign email address
 - Update data collection practices
 - Verify SMS opt-in language (if using text messaging)
 - Add state-specific privacy requirements
 
 #### Terms of Service
+
 Review `src/app/terms/page.tsx`:
+
 - Update contact information
 - Add state-specific terms
 - Verify donation processing language
 
 #### FEC Compliance
+
 - Ensure all donation links go through ActBlue (or your compliant processor)
 - Verify contribution limits are displayed
 - Add required FEC disclaimers on donation pages
@@ -491,6 +520,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 ## Pre-Launch Checklist
 
 ### Content & Branding
+
 - [ ] Update all placeholder content with real campaign information
 - [ ] Add real candidate photos (hero, about, action shots)
 - [ ] Add endorsement photos and quotes
@@ -499,6 +529,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 - [ ] Update video URL in VideoQuote section (if applicable)
 
 ### Technical Setup
+
 - [ ] Configure ActBlue donation link
 - [ ] Set up Supabase production database
 - [ ] Run database migrations in production
@@ -510,6 +541,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 - [ ] Verify email delivery (check spam folders)
 
 ### Legal & Compliance
+
 - [ ] Review and update Privacy Policy
 - [ ] Review and update Terms of Service
 - [ ] Verify disclaimer language with campaign counsel
@@ -518,6 +550,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 - [ ] Add treasurer information if required
 
 ### Testing & Quality
+
 - [ ] Run Lighthouse audit (target: 90+ in all categories)
 - [ ] Test on mobile devices (iOS and Android)
 - [ ] Test on different browsers (Chrome, Firefox, Safari, Edge)
@@ -528,6 +561,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 - [ ] Test form submissions end-to-end
 
 ### SEO & Performance
+
 - [ ] Verify sitemap is accessible at `/sitemap.xml`
 - [ ] Verify robots.txt is accessible at `/robots.txt`
 - [ ] Test Open Graph image generation
@@ -537,6 +571,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 - [ ] Test page load speeds
 
 ### Security
+
 - [ ] Verify security headers are working
 - [ ] Test rate limiting on forms
 - [ ] Verify Turnstile is blocking bots
@@ -557,23 +592,27 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 ## Troubleshooting
 
 ### Forms not submitting
+
 - Check browser console for errors
 - Verify Turnstile keys are correct
 - Check Supabase connection
 - Verify rate limiting isn't blocking legitimate requests
 
 ### Images not loading
+
 - Ensure images are in `/public/images/` directory
 - Check image paths in `src/lib/constants/images.ts`
 - Verify Next.js Image optimization is working
 
 ### Email not sending
+
 - Verify Resend API key is correct
 - Check Resend dashboard for errors
 - Verify email domain is verified in Resend
 - Check spam folders
 
 ### Database errors
+
 - Verify Supabase credentials
 - Check database tables exist
 - Verify RLS policies allow service role access
@@ -584,6 +623,7 @@ UPSTASH_REDIS_REST_TOKEN=xxx
 This project is for campaign use only. All rights reserved.
 
 **Note**: This template is provided as-is. Campaigns are responsible for:
+
 - Legal compliance with FEC and state regulations
 - Content accuracy
 - Data privacy compliance
@@ -599,6 +639,7 @@ This project is for campaign use only. All rights reserved.
 ## Support
 
 For issues or questions:
+
 1. Check the troubleshooting section above
 2. Review Next.js documentation
 3. Check Supabase, Resend, and Cloudflare documentation

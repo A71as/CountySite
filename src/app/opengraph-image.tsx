@@ -20,63 +20,70 @@ export default async function Image() {
   const state = process.env.NEXT_PUBLIC_STATE || "State";
 
   return new ImageResponse(
-    (
-          <div
-            style={{
-              fontSize: 60,
-              background: "#0033A0",
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              fontFamily: "system-ui, sans-serif",
-              padding: "80px",
-            }}
-          >
+    <div
+      style={{
+        fontSize: 60,
+        background: "#FFFFFF",
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "#000000",
+        fontFamily: "system-ui, sans-serif",
+        padding: "80px",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          gap: "22px",
+        }}
+      >
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
+            display: "inline-flex",
             alignItems: "center",
-            textAlign: "center",
-            gap: "20px",
+            justifyContent: "center",
+            backgroundColor: "#E92128",
+            color: "#FFFFFF",
+            border: "10px solid #000000",
+            borderRadius: "18px",
+            padding: "18px 26px",
+            fontSize: 76,
+            fontWeight: 800,
+            lineHeight: 1,
+            letterSpacing: "-0.02em",
           }}
         >
-          <div
-            style={{
-              fontSize: 72,
-              fontWeight: "bold",
-              lineHeight: 1.2,
-            }}
-          >
-            {candidateName}
-          </div>
-          <div
-            style={{
-              fontSize: 48,
-              fontWeight: 600,
-              opacity: 0.9,
-            }}
-          >
-            for {office}
-          </div>
-          <div
-            style={{
-              fontSize: 32,
-              opacity: 0.8,
-              marginTop: "20px",
-            }}
-          >
-            {county} County, {state}
-          </div>
+          {candidateName}
+        </div>
+        <div
+          style={{
+            fontSize: 48,
+            fontWeight: 600,
+            opacity: 1,
+          }}
+        >
+          for {office}
+        </div>
+        <div
+          style={{
+            fontSize: 32,
+            opacity: 0.8,
+            marginTop: "20px",
+          }}
+        >
+          {county} County, {state}
         </div>
       </div>
-    ),
+    </div>,
     {
       ...size,
-    }
+    },
   );
 }

@@ -6,20 +6,31 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-// Navigation links configuration
-const navLinks = [
-  { label: "About", href: "#about" },
+// Navigation link type
+interface NavLink {
+  label: string;
+  href: string;
+  isPage?: boolean;
+  emphasis?: "bold" | "normal";
+}
+
+// Navigation links configuration - Claire Valdez style
+// Left side links
+const leftNavLinks: NavLink[] = [
+  { label: "Volunteer", href: "/volunteer", isPage: true, emphasis: "bold" },
+  { label: "Commissioner", href: "#commissioner" },
   { label: "Issues", href: "#issues" },
+];
+
+// Right side links
+const rightNavLinks: NavLink[] = [
   { label: "Endorsements", href: "#endorsements" },
-  { label: "Events", href: "#events" },
-  { label: "Volunteer", href: "#volunteer" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Handle scroll event to change navbar appearance
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -29,12 +40,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu when clicking a link
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Close mobile menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMobileMenuOpen) {
@@ -46,55 +55,72 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMobileMenuOpen]);
 
-  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
-  const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
-  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
+  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
+  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#donate";
 
   return (
     <nav
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-white shadow-lg border-b-2 border-accent-500/20"
+          ? "bg-white border-b border-slate-200"
           : "bg-white"
       )}
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
-          {/* Logo area - retro-modern style */}
-          <Link
-            href="/"
-            className="flex flex-col hover:opacity-90 transition-opacity group"
-            onClick={handleLinkClick}
-          >
-            <span className="font-display text-2xl font-bold text-navy sm:text-3xl tracking-tight group-hover:text-primary-600 transition-colors">
-              {candidateName}
-            </span>
-            <span className="text-xs font-bold text-accent-500 sm:text-sm uppercase tracking-wider">
-              for {office}
-            </span>
-          </Link>
-
-          {/* Desktop navigation - retro-modern style */}
-          <div className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
+        <div className="flex h-16 items-center justify-between">
+          {/* Left navigation */}
+          <div className="hidden items-center gap-6 lg:flex flex-1">
+            {leftNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-bold text-navy uppercase tracking-wider transition-colors hover:text-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 rounded-sm group"
+                className={cn(
+                  "text-[13px] uppercase tracking-[0.1em] transition-colors",
+                  link.emphasis === "bold" 
+                    ? "font-bold text-slate-900 hover:text-primary-600" 
+                    : "font-medium text-slate-600 hover:text-slate-900"
+                )}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent-500 transition-all group-hover:w-full"></span>
               </Link>
             ))}
+          </div>
+
+          {/* Center Logo - Swiss style */}
+          <Link
+            href="#home"
+            className="flex items-center gap-2 transition-opacity hover:opacity-70"
+            onClick={handleLinkClick}
+          >
+            <div className="w-10 h-10 bg-primary-500 flex items-center justify-center">
+              <span className="text-white font-bold text-xl">D</span>
+            </div>
+            <span className="font-heading text-lg font-bold tracking-tight text-slate-900 hidden sm:block">
+              {candidateName}
+            </span>
+          </Link>
+
+          {/* Right navigation */}
+          <div className="hidden items-center gap-6 lg:flex flex-1 justify-end">
+            {rightNavLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[13px] uppercase tracking-[0.1em] font-medium text-slate-600 transition-colors hover:text-slate-900"
+              >
+                {link.label}
+              </Link>
+            ))}
+            {/* Donate button - emphasized with color */}
             <Button
               href={actBlueUrl}
               external
-              variant="accent"
+              variant="primary"
               size="sm"
-              className="ml-4 font-display text-lg px-6 py-2 shadow-lg"
+              className="uppercase tracking-[0.1em] text-[13px] font-bold"
             >
               Donate
             </Button>
@@ -103,10 +129,9 @@ export function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="rounded-md p-2 text-foreground transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 md:hidden"
+            className="rounded-md p-2 text-slate-900 transition-colors hover:bg-slate-100 lg:hidden"
             aria-expanded={isMobileMenuOpen}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" aria-hidden="true" />
@@ -117,32 +142,41 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div
-          id="mobile-menu"
-          className="border-t border-gray-200 bg-white md:hidden"
-          role="menu"
-        >
-          <div className="space-y-1 px-4 pb-4 pt-2">
-            {navLinks.map((link) => (
+        <div className="border-t border-slate-200 bg-white lg:hidden">
+          <div className="space-y-1 px-4 py-4">
+            {[...leftNavLinks, ...rightNavLinks].map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
-                className="block rounded-md px-3 py-2 text-base font-medium text-foreground transition-colors hover:bg-gray-100 hover:text-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                role="menuitem"
+                className={cn(
+                  "block px-3 py-3 text-sm uppercase tracking-wider transition-colors",
+                  link.emphasis === "bold"
+                    ? "font-bold text-slate-900"
+                    : "font-medium text-slate-600"
+                )}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-2">
+            <div className="pt-4 grid grid-cols-2 gap-3">
+              <Button
+                href="/volunteer"
+                variant="secondary"
+                size="md"
+                className="w-full uppercase tracking-wider text-sm font-bold"
+                onClick={handleLinkClick}
+              >
+                Volunteer
+              </Button>
               <Button
                 href={actBlueUrl}
                 external
                 variant="primary"
                 size="md"
-                className="w-full"
+                className="w-full uppercase tracking-wider text-sm"
                 onClick={handleLinkClick}
               >
                 Donate

@@ -105,10 +105,15 @@ export function Events() {
     <SectionWrapper id="events" background="cream">
       {/* Section header */}
       <div className="mb-12 text-center">
-        <h2 className="font-heading text-3xl font-bold sm:text-4xl lg:text-5xl">
+        <div className="mb-3">
+          <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+            Community Events
+          </span>
+        </div>
+        <h2 className="font-display text-4xl leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
           Upcoming Events
         </h2>
-        <p className="mt-4 text-lg text-gray-600 sm:text-xl">
+        <p className="mt-4 text-lg text-slate-600 sm:text-xl">
           Join us in the community
         </p>
       </div>
@@ -137,25 +142,26 @@ export function Events() {
                   visible: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                className="relative overflow-hidden rounded-lg bg-white p-6 shadow-md"
+                className="relative overflow-hidden rounded-xl bg-white p-6 shadow-soft border border-slate-200 transition-shadow hover:shadow-elevated"
               >
                 {/* Date badge */}
-                <div className="absolute right-4 top-4 flex flex-col items-center rounded-lg bg-accent-500 px-3 py-2 text-center text-white">
+                <div className="absolute right-4 top-4 flex flex-col items-center rounded-lg bg-accent-500 px-3 py-2 text-center text-white shadow-sm">
                   <span className="text-xs font-semibold uppercase">
                     {getMonthAbbr(event.date)}
                   </span>
-                  <span className="text-2xl font-bold">{getDay(event.date)}</span>
+                  <span className="text-2xl font-bold">
+                    {getDay(event.date)}
+                  </span>
                 </div>
 
                 {/* Event content */}
                 <div className="pr-20">
-                  <h3 className="mb-3 font-heading text-xl font-bold text-gray-900">
+                  <h3 className="mb-3 font-heading text-xl font-semibold text-slate-900">
                     {event.title}
                   </h3>
 
                   {/* Location */}
-                  <div className="mb-2 flex items-start gap-2 text-sm text-gray-600">
+                  <div className="mb-2 flex items-start gap-2 text-sm text-slate-600">
                     <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" />
                     <div>
                       <p className="font-medium">{event.location}</p>
@@ -164,13 +170,13 @@ export function Events() {
                   </div>
 
                   {/* Time */}
-                  <div className="mb-3 flex items-center gap-2 text-sm text-gray-600">
+                  <div className="mb-3 flex items-center gap-2 text-sm text-slate-600">
                     <Calendar className="h-4 w-4" />
                     <span>{formatTime(event.date)}</span>
                   </div>
 
                   {/* Description */}
-                  <p className="mb-4 text-sm leading-relaxed text-gray-700">
+                  <p className="mb-4 text-sm leading-relaxed text-slate-700">
                     {event.description}
                   </p>
 
@@ -189,8 +195,8 @@ export function Events() {
           </motion.div>
 
           {/* Social media note */}
-          <div className="mt-12 text-center">
-            <p className="mb-4 text-gray-600">
+          <div className="mt-16 text-center">
+            <p className="mb-4 text-slate-600">
               Follow us on social media for event updates
             </p>
             <div className="flex justify-center gap-4">
@@ -203,7 +209,7 @@ export function Events() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.ariaLabel}
-                    className="rounded-full p-2 text-primary-600 transition-colors hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                    className="rounded-full p-3 text-primary-600 transition-all hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                   >
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </a>

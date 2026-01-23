@@ -19,9 +19,24 @@ const phoneSchema = z
     { message: "Phone number must be 10-11 digits" }
   );
 
-// Signup form validation
+// Required phone validation (for signup form)
+const requiredPhoneSchema = z
+  .string()
+  .min(1, "Phone number is required")
+  .refine(
+    (val) => {
+      const digitsOnly = val.replace(/\D/g, "");
+      return digitsOnly.length >= 10 && digitsOnly.length <= 11;
+    },
+    { message: "Phone number must be 10-11 digits" }
+  );
+
+// Signup form validation (updated with full contact fields)
 export const signupSchema = z.object({
+  first_name: z.string().min(1, "First name is required"),
+  last_name: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email address"),
+  phone: requiredPhoneSchema,
   zip_code: zipCodeSchema,
   turnstileToken: z.string().min(1, "Turnstile token is required"),
 });

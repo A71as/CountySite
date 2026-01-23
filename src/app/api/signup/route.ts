@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email, zip_code, turnstileToken } = validationResult.data;
+    const { email, zip_code, turnstileToken, first_name, last_name, phone } = validationResult.data;
 
     // Verify Turnstile token
     const isTurnstileValid = await verifyTurnstile(turnstileToken, ip);
@@ -132,6 +132,9 @@ export async function POST(request: NextRequest) {
       .upsert(
         {
           email,
+          first_name: first_name || null,
+          last_name: last_name || null,
+          phone: phone || null,
           zip_code,
           source: source || null,
           utm_source: utm_source || null,
