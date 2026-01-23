@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -89,18 +90,20 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Center Logo - Swiss style */}
+          {/* Center Logo - DAVID! speech bubble */}
           <Link
             href="#home"
-            className="flex items-center gap-2 transition-opacity hover:opacity-70"
+            className="flex items-center transition-opacity hover:opacity-80"
             onClick={handleLinkClick}
           >
-            <div className="w-10 h-10 bg-primary-500 flex items-center justify-center">
-              <span className="text-white font-bold text-xl">D</span>
-            </div>
-            <span className="font-heading text-lg font-bold tracking-tight text-slate-900 hidden sm:block">
-              {candidateName}
-            </span>
+            <Image
+              src="/images/logo.png"
+              alt={`${candidateName} for Hudson County Commissioner`}
+              width={120}
+              height={48}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Right navigation */}

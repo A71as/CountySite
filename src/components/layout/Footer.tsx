@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Mail } from "lucide-react";
 
 export function Footer() {
@@ -37,16 +38,15 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Logo/Brand */}
           <div className="lg:col-span-3">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary-500 flex items-center justify-center">
-                <span className="text-white font-heading text-2xl font-bold">D</span>
-              </div>
-              <div>
-                <span className="text-white font-heading text-xl font-bold block">
-                  {candidateName}
-                </span>
-                <span className="text-slate-400 text-sm">for {office}</span>
-              </div>
+            <div className="flex flex-col gap-3">
+              <Image
+                src="/images/logo.png"
+                alt={`${candidateName} for ${office}`}
+                width={140}
+                height={56}
+                className="h-12 w-auto brightness-0 invert"
+              />
+              <span className="text-slate-400 text-sm">for {office}</span>
             </div>
           </div>
 
