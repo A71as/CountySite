@@ -6,7 +6,6 @@ export function StructuredData() {
   const county = process.env.NEXT_PUBLIC_COUNTY || "County";
   const state = process.env.NEXT_PUBLIC_STATE || "State";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
-  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
   const baseUrl = siteUrl.replace(/\/$/, "");
 
   // Organization schema for the campaign
@@ -30,15 +29,19 @@ export function StructuredData() {
     ],
   };
 
-  // Person schema for the candidate
+  // Merged Person + PoliticalCandidate schema (single Person entity)
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: candidateName,
     jobTitle: `Candidate for ${office}`,
     description: `${candidateName} is running for ${office} in ${county} County, ${state}`,
-    image: `${baseUrl}${IMAGE_PATHS.candidate.hero}`,
+    image: `${baseUrl}${IMAGE_PATHS.candidate.heroOriginal}`,
     url: baseUrl,
+    affiliation: {
+      "@type": "Organization",
+      name: `${candidateName} for ${office}`,
+    },
     knowsAbout: [
       "Public Policy",
       "Community Leadership",
@@ -47,7 +50,7 @@ export function StructuredData() {
     ],
   };
 
-  // WebSite schema with search potential
+  // WebSite schema (no SearchAction — site has no search page)
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -58,30 +61,6 @@ export function StructuredData() {
       "@type": "Organization",
       name: `${candidateName} for ${office}`,
     },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
-  };
-
-  // PoliticalCandidate schema
-  const politicalCandidateSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: candidateName,
-    jobTitle: `Candidate for ${office}`,
-    description: `${candidateName} is running for ${office} in ${county} County, ${state}`,
-    image: `${baseUrl}${IMAGE_PATHS.candidate.hero}`,
-    url: baseUrl,
-    affiliation: {
-      "@type": "Organization",
-      name: `${candidateName} for ${office}`,
-    },
-    knowsAbout: [office, "Public Policy", "Community Leadership"],
   };
 
   return (
@@ -102,12 +81,6 @@ export function StructuredData() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(politicalCandidateSchema),
         }}
       />
     </>

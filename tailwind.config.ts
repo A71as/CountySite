@@ -90,6 +90,22 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "blob": {
+          "0%": { transform: "translate(0px, 0px) scale(1)" },
+          "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+          "100%": { transform: "translate(0px, 0px) scale(1)" },
+        },
+        "blob-reverse": {
+          "0%": { transform: "translate(0px, 0px) scale(1)" },
+          "33%": { transform: "translate(-30px, 30px) scale(0.9)" },
+          "66%": { transform: "translate(20px, -40px) scale(1.1)" },
+          "100%": { transform: "translate(0px, 0px) scale(1)" },
+        },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.5s ease-in-out",
@@ -97,6 +113,9 @@ const config: Config = {
         "pulse-slow": "pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "retro-shimmer": "retro-shimmer 3s linear infinite",
         "float": "float 3s ease-in-out infinite",
+        "blob": "blob 7s ease-in-out infinite",
+        "blob-reverse": "blob-reverse 8s ease-in-out infinite",
+        "gradient-shift": "gradient-shift 8s ease infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

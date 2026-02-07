@@ -30,12 +30,8 @@ export default function PrivacyPage() {
   const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
   const county = process.env.NEXT_PUBLIC_COUNTY || "County";
   const state = process.env.NEXT_PUBLIC_STATE || "State";
-  const campaignEmail = "info@candidateforcounty.com";
-  const lastUpdated = new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const campaignEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@davidguirgis.com";
+  const lastUpdated = "February 6, 2026";
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">

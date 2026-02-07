@@ -62,10 +62,9 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-white border-b border-slate-200"
-          : "bg-white"
+        "fixed left-0 right-0 z-40 transition-all duration-300",
+        "top-[var(--announcement-height)]",
+        isScrolled ? "bg-white border-b border-slate-200" : "bg-white"
       )}
       role="navigation"
       aria-label="Main navigation"

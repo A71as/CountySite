@@ -33,13 +33,13 @@ const endorsements: Endorsement[] = [
   {
     name: "North Jersey DSA",
     type: "organization",
-    logo: "/images/endorsements/dsa-logo.png",
+    logo: "/images/logos/NNJDSA.png",
     quote: "David Guirgis represents the grassroots, working-class politics Hudson County needs. He's committed to fighting for housing justice, worker rights, and democratic accountability.",
   },
   {
     name: "Working Families Party",
     type: "organization",
-    logo: "/images/endorsements/wfp-logo.png",
+    logo: "/images/logos/NJWFP.png",
     quote: "We're proud to endorse David Guirgis for Hudson County Commissioner. He shares our vision of a county that works for working families, not developers and special interests.",
   },
   // -------------------------------------

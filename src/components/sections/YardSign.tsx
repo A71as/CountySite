@@ -47,15 +47,18 @@ export function YardSign() {
         {/* Right column - Image (appears second on mobile) */}
         <div className="order-2 flex items-center justify-center">
           <div className="relative w-full max-w-md">
-            <OptimizedImage
-              src={IMAGE_PATHS.yardSign}
-              alt="Campaign yard sign mockup showing the design and layout of the yard sign"
-              width={600}
-              height={800}
-              priority={false}
-              placeholder="blur"
-              className="drop-shadow-2xl w-full h-auto"
-            />
+            <div className="absolute -inset-2 bg-primary-500 rounded-sm" aria-hidden="true" />
+            <div className="relative rounded-sm overflow-hidden">
+              <OptimizedImage
+                src={IMAGE_PATHS.yardSign}
+                alt="Campaign yard sign mockup showing the design and layout of the yard sign"
+                width={600}
+                height={800}
+                priority={false}
+                placeholder="blur"
+                className="drop-shadow-2xl w-full h-auto"
+              />
+            </div>
           </div>
         </div>
       </div>

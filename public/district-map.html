@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>District 4 — For the People</title>
+
+  <!-- Brand fonts (with fallbacks) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ════════════════════════════════════════════════════════════
+       BRAND TOKENS
+       ════════════════════════════════════════════════════════════ */
+    :root {
+      --red:        #E92128;
+      --red-dark:   #C41920;
+      --black:      #000000;
+      --pink:       #FFAEAE;
+      --pink-muted: #FFC8C8;
+      --pink-light: #FFF0F0;
+      --cream:      #FFFBF7;
+      --slate-900:  #1C1917;
+      --slate-700:  #44403C;
+      --slate-400:  #A8A29E;
+      --slate-300:  #D6D3CE;
+      --water:      #DAE3ED;
+      --water-deep: #C6D4E2;
+      --water-text: #8DA4BE;
+
+      /* Typography – reference brand names, load from Google as fallback */
+      --font-display: 'Bebas Neue', 'Barber Chop', Impact, sans-serif;
+      --font-heading: 'Space Grotesk', 'Bernoru Semicondensed', system-ui, sans-serif;
+      --font-body:    'Inter', 'Gelica', Georgia, serif;
+      --font-serif:   'Playfair Display', 'Gelica', Georgia, serif;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       RESET + BASE
+       ════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--black);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: var(--pink);
+      color: var(--slate-900);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       PAGE LAYOUT
+       ════════════════════════════════════════════════════════════ */
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    /* ── Section Label ──────────────────────────────────────── */
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── Main Heading ───────────────────────────────────────── */
+    .main-heading {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+    .main-heading .accent { color: var(--red); }
+
+    /* ── Subheading ─────────────────────────────────────────── */
+    .subheading {
+      font-family: var(--font-body);
+      font-size: 1.125rem;
+      color: var(--slate-300);
+      line-height: 1.65;
+      max-width: 38rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       SIDE-BY-SIDE LAYOUT
+       ════════════════════════════════════════════════════════════ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (min-width: 960px) {
+      .two-col {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+    }
+
+    /* ── Left Column: Campaign Message ──────────────────────── */
+    .message-col { display: flex; flex-direction: column; gap: 2rem; }
+
+    .budget-callout {
+      border-left: 6px solid var(--red);
+      padding-left: 1.5rem;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--slate-300);
+    }
+    .budget-callout strong {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Service items */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+    .service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--slate-300);
+    }
+    .service-check {
+      width: 18px;
+      height: 18px;
+      background: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .service-check svg { width: 11px; height: 11px; }
+
+    .body-text {
+      font-size: 1.05rem;
+      color: var(--slate-300);
+      line-height: 1.65;
+    }
+
+    /* Campaign quote */
+    .campaign-quote {
+      background: rgba(233, 33, 40, 0.1);
+      border: 1px solid rgba(233, 33, 40, 0.3);
+      padding: 1.5rem;
+    }
+    .campaign-quote p {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      line-height: 1.25;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .campaign-quote .accent { color: var(--pink); }
+
+    /* ── Right Column: Map ──────────────────────────────────── */
+    .map-col { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .map-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .map-header-line {
+      flex: 1;
+      height: 1px;
+      background: var(--slate-700);
+    }
+    .map-header-text {
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink);
+      white-space: nowrap;
+    }
+
+    .map-wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .map-wrapper svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .map-caption {
+      font-size: 0.82rem;
+      color: var(--slate-400);
+      line-height: 1.6;
+      text-align: center;
+      max-width: 26rem;
+      margin: 0.5rem auto 0;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       MAP-ONLY SECTION (full width, editorial style)
+       ════════════════════════════════════════════════════════════ */
+    .map-editorial {
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 3px solid var(--red);
+    }
+    .map-editorial-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .map-editorial-header h3 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      color: var(--red);
+      letter-spacing: 0.08em;
+    }
+    .map-editorial-header p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--slate-400);
+      margin-top: 0.5rem;
+    }
+    .map-editorial .map-wrapper {
+      max-width: 680px;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       FOOTER / PAID FOR
+       ════════════════════════════════════════════════════════════ */
+    .footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--slate-700);
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--slate-400);
+      letter-spacing: 0.05em;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       RESPONSIVE
+       ════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .page { padding: 2rem 1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       PRINT STYLES
+       ════════════════════════════════════════════════════════════ */
+    @media print {
+      body { background: #fff; color: #000; }
+      .campaign-quote { border-color: #000; background: #f5f5f5; }
+      .campaign-quote p, .campaign-quote .accent { color: #000; }
+      .main-heading, .main-heading .accent { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ═══ HEADER ════════════════════════════════════════════ -->
+    <div class="section-label">The Role</div>
+    <h1 class="main-heading">
+      What is a County<br /><span class="accent">Commissioner?</span>
+    </h1>
+    <p class="subheading">
+      County commissioners control how hundreds of millions of public
+      dollars are spent every year on services we all rely on — but most
+      people have never heard of them.
+    </p>
+
+    <!-- ═══ SIDE-BY-SIDE: MESSAGE + MAP ═══════════════════════ -->
+    <div class="two-col">
+
+      <!-- Left: Campaign Message -->
+      <div class="message-col">
+        <div class="budget-callout">
+          Hudson County Commissioners control a
+          <strong>$700+ million public budget</strong>
+          that shapes everyday life in our communities.
+        </div>
+
+        <p class="body-text">County Commissioners oversee critical services including:</p>
+
+        <div class="services-grid">
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>Public parks &amp; recreation</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>County roads &amp; bridges</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>Community college (HCCC)</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>County jail &amp; corrections</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>Social services</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>Public health programs</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>Economic development</span>
+          </div>
+          <div class="service-item">
+            <div class="service-check">
+              <svg fill="#fff" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <span>Environmental protection</span>
+          </div>
+        </div>
+
+        <p class="body-text">
+          Yet most people don't know who their commissioner is or what
+          they do. That's why accountability and transparency matter —
+          and why this race matters.
+        </p>
+
+        <div class="campaign-quote">
+          <p>
+            &ldquo;It's time for a commissioner who works
+            <span class="accent">for the people</span>,
+            not the machine.&rdquo;
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: District Map -->
+      <div class="map-col">
+        <div class="map-header">
+          <div class="map-header-line"></div>
+          <span class="map-header-text">Hudson County &middot; District 4</span>
+          <div class="map-header-line"></div>
+        </div>
+
+        <div class="map-wrapper">
+          <!-- ═══════════════════════════════════════════════════
+               SVG DISTRICT MAP — Generated from GeoJSON
+               ═══════════════════════════════════════════════════ -->
+          <svg
+            viewBox="0 0 600 768"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Hudson County Commissioner District 4 Map — the Heights, Journal Square, McGinley Square, and West Side neighborhoods of Jersey City"
+          >
+            <defs>
+              <!-- County shadow -->
+              <filter id="county-shadow" x="-6%" y="-4%" width="116%" height="112%">
+                <feDropShadow dx="3" dy="5" stdDeviation="7" flood-color="#000" flood-opacity="0.2" />
+              </filter>
+              <!-- District 4 glow -->
+              <filter id="d4-glow" x="-12%" y="-12%" width="124%" height="124%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
+                <feFlood flood-color="#E92128" flood-opacity="0.4" />
+                <feComposite in2="blur" operator="in" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <!-- District 4 stripe texture -->
+              <pattern id="d4-texture" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+                <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" />
+              </pattern>
+              <!-- Water pattern -->
+              <pattern id="water-pattern" patternUnits="userSpaceOnUse" width="40" height="40">
+                <rect width="40" height="40" fill="#DAE3ED" />
+                <circle cx="20" cy="20" r="18" fill="none" stroke="#C6D4E2" stroke-width="0.5" opacity="0.4" />
+              </pattern>
+            </defs>
+
+            <!-- WATER BACKGROUND -->
+            <rect width="600" height="768" fill="url(#water-pattern)" rx="8" />
+
+            <!-- Water labels -->
+            <text x="578" y="280" fill="#8DA4BE" font-size="9" font-family="'Space Grotesk', sans-serif" font-weight="500" letter-spacing="4" text-anchor="middle" transform="rotate(-90, 578, 280)">HUDSON RIVER</text>
+            <text x="100" y="485" fill="#8DA4BE" font-size="8" font-family="'Space Grotesk', sans-serif" font-weight="500" letter-spacing="3" text-anchor="middle" transform="rotate(-30, 100, 485)">NEWARK BAY</text>
+            <text x="285" y="746" fill="#8DA4BE" font-size="8" font-family="'Space Grotesk', sans-serif" font-weight="500" letter-spacing="3" text-anchor="middle">KILL VAN KULL</text>
+
+            <!-- COUNTY OUTLINE (from GeoJSON) -->
+            <path
+              d="M40.3,326.3 L44.5,294.4 L47.7,283 L64.1,257.6 L69.5,239.8 L76.8,227 L89.1,212.6 L93.3,180.4 L142.3,213.9 L144.5,218.1 L144.6,229.1 L150.7,234 L151.6,236.9 L159.7,234.9 L169.4,238.3 L172,241.7 L177.5,242.5 L184.3,238.7 L183.5,234.9 L186.6,234.2 L186.6,230.4 L190.1,230.4 L189.8,225.8 L192.7,220.9 L202.4,214.8 L216.2,217.5 L220.8,221.7 L227.1,220.5 L229.1,230 L232.3,233 L235.7,243.2 L232.3,251.7 L237.4,259.5 L240.9,270.1 L242.6,272 L246.6,271.7 L248.3,268.6 L256.4,272.7 L263.9,252.2 L257.4,220.8 L258.1,210.3 L293.4,156.5 L293.5,148.2 L295.7,143 L311.7,139.7 L319.8,134.6 L329.7,117.8 L340.1,108.5 L360.3,102.8 L412.9,99.1 L418.1,93.3 L424.5,80.4 L434.3,80.8 L434.6,67 L438.8,66.8 L447.3,73 L444.4,67.4 L450.1,65.6 L450,59.6 L457.6,58.4 L459.5,55.3 L458.3,50.5 L461.4,49.6 L463.4,43 L467.2,40.1 L472.6,42.8 L477.2,42.3 L485.1,51.6 L482.8,59.2 L478.8,60.3 L480.5,69 L536.5,107.7 L535.2,125.1 L560,138.7 L477.1,293.6 L456,404.1 L441.2,508.3 L356.7,690.7 L267.5,691.3 L247.6,704 L201,704.9 L156.3,720 L132.3,721.2 L105.5,727.1 L53.5,719 L193,496.2 L171.4,447.7 L168.3,428.4 L180.9,367.4 L179.1,357.9 L164.3,348.5 L122.1,351.2 L107.1,359.1 L99.7,372.8 L94.2,377.7 L69.8,381.1 L57.5,377.4 L51.5,371.2 L40.3,336.8 L40.3,326.3 Z"
+              fill="#FFC8C8"
+              stroke="#000"
+              stroke-width="2.5"
+              stroke-linejoin="round"
+              filter="url(#county-shadow)"
+            />
+            <!-- Island holes -->
+            <path d="M401,506.9 L402.4,511.7 L407.1,511.4 L403.3,506 L401.3,505.7 L401,506.9 Z" fill="#DAE3ED" stroke="#000" stroke-width="1" />
+            <path d="M381.8,545.2 L383.3,547.8 L387.3,550.6 L389.2,551.4 L391.5,549.7 L390.6,545 L384.4,541.3 L381.3,541.6 L381.8,545.2 Z" fill="#DAE3ED" stroke="#000" stroke-width="1" />
+
+            <!-- DISTRICT 4 — angular shape from street-level map -->
+            <path d="M287,292 L301,285 L321,285 L344,273 L379,277 L396,277 L408,288 L413,311 L419,334 L419,353 L379,353 L379,368 L416,372 L422,394 L422,413 L408,425 L408,440 L387,444 L359,448 L330,440 L310,432 L293,417 L287,387 L287,357 L293,326 L287,292 Z" fill="#E92128" stroke="#000" stroke-width="3" stroke-linejoin="round" filter="url(#d4-glow)" />
+            <path d="M287,292 L301,285 L321,285 L344,273 L379,277 L396,277 L408,288 L413,311 L419,334 L419,353 L379,353 L379,368 L416,372 L422,394 L422,413 L408,425 L408,440 L387,444 L359,448 L330,440 L310,432 L293,417 L287,387 L287,357 L293,326 L287,292 Z" fill="url(#d4-texture)" />
+
+            <!-- Labels inside District 4 -->
+            <text x="355" y="310" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="'Bebas Neue', 'Barber Chop', sans-serif" letter-spacing="2.5">THE HEIGHTS</text>
+            <rect x="305" y="340" width="92" height="22" rx="3" fill="rgba(0,0,0,0.4)" />
+            <text x="351" y="356" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="'Bebas Neue', 'Barber Chop', sans-serif" letter-spacing="4">DISTRICT 4</text>
+            <text x="320" y="395" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="700" font-family="'Space Grotesk', 'Bernoru Semicondensed', sans-serif" letter-spacing="2">JOURNAL SQUARE</text>
+            <text x="328" y="430" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="8" font-weight="600" font-family="'Inter', 'Gelica', Georgia, serif" letter-spacing="0.8">McGinley Sq · West Side</text>
+
+            <!-- Surrounding context labels -->
+            <text x="450" y="340" text-anchor="middle" fill="#1C1917" font-size="10" font-weight="600" font-family="'Space Grotesk', sans-serif">Hoboken</text>
+            <text x="420" y="268" text-anchor="middle" fill="#1C1917" font-size="9" font-weight="600" font-family="'Space Grotesk', sans-serif">Union City</text>
+            <text x="430" y="465" text-anchor="middle" fill="#1C1917" font-size="8.5" font-weight="500" font-family="'Space Grotesk', sans-serif">Downtown JC</text>
+            <text x="150" y="340" text-anchor="middle" fill="#1C1917" font-size="10" font-weight="600" font-family="'Space Grotesk', sans-serif">Kearny</text>
+            <text x="240" y="210" text-anchor="middle" fill="#1C1917" font-size="10" font-weight="600" font-family="'Space Grotesk', sans-serif">Secaucus</text>
+            <text x="215" y="640" text-anchor="middle" fill="#1C1917" font-size="11" font-weight="700" font-family="'Space Grotesk', sans-serif">Bayonne</text>
+            <text x="418" y="155" text-anchor="middle" fill="#1C1917" font-size="10" font-weight="700" font-family="'Space Grotesk', sans-serif">North Bergen</text>
+
+            <!-- ── COMPASS ROSE ────────────────────────────── -->
+            <g transform="translate(555, 698)">
+              <circle cx="0" cy="0" r="20" fill="rgba(255,255,255,0.85)" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+              <polygon points="0,-14 -4,-4 4,-4" fill="#E92128" />
+              <text x="0" y="-5" text-anchor="middle" fill="#000" font-size="7" font-weight="800" font-family="'Space Grotesk', sans-serif">N</text>
+              <line x1="0" y1="4" x2="0" y2="14" stroke="#000" stroke-width="1.2" />
+              <text x="0" y="17" text-anchor="middle" fill="#78716C" font-size="5.5" font-weight="600" font-family="'Space Grotesk', sans-serif">S</text>
+              <line x1="5" y1="0" x2="13" y2="0" stroke="#000" stroke-width="0.8" />
+              <line x1="-5" y1="0" x2="-13" y2="0" stroke="#000" stroke-width="0.8" />
+            </g>
+
+            <!-- ── SCALE BAR ───────────────────────────────── -->
+            <g transform="translate(400, 738)">
+              <rect x="0" y="0" width="174" height="4" fill="#000" rx="1" />
+              <line x1="0" y1="-3" x2="0" y2="7" stroke="#000" stroke-width="1.5" />
+              <line x1="87" y1="-2" x2="87" y2="6" stroke="#000" stroke-width="1" />
+              <line x1="174" y1="-3" x2="174" y2="7" stroke="#000" stroke-width="1.5" />
+              <text x="0" y="16" text-anchor="middle" fill="#1C1917" font-size="7.5" font-weight="600" font-family="'Inter', sans-serif">0</text>
+              <text x="87" y="16" text-anchor="middle" fill="#1C1917" font-size="7.5" font-weight="600" font-family="'Inter', sans-serif">1</text>
+              <text x="174" y="16" text-anchor="middle" fill="#1C1917" font-size="7.5" font-weight="600" font-family="'Inter', sans-serif">2</text>
+              <text x="192" y="16" text-anchor="start" fill="#78716C" font-size="7" font-family="'Inter', sans-serif">mi</text>
+            </g>
+
+            <!-- ── LEGEND ──────────────────────────────────── -->
+            <g transform="translate(16, 16)">
+              <rect x="0" y="0" width="160" height="50" rx="6" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.1)" stroke-width="1" />
+              <text x="10" y="17" fill="#000" font-size="9" font-weight="800" font-family="'Bebas Neue', 'Barber Chop', sans-serif" letter-spacing="2">HUDSON COUNTY</text>
+              <rect x="10" y="25" width="12" height="12" rx="2" fill="#E92128" stroke="#000" stroke-width="1" />
+              <text x="28" y="35" fill="#000" font-size="8" font-weight="700" font-family="'Space Grotesk', sans-serif">District 4</text>
+              <rect x="95" y="25" width="12" height="12" rx="2" fill="#FFC8C8" stroke="#000" stroke-width="1" />
+              <text x="113" y="35" fill="#78716C" font-size="8" font-weight="500" font-family="'Space Grotesk', sans-serif">Other</text>
+            </g>
+          </svg>
+        </div>
+
+        <p class="map-caption">
+          District 4 includes the Heights, Journal Square, McGinley Square,
+          and the West Side — a cross-section of working-class Jersey City
+          communities who deserve a real say in how county money is spent.
+        </p>
+      </div>
+    </div>
+
+    <!-- ═══ EDITORIAL MAP (FULL WIDTH) ═══════════════════════ -->
+    <div class="map-editorial">
+      <div class="map-editorial-header">
+        <h3>DISTRICT 4</h3>
+        <p>The Heights &middot; Journal Square &middot; McGinley Square &middot; West Side</p>
+      </div>
+      <div class="map-wrapper">
+        <!-- Same SVG, copy from above or use as <img> reference -->
+        <svg viewBox="0 0 600 768" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="District 4 map — full editorial view">
+          <defs>
+            <filter id="cs2" x="-6%" y="-4%" width="116%" height="112%">
+              <feDropShadow dx="3" dy="5" stdDeviation="7" flood-color="#000" flood-opacity="0.2" />
+            </filter>
+            <filter id="dg2" x="-12%" y="-12%" width="124%" height="124%">
+              <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
+              <feFlood flood-color="#E92128" flood-opacity="0.4" />
+              <feComposite in2="blur" operator="in" result="cb" />
+              <feMerge><feMergeNode in="cb" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+            <pattern id="wp2" patternUnits="userSpaceOnUse" width="40" height="40">
+              <rect width="40" height="40" fill="#DAE3ED" />
+              <circle cx="20" cy="20" r="18" fill="none" stroke="#C6D4E2" stroke-width="0.5" opacity="0.4" />
+            </pattern>
+            <pattern id="dt2" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255,255,255,0.06)" stroke-width="1.5" />
+            </pattern>
+          </defs>
+          <rect width="600" height="768" fill="url(#wp2)" rx="8" />
+          <text x="578" y="280" fill="#8DA4BE" font-size="9" font-family="'Space Grotesk', sans-serif" font-weight="500" letter-spacing="4" text-anchor="middle" transform="rotate(-90, 578, 280)">HUDSON RIVER</text>
+          <text x="100" y="485" fill="#8DA4BE" font-size="8" font-family="'Space Grotesk', sans-serif" font-weight="500" letter-spacing="3" text-anchor="middle" transform="rotate(-30, 100, 485)">NEWARK BAY</text>
+          <path d="M40.3,326.3 L44.5,294.4 L47.7,283 L64.1,257.6 L69.5,239.8 L76.8,227 L89.1,212.6 L93.3,180.4 L142.3,213.9 L144.5,218.1 L144.6,229.1 L150.7,234 L151.6,236.9 L159.7,234.9 L169.4,238.3 L172,241.7 L177.5,242.5 L184.3,238.7 L183.5,234.9 L186.6,234.2 L186.6,230.4 L190.1,230.4 L189.8,225.8 L192.7,220.9 L202.4,214.8 L216.2,217.5 L220.8,221.7 L227.1,220.5 L229.1,230 L232.3,233 L235.7,243.2 L232.3,251.7 L237.4,259.5 L240.9,270.1 L242.6,272 L246.6,271.7 L248.3,268.6 L256.4,272.7 L263.9,252.2 L257.4,220.8 L258.1,210.3 L293.4,156.5 L293.5,148.2 L295.7,143 L311.7,139.7 L319.8,134.6 L329.7,117.8 L340.1,108.5 L360.3,102.8 L412.9,99.1 L418.1,93.3 L424.5,80.4 L434.3,80.8 L434.6,67 L438.8,66.8 L447.3,73 L444.4,67.4 L450.1,65.6 L450,59.6 L457.6,58.4 L459.5,55.3 L458.3,50.5 L461.4,49.6 L463.4,43 L467.2,40.1 L472.6,42.8 L477.2,42.3 L485.1,51.6 L482.8,59.2 L478.8,60.3 L480.5,69 L536.5,107.7 L535.2,125.1 L560,138.7 L477.1,293.6 L456,404.1 L441.2,508.3 L356.7,690.7 L267.5,691.3 L247.6,704 L201,704.9 L156.3,720 L132.3,721.2 L105.5,727.1 L53.5,719 L193,496.2 L171.4,447.7 L168.3,428.4 L180.9,367.4 L179.1,357.9 L164.3,348.5 L122.1,351.2 L107.1,359.1 L99.7,372.8 L94.2,377.7 L69.8,381.1 L57.5,377.4 L51.5,371.2 L40.3,336.8 L40.3,326.3 Z" fill="#FFC8C8" stroke="#000" stroke-width="2.5" stroke-linejoin="round" filter="url(#cs2)" />
+          <path d="M401,506.9 L402.4,511.7 L407.1,511.4 L403.3,506 L401.3,505.7 L401,506.9 Z" fill="#DAE3ED" stroke="#000" stroke-width="1" />
+          <path d="M381.8,545.2 L383.3,547.8 L387.3,550.6 L389.2,551.4 L391.5,549.7 L390.6,545 L384.4,541.3 L381.3,541.6 L381.8,545.2 Z" fill="#DAE3ED" stroke="#000" stroke-width="1" />
+          <!-- District 4 -->
+          <path d="M287,292 L301,285 L321,285 L344,273 L379,277 L396,277 L408,288 L413,311 L419,334 L419,353 L379,353 L379,368 L416,372 L422,394 L422,413 L408,425 L408,440 L387,444 L359,448 L330,440 L310,432 L293,417 L287,387 L287,357 L293,326 L287,292 Z" fill="#E92128" stroke="#000" stroke-width="3" stroke-linejoin="round" filter="url(#dg2)" />
+          <path d="M287,292 L301,285 L321,285 L344,273 L379,277 L396,277 L408,288 L413,311 L419,334 L419,353 L379,353 L379,368 L416,372 L422,394 L422,413 L408,425 L408,440 L387,444 L359,448 L330,440 L310,432 L293,417 L287,387 L287,357 L293,326 L287,292 Z" fill="url(#dt2)" />
+          <text x="355" y="310" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="'Bebas Neue', sans-serif" letter-spacing="2.5">THE HEIGHTS</text>
+          <rect x="305" y="340" width="92" height="22" rx="3" fill="rgba(0,0,0,0.4)" />
+          <text x="351" y="356" text-anchor="middle" fill="#fff" font-size="13" font-weight="900" font-family="'Bebas Neue', sans-serif" letter-spacing="4">DISTRICT 4</text>
+          <text x="320" y="395" text-anchor="middle" fill="#fff" font-size="10.5" font-weight="700" font-family="'Space Grotesk', sans-serif" letter-spacing="2">JOURNAL SQUARE</text>
+          <text x="328" y="430" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="8" font-weight="600" font-family="'Inter', Georgia, serif" letter-spacing="0.8">McGinley Sq · West Side</text>
+          <text x="450" y="340" text-anchor="middle" fill="#1C1917" font-size="10" font-weight="600" font-family="'Space Grotesk', sans-serif">Hoboken</text>
+          <text x="420" y="268" text-anchor="middle" fill="#1C1917" font-size="9" font-weight="600" font-family="'Space Grotesk', sans-serif">Union City</text>
+          <text x="150" y="340" text-anchor="middle" fill="#1C1917" font-size="10" font-weight="600" font-family="'Space Grotesk', sans-serif">Kearny</text>
+          <!-- Compass -->
+          <g transform="translate(555, 698)">
+            <circle cx="0" cy="0" r="20" fill="rgba(255,255,255,0.85)" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+            <polygon points="0,-14 -4,-4 4,-4" fill="#E92128" />
+            <text x="0" y="-5" text-anchor="middle" fill="#000" font-size="7" font-weight="800" font-family="'Space Grotesk', sans-serif">N</text>
+            <line x1="0" y1="4" x2="0" y2="14" stroke="#000" stroke-width="1.2" />
+          </g>
+          <!-- Scale -->
+          <g transform="translate(400, 738)">
+            <rect x="0" y="0" width="174" height="4" fill="#000" rx="1" />
+            <line x1="0" y1="-3" x2="0" y2="7" stroke="#000" stroke-width="1.5" />
+            <line x1="87" y1="-2" x2="87" y2="6" stroke="#000" stroke-width="1" />
+            <line x1="174" y1="-3" x2="174" y2="7" stroke="#000" stroke-width="1.5" />
+            <text x="0" y="16" text-anchor="middle" fill="#1C1917" font-size="7.5" font-weight="600" font-family="'Inter', sans-serif">0</text>
+            <text x="87" y="16" text-anchor="middle" fill="#1C1917" font-size="7.5" font-weight="600" font-family="'Inter', sans-serif">1</text>
+            <text x="174" y="16" text-anchor="middle" fill="#1C1917" font-size="7.5" font-weight="600" font-family="'Inter', sans-serif">2</text>
+            <text x="192" y="16" fill="#78716C" font-size="7" font-family="'Inter', sans-serif">mi</text>
+          </g>
+          <!-- Legend -->
+          <g transform="translate(16, 16)">
+            <rect x="0" y="0" width="160" height="50" rx="6" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.1)" stroke-width="1" />
+            <text x="10" y="17" fill="#000" font-size="9" font-weight="800" font-family="'Bebas Neue', sans-serif" letter-spacing="2">HUDSON COUNTY</text>
+            <rect x="10" y="25" width="12" height="12" rx="2" fill="#E92128" stroke="#000" stroke-width="1" />
+            <text x="28" y="35" fill="#000" font-size="8" font-weight="700" font-family="'Space Grotesk', sans-serif">District 4</text>
+            <rect x="95" y="25" width="12" height="12" rx="2" fill="#FFC8C8" stroke="#000" stroke-width="1" />
+            <text x="113" y="35" fill="#78716C" font-size="8" font-weight="500" font-family="'Space Grotesk', sans-serif">Other</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+    <div class="footer">
+      Paid for by David Guirgis for Hudson County Commissioner
+    </div>
+
+  </div>
+</body>
+</html>

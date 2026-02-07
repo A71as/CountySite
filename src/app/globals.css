@@ -101,18 +101,6 @@
     @apply leading-relaxed;
   }
 
-  /* Button base styles (if needed beyond Tailwind config) */
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-md bg-primary-500 px-4 py-2 font-medium text-white transition-colors hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
-  }
-
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-md border-2 border-primary-500 bg-white px-4 py-2 font-medium text-primary-500 transition-colors hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
-  }
-
-  .btn-accent {
-    @apply inline-flex items-center justify-center rounded-md bg-accent-500 px-4 py-2 font-medium text-white transition-colors hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
-  }
 }
 
 @layer utilities {
@@ -123,6 +111,95 @@
   .animate-in {
     animation: fade-in 0.5s ease-in-out;
   }
+
+  /* Staggered animation delays for hero blobs */
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+  .animation-delay-6000 {
+    animation-delay: 6s;
+  }
+}
+
+/* ── Brand crosshatch diamond texture (from speech-bubble interiors in the brand guide) ── */
+.brand-crosshatch {
+  background-image:
+    linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%),
+    linear-gradient(-45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%);
+  background-size: 20px 20px;
+}
+
+/* Variant for light backgrounds — darker crosshatch lines */
+.brand-crosshatch-dark {
+  background-image:
+    linear-gradient(45deg, rgba(233,33,40,0.04) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.04) 75%),
+    linear-gradient(-45deg, rgba(233,33,40,0.04) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.04) 75%);
+  background-size: 20px 20px;
+}
+
+/* ── Poster-inspired hero styles ── */
+
+/* Sunburst rays — radiating from behind the candidate (right side) */
+.hero-sunburst {
+  background: repeating-conic-gradient(
+    from 0deg at 65% 50%,
+    rgba(233, 33, 40, 0.025) 0deg 4.5deg,
+    transparent 4.5deg 9deg
+  );
+}
+
+/* Speech bubble tail — points down toward candidate */
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 14px solid white;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+}
+
+/* Halftone dot overlay — retro newspaper / pop-art print texture */
+.hero-halftone {
+  position: relative;
+}
+.hero-halftone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background-image: radial-gradient(
+    circle,
+    rgba(80, 0, 0, 0.18) 0.7px,
+    transparent 0.7px
+  );
+  background-size: 3px 3px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Subtle edge gradient mask — candidate fades into red bg */
+.hero-image-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
 }
 
 /* Custom scrollbar styling */
@@ -158,9 +235,6 @@
   /* Hide navigation and interactive elements */
   nav,
   button,
-  .btn-primary,
-  .btn-secondary,
-  .btn-accent,
   [role="button"],
   a[href^="#"] {
     display: none !important;

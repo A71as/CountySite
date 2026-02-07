@@ -1,6 +1,6 @@
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { cn } from "@/lib/utils";
+
 import { IMAGE_PATHS } from "@/lib/constants/images";
 
 export interface AboutProps {
@@ -23,42 +23,48 @@ export function About({
   const state = process.env.NEXT_PUBLIC_STATE || "State";
 
   // Default content
-  const defaultBio = `${candidateName} brings decades of experience in public service and community leadership to the campaign. With a proven track record of bringing people together to solve complex problems, ${candidateName} is committed to transparent, accountable governance that puts families first.`;
+  const defaultBio = `David Sabry Guirgis, LMSW is a social worker, organizer, and democratic socialist with lifelong roots in Jersey City. David grew up in poverty and an abusive childhood environment, but it was his mother's resilience — as well as her ability to get a free four-year college education and a union job as a patient care technician — that lifted her and her children out.\n\nFor his entire career, David has helped lead campaigns to tax the rich, end legacy college admissions, and fight for trans rights in Congress. And in Jersey City, he helped pass Right to Counsel and hold landlords accountable, keeping thousands of tenants in their homes.\n\nNow, he's running for Hudson County Commissioner in District 4 to deliver free community college for all; build green social housing and deliver universal childcare on county-owned land; and audit everything to end county corruption.`;
 
   const defaultQuote =
-    "I didn't come to politics through party machines. I learned how this system works by living in this community.";
+    "I didn't come to politics through party machines or climbing political ladders. I got here by living in this community — and fighting for it.";
 
-  const defaultConnection = `A lifelong resident of ${county} County, ${candidateName} understands the unique challenges and opportunities facing our communities. From small business owners to working families, ${candidateName} has spent years listening to and working alongside neighbors to build a better future for all.`;
+  const defaultConnection = ``;
 
   const displayBio = bio || defaultBio;
   const displayQuote = quote || defaultQuote;
   const displayConnection = connection || defaultConnection;
 
   return (
-    <SectionWrapper id="about" background="cream">
-      {/* Swiss-style section header - minimal, systematic */}
-      <div className="mb-20 max-w-5xl">
-        <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium mb-6">
-          Background
+    <SectionWrapper id="about" background="blush" className="relative overflow-hidden">
+      {/* Subtle crosshatch texture on blush bg */}
+      <div className="absolute inset-0 brand-crosshatch-dark pointer-events-none" aria-hidden="true" />
+
+      {/* Section header */}
+      <div className="relative mb-20 max-w-5xl">
+        <div className="uppercase text-xs tracking-[0.2em] text-primary-500 font-semibold mb-6">
+          About
         </div>
-        <h2 className="font-heading text-4xl font-bold text-slate-900 sm:text-5xl lg:text-6xl leading-[1.1]">
-          {candidateName}
+        <h2 className="font-display text-5xl font-bold text-slate-900 uppercase tracking-tight sm:text-6xl lg:text-7xl leading-[0.95]">
+          Meet {candidateName.split(" ")[0]}
         </h2>
       </div>
 
       {/* Two-column layout */}
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
-        {/* Left column - Image */}
+      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+        {/* Left column - Image with brand-red frame accent */}
         <div className="order-2 lg:order-1">
           <div className="relative">
-            {/* Candidate photo with elegant shadow */}
-            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
+            {/* Brand red accent border — echoes the speech bubble outline */}
+            <div className="absolute -inset-2 bg-primary-500 rounded-sm" aria-hidden="true" />
+            {/* Candidate photo */}
+            <div className="relative rounded-sm overflow-hidden shadow-elevated">
               <OptimizedImage
                 src={IMAGE_PATHS.candidate.about}
-                alt={`${candidateName} at a community event`}
+                alt={`${candidateName} at his Columbia graduation`}
                 width={600}
-                height={800}
+                height={750}
                 priority={false}
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 placeholder="blur"
                 className="w-full h-auto"
               />
@@ -68,14 +74,29 @@ export function About({
 
         {/* Right column - Bio */}
         <div className="order-1 space-y-6 lg:order-2">
-          {/* Bio paragraph */}
-          <div className="prose prose-lg max-w-none">
-            <p className="text-slate-700 leading-relaxed">{displayBio}</p>
+          {/* Bio paragraphs */}
+          <div className="prose prose-lg max-w-none space-y-4">
+            {displayBio.split("\n\n").map((paragraph, i) => (
+              <p key={i} className="text-slate-700 leading-relaxed">
+                {paragraph}
+              </p>
+            ))}
           </div>
 
-          {/* Pull quote - clean, credible style */}
-          <div className="relative my-8 border-l-4 border-accent-500 bg-slate-50 pl-6 py-6">
+          {/* Pull quote — speech-bubble-style card with brand red accent */}
+          <div className="relative my-8 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border-2 border-primary-500/20">
+            {/* Speech bubble tail */}
+            <div
+              className="absolute -bottom-3 left-8 w-0 h-0"
+              style={{
+                borderLeft: "8px solid transparent",
+                borderRight: "12px solid transparent",
+                borderTop: "14px solid white",
+              }}
+              aria-hidden="true"
+            />
             <blockquote className="relative">
+              <div className="w-10 h-1 bg-primary-500 mb-4" aria-hidden="true" />
               <p className="font-heading text-xl leading-snug text-slate-900 sm:text-2xl italic">
                 &ldquo;{displayQuote}&rdquo;
               </p>
@@ -83,11 +104,13 @@ export function About({
           </div>
 
           {/* Connection paragraph */}
-          <div className="prose prose-lg max-w-none">
-            <p className="text-slate-700 leading-relaxed">
-              {displayConnection}
-            </p>
-          </div>
+          {displayConnection && (
+            <div className="prose prose-lg max-w-none">
+              <p className="text-slate-700 leading-relaxed">
+                {displayConnection}
+              </p>
+            </div>
+          )}
 
           {/* Credentials list (optional) */}
           {credentials && credentials.length > 0 && (
@@ -99,7 +122,7 @@ export function About({
                 {credentials.map((credential, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <svg
-                      className="w-5 h-5 text-accent-600 mt-0.5 flex-shrink-0"
+                      className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >

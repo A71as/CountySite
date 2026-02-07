@@ -23,14 +23,14 @@ export default async function Image() {
     <div
       style={{
         fontSize: 60,
-        background: "#FFFFFF",
+        background: "#E92128",
         width: "100%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        color: "#000000",
+        color: "#FFFFFF",
         fontFamily: "system-ui, sans-serif",
         padding: "80px",
       }}
@@ -49,33 +49,34 @@ export default async function Image() {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#E92128",
-            color: "#FFFFFF",
-            border: "10px solid #000000",
+            backgroundColor: "#FFFFFF",
+            color: "#1C1917",
             borderRadius: "18px",
-            padding: "18px 26px",
+            padding: "18px 36px",
             fontSize: 76,
             fontWeight: 800,
             lineHeight: 1,
             letterSpacing: "-0.02em",
           }}
         >
-          {candidateName}
+          {candidateName}!
         </div>
         <div
           style={{
             fontSize: 48,
             fontWeight: 600,
+            color: "#FFFFFF",
             opacity: 1,
           }}
         >
-          for {office}
+          Democratic Socialist for {office}
         </div>
         <div
           style={{
-            fontSize: 32,
-            opacity: 0.8,
-            marginTop: "20px",
+            fontSize: 28,
+            opacity: 0.85,
+            marginTop: "12px",
+            color: "#FFAEAE",
           }}
         >
           {county} County, {state}

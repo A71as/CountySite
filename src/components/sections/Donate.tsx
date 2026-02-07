@@ -7,6 +7,11 @@ export function Donate() {
   const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
   const actBlueBaseUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
 
+  // Debug log (remove after testing)
+  if (typeof window !== 'undefined') {
+    console.log('ActBlue URL:', actBlueBaseUrl);
+  }
+
   const donationAmounts = [10, 25, 50, 100, 250, 500];
 
   const getActBlueUrl = (amount?: number) => {
@@ -90,15 +95,18 @@ export function Donate() {
 
         {/* Right column - Image (5 columns) */}
         <div className="order-1 lg:order-2 lg:col-span-5 relative min-h-[300px] lg:min-h-full">
-          <div className="absolute inset-0 bg-slate-100">
-            <OptimizedImage
-              src={IMAGE_PATHS.candidate.action}
-              alt={`${candidateName} at a community event`}
-              fill
-              priority={false}
-              placeholder="blur"
-              className="object-cover object-center"
-            />
+          <div className="relative h-full">
+            <div className="absolute -inset-2 bg-primary-500 rounded-sm" aria-hidden="true" />
+            <div className="absolute inset-0 bg-slate-100 rounded-sm overflow-hidden">
+              <OptimizedImage
+                src={IMAGE_PATHS.candidate.action}
+                alt={`${candidateName} at a community event`}
+                fill
+                priority={false}
+                placeholder="blur"
+                className="object-cover object-center"
+              />
+            </div>
           </div>
         </div>
       </div>

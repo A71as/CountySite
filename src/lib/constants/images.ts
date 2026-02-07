@@ -15,9 +15,9 @@ export const IMAGE_PATHS = {
   // Candidate images
   // Using JPG format for actual photos
   candidate: {
-    hero: "/images/candidate/hero.jpg", // Main candidate photo for hero section
-    about: "/images/candidate/about.jpg", // Recommended: 800x1000px
-    action: "/images/candidate/action.jpg", // Recommended: 1200x800px
+    hero: "/images/candidate/no-bg.png", // Main candidate photo for hero section
+    about: "/images/candidate/Graduation photo.JPG", // Recommended: 800x1000px
+    action: "/images/candidate/JKCF scholars weekend.JPG", // Recommended: 1200x800px
   },
 
   // Endorsement images
@@ -30,8 +30,8 @@ export const IMAGE_PATHS = {
 
   // Campaign assets
   logo: "/images/logo.png", // DAVID! speech bubble logo
-  yardSign: "/images/yard-sign-mockup.png", // Recommended: 800x1000px
-  ogImage: "/images/og-image.png", // Recommended: 1200x630px (Open Graph)
+  yardSign: "/images/placeholder.svg", // Placeholder until yard sign mockup is added
+  ogImage: "/images/logo.png", // Fallback until OG image is added
   placeholder: "/images/placeholder.svg", // Recommended: 400x400px (fallback)
 } as const;
 

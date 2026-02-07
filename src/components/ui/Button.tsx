@@ -27,15 +27,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+      "inline-flex items-center justify-center rounded-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
     const variants = {
       primary:
-        "bg-primary-600 text-white shadow-sm hover:bg-primary-700 hover:shadow-md focus-visible:ring-primary-500 active:bg-primary-800",
+        "bg-primary-500 text-white shadow-sm hover:bg-primary-600 hover:shadow-md focus-visible:ring-primary-500 active:bg-primary-700",
       secondary:
-        "border-2 border-slate-300 text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-400 focus-visible:ring-slate-500 active:bg-slate-100",
+        "border-2 border-slate-300 text-slate-700 bg-white hover:bg-accent-50 hover:border-primary-300 focus-visible:ring-primary-500 active:bg-accent-100",
       accent:
-        "bg-accent-600 text-white shadow-sm hover:bg-accent-700 hover:shadow-md focus-visible:ring-accent-500 active:bg-accent-800",
+        "bg-accent-400 text-slate-900 shadow-sm hover:bg-accent-500 hover:shadow-md focus-visible:ring-accent-500 active:bg-accent-600",
     };
 
     const sizes = {
