@@ -18,6 +18,7 @@ export const IMAGE_PATHS = {
     hero: "/images/candidate/no-bg.png", // Main candidate photo for hero section
     about: "/images/candidate/Graduation photo.JPG", // Recommended: 800x1000px
     action: "/images/candidate/JKCF scholars weekend.JPG", // Recommended: 1200x800px
+    quoteBackground: "/images/candidate/David_Guirgis-3591RT_dg.jpg", // Background image for video quote section
   },
 
   // Endorsement images
