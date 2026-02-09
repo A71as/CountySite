@@ -1,11 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Facebook, Instagram, Mail } from "lucide-react";
+import { SignupForm } from "@/components/forms/SignupForm";
 
 export function Footer() {
-  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
+  const candidateName =
+    process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
   const office = process.env.NEXT_PUBLIC_OFFICE || "Hudson County Commissioner";
-  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@davidguirgis.com";
+  const contactEmail =
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@davidguirgis.com";
   const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
   const currentYear = new Date().getFullYear();
 
@@ -34,6 +37,24 @@ export function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-100">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        {/* Newsletter signup section */}
+        <div className="mb-12 pb-12 border-b border-slate-800">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="font-heading text-2xl font-bold text-white mb-2">
+                Stay Connected
+              </h3>
+              <p className="text-slate-400">
+                Get the latest campaign updates, event invitations, and ways to
+                get involved.
+              </p>
+            </div>
+            <div className="lg:pl-8">
+              <SignupForm variant="footer" />
+            </div>
+          </div>
+        </div>
+
         {/* Top section - Logo + Nav + Social */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Logo/Brand */}
@@ -140,7 +161,9 @@ export function Footer() {
                   Terms
                 </Link>
               </div>
-              <p>&copy; {currentYear} {candidateName}</p>
+              <p>
+                &copy; {currentYear} {candidateName}
+              </p>
               {/* Photo credit placeholder - add photographer name when available */}
               <p className="text-slate-600">Photography: [Credit Here]</p>
             </div>

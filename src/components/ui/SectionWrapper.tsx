@@ -26,7 +26,7 @@ const SectionWrapper = React.forwardRef<HTMLElement, SectionWrapperProps>(
       default: "bg-cream",
       cream: "bg-cream",
       white: "bg-white",
-      blush: "bg-cream",
+      blush: "bg-blush",
       dark: "bg-[#1C0A0C] text-white border-t-[3px] border-t-primary-500",
       navy: "bg-navy text-white",
       primary: "bg-primary-500 text-white",

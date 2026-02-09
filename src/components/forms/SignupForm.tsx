@@ -75,7 +75,9 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Something went wrong. Please try again.");
+        throw new Error(
+          result.error || "Something went wrong. Please try again.",
+        );
       }
 
       // Success
@@ -97,7 +99,9 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
       }, 5000);
     } catch (err) {
       const errorMessage =
-        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.";
       setError(errorMessage);
       // Reset turnstile on error
       setTurnstileToken(null);
@@ -117,10 +121,7 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn(
-        "space-y-4",
-        variant === "footer" && "max-w-md"
-      )}
+      className={cn("space-y-4", variant === "footer" && "max-w-md")}
     >
       {/* Success message */}
       {isSuccess && (
@@ -138,10 +139,7 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
       )}
 
       {/* Hidden turnstile token field for validation */}
-      <input
-        type="hidden"
-        {...register("turnstileToken")}
-      />
+      <input type="hidden" {...register("turnstileToken")} />
 
       {/* Form fields */}
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
@@ -168,7 +166,7 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
         />
         <Input
           type="tel"
-          label="Phone"
+          label="Phone (optional)"
           placeholder="(555) 123-4567"
           error={errors.phone?.message}
           {...register("phone")}
@@ -203,6 +201,11 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
         </div>
       )}
 
+      {/* Privacy reassurance */}
+      <p className="text-xs leading-relaxed text-slate-600 bg-slate-50 p-3 rounded border border-slate-200">
+        🔒 We respect your privacy. Unsubscribe anytime.
+      </p>
+
       {/* Submit button */}
       <Button
         type="submit"
@@ -212,12 +215,12 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
         disabled={isSubmitting || !turnstileToken}
         className="w-full"
       >
-        {isSubmitting ? "Joining..." : "Join the Campaign"}
+        {isSubmitting ? "Sending..." : "Get Campaign Updates"}
       </Button>
 
       {/* Legal text */}
       <p className="text-xs leading-relaxed text-slate-500">
-        By signing up, you agree to receive campaign updates via email and text. 
+        By signing up, you agree to receive campaign updates via email and text.
         Message and data rates may apply. Text STOP to opt out.{" "}
         <Link
           href="/privacy"

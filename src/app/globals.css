@@ -142,13 +142,25 @@
 
 /* ── Poster-inspired hero styles ── */
 
+/* Poster gradient background to match reference palette */
+.hero-poster-bg {
+  background: linear-gradient(
+    180deg,
+    #f6c6ca 0%,
+    #f05f66 45%,
+    #e92128 100%
+  );
+}
+
 /* Sunburst rays — radiating from behind the candidate (right side) */
 .hero-sunburst {
   background: repeating-conic-gradient(
     from 0deg at 65% 50%,
-    rgba(233, 33, 40, 0.025) 0deg 4.5deg,
+    rgba(255, 210, 214, 0.35) 0deg 4.5deg,
     transparent 4.5deg 9deg
   );
+  opacity: 0.55;
+  mix-blend-mode: screen;
 }
 
 /* Speech bubble tail — points down toward candidate */
@@ -169,20 +181,7 @@
 .hero-halftone {
   position: relative;
 }
-.hero-halftone::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  background-image: radial-gradient(
-    circle,
-    rgba(80, 0, 0, 0.18) 0.7px,
-    transparent 0.7px
-  );
-  background-size: 3px 3px;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
+/* Removed halftone dots for cleaner, more modern look */
 
 /* Subtle edge gradient mask — candidate fades into red bg */
 .hero-image-fade {

@@ -35,16 +35,23 @@ export function About({
   const displayConnection = connection || defaultConnection;
 
   return (
-    <SectionWrapper id="about" background="blush" className="relative overflow-hidden">
+    <SectionWrapper
+      id="about"
+      background="blush"
+      className="relative overflow-hidden"
+    >
       {/* Subtle crosshatch texture on blush bg */}
-      <div className="absolute inset-0 brand-crosshatch-dark pointer-events-none" aria-hidden="true" />
+      <div
+        className="absolute inset-0 brand-crosshatch-dark pointer-events-none"
+        aria-hidden="true"
+      />
 
       {/* Section header */}
       <div className="relative mb-20 max-w-5xl">
         <div className="uppercase text-xs tracking-[0.2em] text-primary-500 font-semibold mb-6">
           About
         </div>
-        <h2 className="font-display text-5xl font-bold text-slate-900 uppercase tracking-tight sm:text-6xl lg:text-7xl leading-[0.95]">
+        <h2 className="font-display text-5xl font-bold text-slate-900 uppercase tracking-tight sm:text-6xl lg:text-6xl leading-[0.95]">
           Meet {candidateName.split(" ")[0]}
         </h2>
       </div>
@@ -55,12 +62,15 @@ export function About({
         <div className="order-2 lg:order-1">
           <div className="relative">
             {/* Brand red accent border — echoes the speech bubble outline */}
-            <div className="absolute -inset-2 bg-primary-500 rounded-sm" aria-hidden="true" />
+            <div
+              className="absolute -inset-2 bg-primary-500 rounded-sm"
+              aria-hidden="true"
+            />
             {/* Candidate photo */}
             <div className="relative rounded-sm overflow-hidden shadow-elevated">
               <OptimizedImage
                 src={IMAGE_PATHS.candidate.about}
-                alt={`${candidateName} at his Columbia graduation`}
+                alt={`${candidateName} at his Columbia University graduation, where he earned his Master of Social Work degree to serve his community`}
                 width={600}
                 height={750}
                 priority={false}
@@ -96,7 +106,10 @@ export function About({
               aria-hidden="true"
             />
             <blockquote className="relative">
-              <div className="w-10 h-1 bg-primary-500 mb-4" aria-hidden="true" />
+              <div
+                className="w-10 h-1 bg-primary-500 mb-4"
+                aria-hidden="true"
+              />
               <p className="font-heading text-xl leading-snug text-slate-900 sm:text-2xl italic">
                 &ldquo;{displayQuote}&rdquo;
               </p>

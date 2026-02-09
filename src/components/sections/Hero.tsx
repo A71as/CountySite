@@ -11,13 +11,8 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden bg-primary-500"
+      className="relative w-full overflow-hidden hero-poster-bg"
     >
-      {/* ── Brand crosshatch texture ── */}
-      <div
-        className="absolute inset-0 brand-crosshatch pointer-events-none"
-        aria-hidden="true"
-      />
       {/* ── Sunburst rays background ── */}
       <div className="absolute inset-0 hero-sunburst" aria-hidden="true" />
 
@@ -41,7 +36,7 @@ export function Hero() {
             <h1>
               <DavidLogo
                 variant="white"
-                className="h-20 sm:h-28 lg:h-36 xl:h-44 w-auto"
+                className="h-24 sm:h-28 lg:h-32 xl:h-36 w-auto"
               />
             </h1>
 
@@ -54,13 +49,13 @@ export function Hero() {
 
             {/* Title block — matching brand guide styling */}
             <div className="mt-6 sm:mt-8">
-              <p className="font-subtitle italic font-black text-white text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3.25rem] leading-[1.1]">
+              <p className="font-subtitle italic font-black text-red-50 text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3.25rem] leading-[1.1] drop-shadow-md">
                 <span className="text-[0.85em]">for</span> {office}
               </p>
             </div>
 
             {/* District info — bold band */}
-            <p className="mt-3 sm:mt-4 font-heading text-sm sm:text-base lg:text-lg xl:text-xl text-white font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase">
+            <p className="mt-3 sm:mt-4 font-heading text-sm sm:text-base lg:text-lg xl:text-xl text-red-50 font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase drop-shadow-md">
               District 4 &middot; Journal Square &middot; Downtown &middot; The
               Heights
             </p>
@@ -90,7 +85,7 @@ export function Hero() {
                 className="absolute inset-x-0 bottom-0 top-[10%] blur-[100px]"
                 style={{
                   background:
-                    "radial-gradient(ellipse at 50% 55%, rgba(255,255,255,0.20) 0%, rgba(255,200,200,0.10) 40%, transparent 70%)",
+                    "radial-gradient(ellipse at 50% 55%, rgba(255,220,224,0.28) 0%, rgba(255,170,178,0.14) 40%, transparent 70%)",
                 }}
                 aria-hidden="true"
               />
@@ -98,7 +93,7 @@ export function Hero() {
                 className="absolute inset-x-[15%] bottom-[5%] top-[20%] blur-[60px]"
                 style={{
                   background:
-                    "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.12) 0%, transparent 60%)",
+                    "radial-gradient(ellipse at 50% 50%, rgba(255,210,218,0.18) 0%, transparent 60%)",
                 }}
                 aria-hidden="true"
               />
@@ -111,11 +106,11 @@ export function Hero() {
                 priority
                 quality={85}
                 sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, (max-width: 1280px) 520px, 600px"
-                className="relative z-[2] object-contain object-bottom hero-image-fade lg:scale-110 xl:scale-[1.15]"
+                className="relative z-[2] object-contain object-bottom hero-image-fade lg:scale-[1.15] xl:scale-[1.25]"
                 style={{
                   transformOrigin: "bottom center",
                   filter:
-                    "drop-shadow(0 0 30px rgba(233,33,40,0.3)) drop-shadow(0 0 80px rgba(233,33,40,0.15))",
+                    "drop-shadow(0 0 40px rgba(255,255,255,0.4)) drop-shadow(0 0 80px rgba(255,255,255,0.2))",
                 }}
               />
             </div>
@@ -125,7 +120,7 @@ export function Hero() {
 
       {/* ── Bottom fade to next section ── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-cream to-transparent z-20"
+        className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#f6c6ca] z-20"
         aria-hidden="true"
       />
     </section>

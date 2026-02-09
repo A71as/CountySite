@@ -98,7 +98,7 @@ export function News() {
       <div className="mt-12 text-center">
         <a
           href="#"
-          className="inline-flex items-center gap-2 text-primary-600 transition-colors hover:text-accent-500 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-cream rounded-sm"
+          className="inline-flex items-center gap-2 text-primary-600 transition-colors hover:text-accent-500 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-blush rounded-sm"
         >
           View all press coverage
           <ExternalLink className="h-4 w-4" />

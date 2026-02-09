@@ -4,12 +4,13 @@ import { cn } from "@/lib/utils";
 import { IMAGE_PATHS } from "@/lib/constants/images";
 
 export function Donate() {
-  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
+  const candidateName =
+    process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
   const actBlueBaseUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
 
   // Debug log (remove after testing)
-  if (typeof window !== 'undefined') {
-    console.log('ActBlue URL:', actBlueBaseUrl);
+  if (typeof window !== "undefined") {
+    console.log("ActBlue URL:", actBlueBaseUrl);
   }
 
   const donationAmounts = [10, 25, 50, 100, 250, 500];
@@ -47,28 +48,33 @@ export function Donate() {
           {/* Subheadline with red accent bar */}
           <div className="border-l-[6px] border-primary-500 pl-6 max-w-lg mb-10">
             <p className="text-lg text-slate-700 leading-relaxed">
-              No corporate PAC money. No developers. No dark money. Just working 
+              No corporate PAC money. No developers. No dark money. Just working
               people who believe Hudson County can do better.
             </p>
           </div>
 
           {/* Donation amount grid - Swiss clean grid */}
-          <div className="grid grid-cols-3 gap-3 max-w-md mb-6">
-            {donationAmounts.map((amount) => (
-              <a
-                key={amount}
-                href={getActBlueUrl(amount)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "flex items-center justify-center border-2 border-slate-300 px-4 py-4 text-center font-heading text-lg font-semibold transition-all bg-white",
-                  "hover:border-primary-500 hover:bg-primary-50",
-                  "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
-                )}
-              >
-                ${amount}
-              </a>
-            ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md mb-6">
+            {donationAmounts.map((amount) => {
+              const isRecommended = amount === 50 || amount === 100;
+              return (
+                <a
+                  key={amount}
+                  href={getActBlueUrl(amount)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "flex items-center justify-center border-2 px-4 py-4 text-center font-heading text-lg font-semibold transition-all bg-white",
+                    isRecommended
+                      ? "border-primary-500 ring-2 ring-primary-200 hover:bg-primary-500 hover:text-white"
+                      : "border-primary-200 hover:border-primary-500 hover:bg-primary-50",
+                    "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
+                  )}
+                >
+                  ${amount}
+                </a>
+              );
+            })}
           </div>
 
           {/* Main donate CTA */}
@@ -94,10 +100,13 @@ export function Donate() {
         </div>
 
         {/* Right column - Image (5 columns) */}
-        <div className="order-1 lg:order-2 lg:col-span-5 relative min-h-[300px] lg:min-h-full">
+        <div className="order-1 lg:order-2 lg:col-span-5 relative min-h-[380px] lg:min-h-0 lg:aspect-[4/3] lg:mr-[calc(50%-50vw)]">
           <div className="relative h-full">
-            <div className="absolute -inset-2 bg-primary-500 rounded-sm" aria-hidden="true" />
-            <div className="absolute inset-0 bg-slate-100 rounded-sm overflow-hidden">
+            <div
+              className="absolute inset-x-0 top-0 z-10 h-2 bg-primary-500"
+              aria-hidden="true"
+            />
+            <div className="absolute inset-0 bg-slate-100 rounded-sm lg:rounded-r-none overflow-hidden">
               <OptimizedImage
                 src={IMAGE_PATHS.candidate.action}
                 alt={`${candidateName} at a community event`}
@@ -105,6 +114,10 @@ export function Donate() {
                 priority={false}
                 placeholder="blur"
                 className="object-cover object-center"
+              />
+              <div
+                className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-cream via-cream/70 to-transparent"
+                aria-hidden="true"
               />
             </div>
           </div>

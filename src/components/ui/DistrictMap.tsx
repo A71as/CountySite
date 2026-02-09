@@ -28,7 +28,7 @@ export function DistrictMap({ className = "" }: { className?: string }) {
   const TEXT_MUTED = "#78716C";
   const TEXT_WATER = "#8DA4BE";
 
-  const DISTRICT_VIEWBOX = "275 250 180 200";
+  const DISTRICT_VIEWBOX = "290 275 140 160";
 
   return (
     <div className={`relative ${className}`}>

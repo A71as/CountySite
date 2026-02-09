@@ -54,6 +54,7 @@ const config: Config = {
         },
         navy: "#1E293B",
         cream: "#FEFDFB",
+        blush: "#FEFDFB",
         success: "#10B981",
         warning: "#F59E0B",
         error: "#EF4444",

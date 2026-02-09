@@ -34,20 +34,22 @@ const endorsements: Endorsement[] = [
     name: "North Jersey DSA",
     type: "organization",
     logo: "/images/logos/NNJDSA.png",
-    quote: "David Guirgis represents the grassroots, working-class politics Hudson County needs. He's committed to fighting for housing justice, worker rights, and democratic accountability.",
+    quote:
+      "David Guirgis represents the grassroots, working-class politics Hudson County needs. He's committed to fighting for housing justice, worker rights, and democratic accountability.",
   },
   {
     name: "Working Families Party",
     type: "organization",
     logo: "/images/logos/NJWFP.png",
-    quote: "We're proud to endorse David Guirgis for Hudson County Commissioner. He shares our vision of a county that works for working families, not developers and special interests.",
+    quote:
+      "We're proud to endorse David Guirgis for Hudson County Commissioner. He shares our vision of a county that works for working families, not developers and special interests.",
   },
   // -------------------------------------
   // Add more organizations here...
   // -------------------------------------
-  
+
   // -------------------------------------
-  // INDIVIDUALS  
+  // INDIVIDUALS
   // -------------------------------------
   // {
   //   name: "Jane Doe",
@@ -63,13 +65,19 @@ const endorsements: Endorsement[] = [
 export function Endorsements() {
   const organizations = endorsements.filter((e) => e.type === "organization");
   const individuals = endorsements.filter((e) => e.type === "individual");
+  const totalEndorsements = endorsements.length;
 
   return (
     <SectionWrapper id="endorsements" background="default">
       {/* Swiss-style section header */}
       <div className="mb-16">
-        <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium mb-4">
-          Coalition
+        <div className="flex items-center gap-3 mb-4">
+          <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium">
+            Coalition
+          </div>
+          <div className="inline-flex items-center px-3 py-1 bg-primary-500 text-white text-xs font-bold tracking-wide">
+            {totalEndorsements}+ ENDORSEMENTS
+          </div>
         </div>
         <h2 className="font-heading text-4xl font-bold leading-[1.1] text-slate-900 sm:text-5xl lg:text-6xl max-w-xl">
           Endorsed by leaders who fight for working people.
@@ -114,7 +122,7 @@ export function Endorsements() {
                     />
                   </div>
                 )}
-                
+
                 {/* Organization name (fallback if no logo) */}
                 {!endorsement.logo && (
                   <h3 className="font-heading text-xl font-bold text-slate-900 mb-4">
@@ -180,7 +188,9 @@ export function Endorsements() {
                     {endorsement.name}
                   </p>
                   {endorsement.title && (
-                    <p className="text-sm text-slate-600">{endorsement.title}</p>
+                    <p className="text-sm text-slate-600">
+                      {endorsement.title}
+                    </p>
                   )}
                 </div>
               </motion.div>
@@ -193,7 +203,7 @@ export function Endorsements() {
       <div className="mt-16 pt-12 border-t border-slate-200">
         <p className="text-slate-600 text-center">
           Want to add your voice?{" "}
-          <a 
+          <a
             href="mailto:hello@davidguirgis.com?subject=Endorsement%20for%20David%20Guirgis"
             className="text-primary-600 font-semibold hover:text-primary-700 underline"
           >
