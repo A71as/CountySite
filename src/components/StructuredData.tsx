@@ -36,7 +36,7 @@ export function StructuredData() {
     name: candidateName,
     jobTitle: `Candidate for ${office}`,
     description: `${candidateName} is running for ${office} in ${county} County, ${state}`,
-    image: `${baseUrl}${IMAGE_PATHS.candidate.heroOriginal}`,
+    image: `${baseUrl}${IMAGE_PATHS.candidate.hero}`,
     url: baseUrl,
     affiliation: {
       "@type": "Organization",
