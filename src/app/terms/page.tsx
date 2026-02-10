@@ -39,7 +39,7 @@ export default function TermsPage() {
       <div className="prose prose-lg max-w-none">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="font-heading text-4xl font-bold text-primary-600 sm:text-5xl">
+          <h1 className="font-display text-4xl font-bold text-primary-600 sm:text-5xl uppercase tracking-tight">
             Terms of Service
           </h1>
           <p className="mt-2 text-sm text-gray-600">
@@ -241,7 +241,7 @@ export default function TermsPage() {
           <p className="mt-4 leading-relaxed">
             If you have any questions about these Terms of Service, please contact us:
           </p>
-          <div className="mt-4 rounded-lg bg-gray-50 p-4">
+          <div className="mt-4 organic-sm bg-gray-50 p-4">
             <p className="mb-2">
               <strong>Email:</strong>{" "}
               <a
@@ -261,7 +261,7 @@ export default function TermsPage() {
         </section>
 
         {/* Back to home */}
-        <div className="mt-12 border-t border-gray-200 pt-8">
+        <div className="mt-12 pt-8 organic-divider-t">
           <Link href="/">
             <Button variant="secondary" size="md">
               ← Back to Home

@@ -154,15 +154,15 @@ export function YardSignForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {/* Success message */}
       {isSuccess && (
-        <div className="rounded-lg bg-success/10 border border-success/20 p-4 text-sm text-success">
-          <p className="font-semibold">Your yard sign request has been received!</p>
+        <div className="organic-sm bg-success/10 border-2 border-success/20 p-4 text-sm text-success">
+          <p className="font-subhead font-bold">Your yard sign request has been received!</p>
           <p>We&apos;ll deliver it within 1-2 weeks.</p>
         </div>
       )}
 
       {/* Error message */}
       {error && (
-        <div className="rounded-lg bg-error/10 border border-error/20 p-4 text-sm text-error">
+        <div className="organic-sm bg-error/10 border-2 border-error/20 p-4 text-sm text-error">
           {error}
         </div>
       )}
@@ -236,16 +236,16 @@ export function YardSignForm() {
         <div>
           <label
             htmlFor="state"
-            className="mb-1.5 block text-sm font-medium text-foreground"
+            className="mb-1.5 block text-sm font-subhead font-bold text-foreground tracking-wide"
           >
             State
           </label>
           <select
             id="state"
             className={cn(
-              "flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm",
-              "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
-              "hover:border-primary-400",
+              "flex h-11 w-full organic-input border-2 border-primary-200 bg-primary-50/40 px-4 py-2 text-sm transition-all duration-200",
+              "focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:border-primary-500 focus:bg-white",
+              "hover:border-primary-400 hover:shadow-sm hover:bg-white",
               "disabled:cursor-not-allowed disabled:opacity-50",
               errors.state && "border-error focus:ring-error"
             )}
@@ -264,6 +264,9 @@ export function YardSignForm() {
         </div>
         <Input
           type="text"
+          inputMode="numeric"
+          autoComplete="postal-code"
+          maxLength={5}
           label="ZIP Code"
           placeholder="12345"
           error={errors.zip_code?.message}
@@ -275,16 +278,16 @@ export function YardSignForm() {
       <div>
         <label
           htmlFor="quantity"
-          className="mb-1.5 block text-sm font-medium text-foreground"
+          className="mb-1.5 block text-sm font-subhead font-bold text-foreground tracking-wide"
         >
           Quantity
         </label>
         <select
           id="quantity"
           className={cn(
-            "flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm",
-            "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
-            "hover:border-primary-400",
+            "flex h-11 w-full organic-input border-2 border-primary-200 bg-primary-50/40 px-4 py-2 text-sm transition-all duration-200",
+            "focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:border-primary-500 focus:bg-white",
+            "hover:border-primary-400 hover:shadow-sm hover:bg-white",
             "disabled:cursor-not-allowed disabled:opacity-50",
             errors.quantity && "border-error focus:ring-error"
           )}

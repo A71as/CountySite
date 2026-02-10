@@ -9,11 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 
-  <!-- Brand font for labels -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@600&display=swap" rel="stylesheet" />
-
   <style>
     html, body, #map {
       margin: 0; padding: 0;
@@ -23,52 +18,6 @@
     }
     .leaflet-control-attribution,
     .leaflet-control-zoom { display: none !important; }
-    .d4-label,
-    .d4-sublabel {
-      white-space: nowrap;
-      user-select: none;
-      pointer-events: none;
-    }
-    .d4-label {
-      font-family: 'Bebas Neue', Impact, sans-serif;
-      font-size: 18px;
-      font-weight: 900;
-      letter-spacing: 3.5px;
-      color: #ffffff;
-      text-transform: uppercase;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-    }
-    .d4-sublabel {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.92);
-      text-transform: uppercase;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.85);
-    }
-    .d4-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 10px 5px;
-      border-radius: 6px;
-      background: rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-      backdrop-filter: blur(2px);
-    }
-    .d4-subpill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 3px 10px 4px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-      backdrop-filter: blur(2px);
-    }
   </style>
 </head>
 <body>
@@ -303,27 +252,6 @@
 
   /* ── Zoom in to District 4 for a more personal view ─────────────── */
   map.fitBounds(d4Layer.getBounds(), { padding: [18, 18], maxZoom: 14 });
-
-  /* ── Labels ─────────────────────────────────────────────────────── */
-  L.marker([40.7595, -74.0705], {
-    icon: L.divIcon({
-      className: "d4-label",
-      html: "<span class='d4-pill'>DISTRICT 4</span>",
-      iconSize: [140, 26],
-      iconAnchor: [70, 13]
-    }),
-    interactive: false
-  }).addTo(map);
-
-  L.marker([40.7525, -74.0705], {
-    icon: L.divIcon({
-      className: "d4-sublabel",
-      html: "<span class='d4-subpill'>THE HEIGHTS &middot; JOURNAL SQ</span>",
-      iconSize: [220, 18],
-      iconAnchor: [110, 9]
-    }),
-    interactive: false
-  }).addTo(map);
 
   /* ── Load county boundary from GeoJSON (adds context around D4) ── */
   fetch("/hudson_county_geojson.geojson")

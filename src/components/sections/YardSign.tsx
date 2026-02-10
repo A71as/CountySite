@@ -1,5 +1,8 @@
+"use client";
+
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { YardSignForm } from "@/components/forms/YardSignForm";
 import { IMAGE_PATHS } from "@/lib/constants/images";
 
@@ -17,17 +20,17 @@ export function YardSign() {
         <div className="order-1 flex flex-col justify-center space-y-6">
           <div>
             <div className="mb-3">
-              <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+              <span className="text-sm font-subhead font-bold uppercase tracking-wide text-accent-600">
                 Yard Signs
               </span>
             </div>
-            <h2 className="font-display text-4xl leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+            <h2 className="font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl uppercase tracking-tight">
               Show Your Support
             </h2>
             <p className="mt-4 text-lg text-slate-700 sm:text-xl">
               Request a free yard sign and let your neighbors know you&apos;re
               voting for{" "}
-              <span className="font-semibold text-primary-600">
+              <span className="font-heading font-bold text-primary-600">
                 {candidateName}
               </span>
               !
@@ -44,11 +47,10 @@ export function YardSign() {
           </div>
         </div>
 
-        {/* Right column - Image (appears second on mobile) */}
+        {/* Right column - Image: scroll-in scale (no form animation) */}
         <div className="order-2 flex items-center justify-center">
-          <div className="relative w-full max-w-md">
-            <div className="absolute -inset-2 bg-primary-500 rounded-sm" aria-hidden="true" />
-            <div className="relative rounded-sm overflow-hidden">
+          <div className="relative w-full max-w-md slight-tilt-right">
+            <ScrollReveal variant="photo" className="relative photo-frame-standard overflow-hidden">
               <OptimizedImage
                 src={IMAGE_PATHS.yardSign}
                 alt="Campaign yard sign mockup showing the design and layout of the yard sign"
@@ -58,7 +60,7 @@ export function YardSign() {
                 placeholder="blur"
                 className="drop-shadow-2xl w-full h-auto"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

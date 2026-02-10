@@ -45,11 +45,11 @@ export function News() {
       {/* Section header */}
       <div className="mb-12 text-center">
         <div className="mb-3">
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+          <span className="text-sm font-subhead font-bold uppercase tracking-wide text-accent-600">
             Press Coverage
           </span>
         </div>
-        <h2 className="font-display text-4xl leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+        <h2 className="font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl uppercase tracking-tight">
           In the News
         </h2>
         <p className="mt-4 text-lg text-slate-600 sm:text-xl">
@@ -67,17 +67,17 @@ export function News() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group flex min-w-[280px] flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary-300",
+                "group flex min-w-[280px] flex-col organic-card-2 border-2 border-slate-200 bg-white p-6 shadow-soft transition-all duration-200 hover:shadow-elevated hover:border-primary-300 hover:-translate-y-1 tilt-5",
                 "lg:min-w-0",
               )}
             >
               {/* Source */}
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-primary-600">
+              <p className="mb-2 text-xs font-subhead font-bold uppercase tracking-wide text-primary-600">
                 {item.source}
               </p>
 
               {/* Headline */}
-              <h3 className="mb-3 font-heading text-lg font-semibold text-slate-900 group-hover:text-primary-600 transition-colors">
+              <h3 className="mb-3 font-heading text-lg font-bold text-slate-900 group-hover:text-primary-600 transition-colors">
                 {item.headline}
                 <ExternalLink className="ml-2 inline-block h-4 w-4 text-slate-400 group-hover:text-accent-500" />
               </h3>
@@ -98,7 +98,7 @@ export function News() {
       <div className="mt-12 text-center">
         <a
           href="#"
-          className="inline-flex items-center gap-2 text-primary-600 transition-colors hover:text-accent-500 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-blush rounded-sm"
+          className="inline-flex items-center gap-2 text-primary-600 transition-colors hover:text-accent-500 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 focus:ring-offset-blush organic-sm"
         >
           View all press coverage
           <ExternalLink className="h-4 w-4" />

@@ -10,15 +10,21 @@ export function AnnouncementBar() {
   const [electionDate, setElectionDate] = useState<Date | null>(null);
   const barRef = useRef<HTMLDivElement | null>(null);
 
-  // Get election date from environment variable
+  // Election date: env or default June 2, 2026, 6:00 AM Eastern (NJ polls open)
   useEffect(() => {
     const dateString = process.env.NEXT_PUBLIC_ELECTION_DATE;
     if (dateString) {
-      const date = new Date(dateString);
+      // If env is date-only (e.g. "2026-06-02"), append polls-open time (6 AM Eastern)
+      const iso = /^\d{4}-\d{2}-\d{2}$/.test(dateString.trim())
+        ? `${dateString.trim()}T10:00:00.000Z`
+        : dateString;
+      const date = new Date(iso);
       if (!isNaN(date.getTime())) {
         setElectionDate(date);
+        return;
       }
     }
+    setElectionDate(new Date("2026-06-02T10:00:00.000Z"));
   }, []);
 
   // Always call hook - use a far future date as fallback to avoid errors
@@ -60,52 +66,39 @@ export function AnnouncementBar() {
   return (
     <div
       ref={barRef}
-      className="fixed top-0 left-0 right-0 z-50 bg-primary-600 text-white"
+      className="fixed top-0 left-0 right-0 z-50 text-white"
+      style={{ backgroundColor: "#E92128" }}
     >
-      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1200px] px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center gap-4">
-          {/* Countdown - hidden on mobile, shown on desktop */}
+          {/* Countdown — brand red, white text, no clock icon */}
           <div className="hidden items-center gap-2 sm:flex">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="text-sm font-medium">
+            <span className="text-sm font-medium countdown-pulse">
               Election Day: {formatCountdown()}
             </span>
           </div>
 
-          {/* Mobile: Just show icon and text */}
+          {/* Mobile */}
           <div className="flex items-center gap-2 sm:hidden">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="text-sm font-medium">
+            <span className="text-sm font-medium countdown-pulse">
               {countdown.isExpired
                 ? "Election Day is here!"
                 : `${countdown.days}d ${countdown.hours}h`}
             </span>
           </div>
 
-          {/* Volunteer link - hidden on mobile, shown on desktop */}
+          {/* CTA link - warmer, more inviting */}
           <Link
             href="/volunteer"
-            className="hidden text-sm font-medium underline underline-offset-2 transition-opacity hover:opacity-80 sm:block"
+            className="accent-callout hidden text-sm font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 sm:inline-block"
           >
-            Get involved
+            Join the movement
           </Link>
 
           {/* Dismiss button */}
           <button
             onClick={() => setIsDismissed(true)}
-            className="ml-auto flex-shrink-0 rounded-md p-1 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600"
+            className="ml-auto flex-shrink-0 organic-sm p-1 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600"
             aria-label="Dismiss announcement"
           >
             <X className="h-5 w-5" aria-hidden="true" />

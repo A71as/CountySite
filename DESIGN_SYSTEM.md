@@ -13,37 +13,36 @@ This website is built to **build trust, demonstrate competence, and invite commu
 
 ## Visual Design Principles
 
+*Aligned with the brand guide and prior campaign art: red primary, chunky rounded type, handmade/organic feel.*
+
 ### Color Palette
 
-**Trust-Building Neutrals + Hopeful Accent**
+**Campaign red + neutrals**
 
-- **Primary (Sky Blue)**: `#0EA5E9` - Represents openness, transparency, and forward-thinking
-- **Accent (Teal)**: `#14B8A6` - Signals hope, growth, and environmental consciousness
-- **Slate Neutrals**: `#0F172A` to `#F8FAFC` - Grounded, professional, non-partisan feel
-- **Warm Cream Background**: `#FEFDFB` - Inviting, not clinical
+- **Primary (Red)**: `#E92128` - Brand red from campaign art; used for logo, CTAs, accents
+- **Slate Neutrals**: `#0F172A` to `#F8FAFC` - Text and borders
+- **Warm Cream Background**: `#FEFDFB` - Page background
+- **Accent (neutral)**: `#525252` - Secondary UI (focus rings, etc.)
 
-**Why these colors?**
+The only **100% straight edge** in the layout is the **black border around the site** (frame). All other elements use rounded/organic edges (e.g. `rounded-xl`, `rounded-2xl`).
 
-- Blue/teal evokes trust without political red/blue baggage
-- Neutrals communicate professionalism and seriousness
-- The palette feels modern and optimistic without being naive
+### Typography (Brand kit — four fonts)
 
-### Typography
+**Hierarchy (load order in `layout.tsx`):**
 
-**Hierarchy for Authority & Accessibility**
+| Role | Font | Usage | Tailwind / CSS |
+|------|------|--------|----------------|
+| **H1/H2 headers** | Barber Chop | Campaign headlines, hero, major section titles, CTAs | `font-display`, `font-heading` — bold, uppercase, red or black |
+| **Subheaders/labels** | Bernoru Semicondensed* | Section labels (e.g. "ABOUT", "GET INVOLVED"), form labels, card subheads | `font-subhead` — bold, black |
+| **Body copy** | Gelica* | Paragraphs, bios, policy text, readable serif | `font-body` — regular weight, black |
 
-```
-Display (Bebas Neue): Campaign headlines, major CTAs
-Heading (Space Grotesk): Section headers, card titles
-Body (Inter): All body text, navigation, forms
-```
+\* Bernoru and Gelica use Google Font substitutes (Barlow Semi Condensed, Gelasio) until brand font files are added; Barber Chop uses `public/images/logos/BarberChop.otf`.
 
-**Usage Guidelines:**
+**Usage:**
 
-- **Headlines**: Bold, confident, but not shouty (40-56px on desktop)
-- **Section titles**: Clear hierarchy with accent color labels (32-40px)
-- **Body text**: Comfortable reading size (18-20px), ample line-height (1.6-1.7)
-- **Never use all-caps for body text** - it reduces readability and feels aggressive
+- **Headlines (H1/H2)**: Barber Chop, bold, uppercase (40–56px on desktop), red or black
+- **Section labels**: Bernoru-style, bold, uppercase, small tracking
+- **Body text**: Gelica-style serif, 18–20px, line-height 1.6–1.7
 
 ### Spacing & Layout
 
@@ -56,11 +55,14 @@ Body (Inter): All body text, navigation, forms
 
 ### Shadows & Depth
 
-**Subtle elevation, not aggressive drop shadows**
+- Soft shadows for cards at rest; elevated on hover
+- Campaign art uses strong red drop shadows on type; site uses subtle shadows for depth without overwhelming
 
-- Soft shadows: `0 2px 15px rgba(0,0,0,0.07)` for cards at rest
-- Elevated shadows: `0 10px 40px rgba(0,0,0,0.1)` for hover states
-- No harsh black shadows or heavy borders
+### Handmade / Organic Feel
+
+- **Texture**: Light grain on body and hero (paper/print feel)
+- **Edges**: Rounded corners everywhere except the outer site border
+- **Accent bars**: Rounded pills or rounded-end bars instead of sharp straight lines
 
 ---
 
@@ -119,23 +121,16 @@ Body (Inter): All body text, navigation, forms
 
 ### Buttons & CTAs
 
-**Inviting, not pushy**
+**Primary Button** (Brand red `#E92128`)
 
-**Primary Button** (Sky Blue `#0EA5E9`)
-
-- Use for main actions: Sign up, RSVP, Submit
-- Text: Active voice, specific ("Join our email list" not "Submit")
-- Hover: Slightly darker, subtle shadow increase
+- Main actions: Sign up, RSVP, Submit, Donate
+- Rounded corners (`rounded-xl`)
+- Hover: Slightly darker, subtle shadow
 
 **Secondary Button** (Outlined)
 
-- Use for alternative actions: Learn more, Download
-- Never use for critical paths
-
-**Accent Button** (Teal `#14B8A6`)
-
-- Use sparingly for donation asks
-- Label: "Support the Campaign" not "Donate Now!"
+- Alternative actions: Learn more, Download
+- Same rounded treatment
 
 ### Forms
 
@@ -162,15 +157,13 @@ Body (Inter): All body text, navigation, forms
 └─────────────────────────┘
 ```
 
-- Border: 1px slate-200, rounded-xl
-- Hover: Lift slightly, border color shifts to accent
+- Border: 1px slate-200, rounded-2xl (organic edges)
+- Hover: Lift slightly, border color shifts to primary
 - Never more than 3 lines of text per card
 
 ### Trust Signals
 
-**Subtle credibility boosters throughout**
-
-- ✓ Checkmarks for credentials (green accent)
+- ✓ Checkmarks for credentials (primary red)
 - 📍 Local resident badge in hero
 - 🔒 Secure donation processor logos
 - 📊 Transparent finance disclosure links

@@ -1,128 +1,127 @@
+"use client";
+
 import Image from "next/image";
+import { useRef, useState, useEffect } from "react";
 import { SignupForm } from "@/components/forms/SignupForm";
-import { DavidLogo } from "@/components/ui/DavidLogo";
-import { IMAGE_PATHS } from "@/lib/constants/images";
+
+const HERO_BIO =
+  "David Sabry Guirgis is a social worker, organizer and democratic socialist running for Hudson County Commissioner to win for the working class.";
+
+const DISTRICT_LABEL =
+  "DISTRICT 4 · JOURNAL SQUARE · DOWNTOWN · THE HEIGHTS";
+
+const CANDIDATE_IMAGE = "/images/candidate/no-bg1.png";
+
+/** Photo area background: soft radial gradients + paper texture (no geometric rays) */
+function HeroPhotoBackground() {
+  return (
+    <div className="hero-photo-bg-wrap" aria-hidden="true">
+      <div className="hero-photo-bg-base" />
+      <div className="hero-photo-bg-glow" />
+      <div className="hero-photo-bg-texture" aria-hidden="true" />
+    </div>
+  );
+}
 
 export function Hero() {
-  const candidateName =
-    process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
-  const office = process.env.NEXT_PUBLIC_OFFICE || "Hudson County Commissioner";
+  const cutoutRef = useRef<HTMLDivElement>(null);
+  const [parallaxOffset, setParallaxOffset] = useState(0);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const onScroll = () => {
+      const section = document.getElementById("home");
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      if (rect.bottom < 0 || rect.top > viewportHeight) return;
+      const scrolled = Math.min(Math.max(-rect.top / viewportHeight, 0), 1);
+      setParallaxOffset(scrolled * 20);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <section
       id="home"
-      className="relative w-full overflow-hidden hero-poster-bg"
+      className="relative w-full min-h-screen overflow-visible hero-splash-bg"
+      aria-label="Hero"
     >
-      {/* ── Sunburst rays background ── */}
-      <div className="absolute inset-0 hero-sunburst" aria-hidden="true" />
+      {/* Paper grain overlay — subtle texture */}
+      <div className="hero-grain-overlay section-paper-texture" aria-hidden="true" />
 
-      {/* ── Subtle grain texture for retro printed-paper feel ── */}
-      <div
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "200px 200px",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Content grid ── */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 items-end gap-0 min-h-[max(640px,90vh)]">
-          {/* ── Left column — text & form ── */}
-          <div className="order-1 lg:col-span-7 flex flex-col justify-center py-10 sm:py-12 lg:py-20">
-            {/* DAVID! speech bubble logo — white variant on red bg */}
-            <h1>
-              <DavidLogo
-                variant="white"
-                className="h-24 sm:h-28 lg:h-32 xl:h-36 w-auto"
-              />
-            </h1>
-
-            {/* Speech bubble — election day call-out */}
-            <div className="relative inline-block mt-5 w-fit bg-white rounded-2xl px-6 py-3.5 shadow-lg speech-bubble">
-              <p className="font-heading font-bold text-primary-500 text-base sm:text-lg lg:text-xl uppercase tracking-wide">
-                Election Day is June 2, 2026
-              </p>
+      {/* Two-column layout: left = sunburst + photo (contained), right = content; mobile: photo stacks above */}
+      <div className="hero-grid">
+        {/* LEFT COLUMN: Photo area (gradient bg + texture + right fade + photo), bottom mask */}
+        <div className="hero-left-column order-1 lg:order-1">
+          <div className="hero-photo-area">
+            <HeroPhotoBackground />
+            <div
+              ref={cutoutRef}
+              className="hero-cutout-wrapper"
+              style={{ ["--parallax-y" as string]: `${parallaxOffset}px` }}
+            >
+              <div className="hero-cutout-shadow" aria-hidden="true" />
+              <div className="hero-photo-duotone">
+                <Image
+                  src={CANDIDATE_IMAGE}
+                  alt="David Sabry Guirgis, candidate for Hudson County Commissioner"
+                  width={4050}
+                  height={5400}
+                  className="hero-cutout-image"
+                  priority
+                  sizes="(max-width: 1023px) 85vw, 42vw"
+                />
+              </div>
             </div>
-
-            {/* Title block — matching brand guide styling */}
-            <div className="mt-6 sm:mt-8">
-              <p className="font-subtitle italic font-black text-red-50 text-2xl sm:text-3xl lg:text-[2.75rem] xl:text-[3.25rem] leading-[1.1] drop-shadow-md">
-                <span className="text-[0.85em]">for</span> {office}
-              </p>
-            </div>
-
-            {/* District info — bold band */}
-            <p className="mt-3 sm:mt-4 font-heading text-sm sm:text-base lg:text-lg xl:text-xl text-red-50 font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase drop-shadow-md">
-              District 4 &middot; Journal Square &middot; Downtown &middot; The
-              Heights
-            </p>
-
-            {/* ── Signup form in white card ── */}
-            <div className="mt-7 max-w-lg rounded-xl bg-white/95 backdrop-blur-sm p-4 sm:p-5 shadow-elevated">
-              <h2 className="font-heading text-xl font-bold text-slate-900 mb-3">
-                Stand with David.
-              </h2>
-              <SignupForm variant="hero" />
-            </div>
+            {/* Right edge: feathered fade so pink breathes into content area */}
+            <div className="hero-photo-area-right-fade" aria-hidden="true" />
           </div>
 
-          {/* ── Right column — candidate image (poster-style) ── */}
-          {/*
-            Desktop: self-stretch fills full section height. Scale transform
-            makes David larger and -ml pushes him leftward for more presence.
-            Mobile: fixed height, stacked below the form.
-          */}
-          <div className="order-2 lg:col-span-5 relative self-end lg:self-stretch flex items-end justify-center lg:justify-end">
-            <div
-              className="relative w-[320px] h-[420px] sm:w-[400px] sm:h-[520px] lg:w-full lg:h-full lg:-ml-12 xl:-ml-16 hero-halftone"
-              style={{ transformOrigin: "bottom center" }}
-            >
-              {/* Multi-layer spotlight glow behind candidate */}
-              <div
-                className="absolute inset-x-0 bottom-0 top-[10%] blur-[100px]"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 50% 55%, rgba(255,220,224,0.28) 0%, rgba(255,170,178,0.14) 40%, transparent 70%)",
-                }}
-                aria-hidden="true"
-              />
-              <div
-                className="absolute inset-x-[15%] bottom-[5%] top-[20%] blur-[60px]"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 50% 50%, rgba(255,210,218,0.18) 0%, transparent 60%)",
-                }}
-                aria-hidden="true"
-              />
-
-              {/* Candidate image — natural colors + subtle red edge glow */}
-              <Image
-                src={IMAGE_PATHS.candidate.hero}
-                alt={`${candidateName} for ${office}`}
-                fill
-                priority
-                quality={85}
-                sizes="(max-width: 640px) 320px, (max-width: 1024px) 400px, (max-width: 1280px) 520px, 600px"
-                className="relative z-[2] object-contain object-bottom hero-image-fade lg:scale-[1.15] xl:scale-[1.25]"
-                style={{
-                  transformOrigin: "bottom center",
-                  filter:
-                    "drop-shadow(0 0 40px rgba(255,255,255,0.4)) drop-shadow(0 0 80px rgba(255,255,255,0.2))",
-                }}
-              />
+          {/* Election date bubble — above David, tail points at him */}
+          <div className="hero-election-bubble-wrapper">
+            <div className="speech-bubble-election-callout speech-bubble-tail-at-david election-bubble-pop px-3 py-2 sm:px-4 sm:py-2.5">
+              <p className="font-subhead font-bold text-black text-xs sm:text-sm uppercase tracking-tight whitespace-nowrap">
+                ELECTION DAY IS ON JUNE 2, 2026
+              </p>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* ── Bottom fade to next section ── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#f6c6ca] z-20"
-        aria-hidden="true"
-      />
+        {/* RIGHT COLUMN: Hierarchy — district → headline → annotation → form */}
+        <div className="hero-right-column order-2 lg:order-2">
+          <div className="hero-form-animate w-full">
+            {/* 1. District identifier — Bernoru, small caps, #E92128, 12–14px, letter-spacing 2px */}
+            <p className="hero-district-label">
+              {DISTRICT_LABEL}
+            </p>
+
+            {/* 2. Main headline — Barber Chop, clamp 36–60px, black; identity phrase in red */}
+            <h1 className="hero-headline">
+              David Sabry Guirgis is a{" "}
+              <span className="text-[#E92128]">social worker, organizer and democratic socialist</span>
+              {" "}running for Hudson County Commissioner to win for the working class.
+            </h1>
+
+            {/* 3. Hand-written annotation — Homemade Apple, #E92128, -2deg, 22–26px */}
+            <p className="hero-join-annotation">
+              Join the movement.
+            </p>
+
+            {/* 4. Form — minimal spacing for natural next action */}
+            <SignupForm
+              variant="hero"
+              submitLabel="COUNT ME IN"
+              privacyVariant="short"
+            />
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

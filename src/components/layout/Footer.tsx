@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Instagram, Mail } from "lucide-react";
+import { Facebook, Instagram, Mail, ArrowUp } from "lucide-react";
 import { SignupForm } from "@/components/forms/SignupForm";
+import { LOGO_ASSETS } from "@/lib/constants/images";
 
 export function Footer() {
   const candidateName =
@@ -12,7 +13,7 @@ export function Footer() {
   const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
   const currentYear = new Date().getFullYear();
 
-  // Navigation links matching top navbar
+  // Footer nav: same hierarchy as top nav — Donate (red), Volunteer (emphasized), then Commissioner/Issues/Endorsements
   const navLinks = [
     { label: "Commissioner", href: "#commissioner" },
     { label: "Issues", href: "#issues" },
@@ -35,16 +36,17 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-slate-900 text-slate-100">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        {/* Newsletter signup section */}
-        <div className="mb-12 pb-12 border-b border-slate-800">
+    <footer className="bg-footerWarm text-slate-100 relative overflow-hidden">
+      {/* footerWarm (#3D1A1E) — intentional warm dark brown/maroon, not black; feels more human */}
+      <div className="relative mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:px-8">
+        {/* Newsletter signup — same API/list as hero form (POST /api/signup) */}
+        <div className="mb-12 pb-12 organic-divider-b organic-divider-light">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="font-heading text-2xl font-bold text-white mb-2">
+              <h3 className="font-display text-2xl font-bold text-white mb-2 uppercase tracking-tight">
                 Stay Connected
               </h3>
-              <p className="text-slate-400">
+              <p className="text-slate-300/80">
                 Get the latest campaign updates, event invitations, and ways to
                 get involved.
               </p>
@@ -57,26 +59,29 @@ export function Footer() {
 
         {/* Top section - Logo + Nav + Social */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
-          {/* Logo/Brand */}
-          <div className="lg:col-span-3">
-            <div className="flex flex-col gap-3">
+          {/* Logo/Brand — clickable, scrolls to top (#home) */}
+          <div className="lg:col-span-3 flex flex-col items-start">
+            <Link
+              href="#home"
+              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm organic-sm transition-opacity hover:opacity-90"
+              aria-label="Back to top"
+            >
               <Image
-                src="/images/logo.png"
-                alt={`${candidateName} for ${office}`}
+                src={LOGO_ASSETS.vertical}
+                alt={`${candidateName} — Democratic Socialist for ${office}`}
                 width={140}
-                height={56}
-                className="h-12 w-auto brightness-0 invert"
+                height={180}
+                className="h-24 w-auto brightness-0 invert"
               />
-              <span className="text-slate-400 text-sm">for {office}</span>
-            </div>
+            </Link>
           </div>
 
-          {/* Navigation */}
+          {/* Navigation — Donate in red, Volunteer emphasized, rest plain */}
           <div className="lg:col-span-5">
-            <nav className="flex flex-wrap gap-x-8 gap-y-4">
+            <nav className="flex flex-wrap gap-x-8 gap-y-4 items-center">
               <Link
                 href="/volunteer"
-                className="text-white font-semibold hover:text-primary-400 transition-colors"
+                className="text-white font-subhead font-bold text-base hover:text-primary-400 hover:underline transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm organic-sm"
               >
                 Volunteer
               </Link>
@@ -84,7 +89,7 @@ export function Footer() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-slate-300 hover:text-white transition-colors"
+                  className="text-slate-400 hover:text-white transition-all duration-200 font-subhead font-medium text-base hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm organic-sm"
                 >
                   {link.label}
                 </Link>
@@ -93,16 +98,16 @@ export function Footer() {
                 href={actBlueUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-400 font-semibold hover:text-primary-300 transition-colors"
+                className="text-primary-400 font-subhead font-bold text-base hover:text-primary-300 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm organic-sm"
               >
                 Donate
               </a>
             </nav>
           </div>
 
-          {/* Social + Contact */}
+          {/* Social + Contact — min 44x44px touch targets for mobile */}
           <div className="lg:col-span-4 lg:text-right">
-            <div className="flex lg:justify-end gap-4 mb-4">
+            <div className="flex lg:justify-end gap-3 mb-4">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -112,18 +117,18 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.ariaLabel}
-                    className="w-10 h-10 flex items-center justify-center bg-slate-800 text-slate-300 transition-colors hover:bg-primary-500 hover:text-white"
+                    className="min-w-[44px] min-h-[44px] w-11 h-11 flex items-center justify-center organic-sm bg-white/10 text-slate-300 transition-all duration-200 hover:bg-primary-500 hover:text-white hover:scale-110 hover:rotate-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm"
                   >
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                    <Icon className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
                   </a>
                 );
               })}
               <a
                 href={`mailto:${contactEmail}`}
                 aria-label="Email the campaign"
-                className="w-10 h-10 flex items-center justify-center bg-slate-800 text-slate-300 transition-colors hover:bg-primary-500 hover:text-white"
+                className="min-w-[44px] min-h-[44px] w-11 h-11 flex items-center justify-center organic-sm bg-white/10 text-slate-300 transition-all duration-200 hover:bg-primary-500 hover:text-white hover:scale-110 hover:-rotate-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm"
               >
-                <Mail className="h-5 w-5" aria-hidden="true" />
+                <Mail className="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" />
               </a>
             </div>
             <a
@@ -135,12 +140,23 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Back to top — small arrow affordance */}
+        <div className="mt-8 flex justify-center lg:justify-end">
+          <a
+            href="#home"
+            className="inline-flex min-w-[44px] min-h-[44px] w-11 h-11 items-center justify-center organic-sm bg-white/10 text-slate-400 transition-all duration-200 hover:bg-primary-500 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm"
+            aria-label="Back to top"
+          >
+            <ArrowUp className="h-5 w-5" aria-hidden="true" />
+          </a>
+        </div>
+
         {/* Bottom section - Legal */}
-        <div className="mt-12 pt-8 border-t border-slate-800">
+        <div className="mt-8 pt-8 organic-divider-t organic-divider-light">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            {/* Paid for by */}
+            {/* Paid for by — required legal line */}
             <div className="text-sm text-slate-400">
-              <p className="font-semibold text-slate-300">
+              <p className="font-display font-bold text-slate-300 uppercase tracking-wide">
                 Paid for by {candidateName} for {office}
               </p>
             </div>
@@ -161,11 +177,11 @@ export function Footer() {
                   Terms
                 </Link>
               </div>
-              <p>
+              <p className="font-heading">
                 &copy; {currentYear} {candidateName}
               </p>
-              {/* Photo credit placeholder - add photographer name when available */}
-              <p className="text-slate-600">Photography: [Credit Here]</p>
+              {/* Photography credit — replace with photographer name once confirmed */}
+              <p className="text-slate-600">Photography: TBD</p>
             </div>
           </div>
         </div>

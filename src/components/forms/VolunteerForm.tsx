@@ -109,15 +109,15 @@ export function VolunteerForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Success message */}
       {isSuccess && (
-        <div className="rounded-lg bg-success/20 border border-success/30 p-4 text-sm text-white">
-          <p className="font-semibold">Thanks for signing up!</p>
+        <div className="organic-sm bg-success/20 border-2 border-success/30 p-4 text-sm text-white">
+          <p className="font-subhead font-bold">Thanks for signing up!</p>
           <p>A volunteer coordinator will be in touch soon.</p>
         </div>
       )}
 
       {/* Error message */}
       {error && (
-        <div className="rounded-lg bg-error/20 border border-error/30 p-4 text-sm text-white">
+        <div className="organic-sm bg-error/20 border-2 border-error/30 p-4 text-sm text-white">
           {error}
         </div>
       )}
@@ -128,7 +128,7 @@ export function VolunteerForm() {
       {/* Name fields - two columns */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-white">
+          <label className="mb-1.5 block text-sm font-subhead font-bold text-white tracking-wide">
             First Name
           </label>
           <Input
@@ -140,7 +140,7 @@ export function VolunteerForm() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-white">
+          <label className="mb-1.5 block text-sm font-subhead font-bold text-white tracking-wide">
             Last Name
           </label>
           <Input
@@ -155,7 +155,7 @@ export function VolunteerForm() {
 
       {/* Email */}
       <div>
-        <label className="mb-1.5 block text-sm font-medium text-white">
+        <label className="mb-1.5 block text-sm font-subhead font-bold text-white tracking-wide">
           Email
         </label>
         <Input
@@ -170,7 +170,7 @@ export function VolunteerForm() {
       {/* Phone and ZIP - two columns */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-white">
+          <label className="mb-1.5 block text-sm font-subhead font-bold text-white tracking-wide">
             Phone (optional)
           </label>
           <Input
@@ -182,11 +182,14 @@ export function VolunteerForm() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-white">
+          <label className="mb-1.5 block text-sm font-subhead font-bold text-white tracking-wide">
             ZIP Code
           </label>
           <Input
             type="text"
+            inputMode="numeric"
+            autoComplete="postal-code"
+            maxLength={5}
             placeholder="12345"
             error={errors.zip_code?.message}
             className="bg-white text-gray-900"
@@ -197,7 +200,7 @@ export function VolunteerForm() {
 
       {/* Interest checkboxes */}
       <div>
-        <label className="mb-3 block text-sm font-medium text-white">
+        <label className="mb-3 block text-sm font-subhead font-bold text-white tracking-wide">
           How would you like to help? (select all that apply)
         </label>
         <Controller
@@ -208,7 +211,7 @@ export function VolunteerForm() {
               {interestOptions.map((interest) => (
                 <label
                   key={interest}
-                  className="flex items-center space-x-2 rounded-md border border-white/20 bg-white/10 p-3 hover:bg-white/20 transition-colors cursor-pointer"
+                  className="flex items-center space-x-2 organic-sm border-2 border-white/20 bg-white/10 p-3 hover:bg-white/20 hover:border-white/30 transition-all duration-200 cursor-pointer"
                 >
                   <input
                     type="checkbox"
@@ -238,7 +241,7 @@ export function VolunteerForm() {
       <div>
         <label
           htmlFor="availability"
-          className="mb-1.5 block text-sm font-medium text-white"
+          className="mb-1.5 block text-sm font-subhead font-bold text-white tracking-wide"
         >
           Availability (optional)
         </label>
@@ -247,10 +250,10 @@ export function VolunteerForm() {
           placeholder="When are you typically available to volunteer?"
           rows={3}
           className={cn(
-            "w-full rounded-md border border-white/20 bg-white px-3 py-2 text-sm text-gray-900",
-            "placeholder:text-gray-400",
-            "focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 focus:ring-offset-primary-600",
-            "hover:border-white/30",
+            "w-full organic-input border-2 border-white/20 bg-white px-4 py-3 text-sm text-gray-900 transition-all duration-200",
+            "placeholder:text-slate-400 placeholder:italic",
+            "focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 focus:ring-offset-primary-600 focus:border-white/40",
+            "hover:border-white/30 hover:shadow-sm",
             errors.availability && "border-error focus:ring-error"
           )}
           {...register("availability")}

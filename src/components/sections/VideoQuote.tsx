@@ -52,13 +52,17 @@ export function VideoQuote({
         <div className="relative grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Quote column */}
           <div className="flex flex-col justify-center">
-            <div className="border-l-4 border-primary-500 pl-6 sm:pl-8">
+            <div className="relative pl-6 sm:pl-8">
+              <div
+                className="absolute left-0 top-1 bottom-1 w-1.5 bg-primary-500 organic-sm"
+                aria-hidden="true"
+              />
               <blockquote>
                 <p className="font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl uppercase tracking-tight">
                   &ldquo;{displayQuote}&rdquo;
                 </p>
                 {attribution && (
-                  <footer className="mt-6 text-lg font-semibold text-accent-400">
+                  <footer className="mt-6 text-lg font-subhead font-bold text-accent-400">
                     — {attribution}
                   </footer>
                 )}
@@ -68,7 +72,7 @@ export function VideoQuote({
 
           {/* Video column */}
           <div className="flex items-center justify-center">
-            <div className="w-full overflow-hidden rounded-sm shadow-elevated border border-white/10">
+            <div className="w-full overflow-hidden organic-card-3 shadow-elevated border-2 border-white/10 tilt-4">
               <div className="relative aspect-video w-full">
                 <iframe
                   src={`https://www.youtube.com/embed/${videoId}?rel=0`}
@@ -106,13 +110,17 @@ export function VideoQuote({
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
-        <div className="border-l-4 border-primary-500 pl-6 sm:pl-8">
+        <div className="relative pl-6 sm:pl-8">
+          <div
+            className="absolute left-0 top-1 bottom-1 w-1.5 bg-primary-500 organic-sm"
+            aria-hidden="true"
+          />
           <blockquote>
             <p className="font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl uppercase tracking-tight">
               &ldquo;{displayQuote}&rdquo;
             </p>
             {attribution && (
-              <footer className="mt-6 text-lg font-semibold text-accent-400">
+              <footer className="mt-6 text-lg font-subhead font-bold text-accent-400">
                 — {attribution}
               </footer>
             )}

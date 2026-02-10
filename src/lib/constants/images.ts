@@ -15,7 +15,7 @@ export const IMAGE_PATHS = {
   // Candidate images
   // Using JPG format for actual photos
   candidate: {
-    hero: "/images/candidate/no-bg.png", // Main candidate photo for hero section
+    hero: "/images/candidate/no-bg1.png", // Hero cutout (transparent PNG), mid-thigh up
     about: "/images/candidate/Graduation photo.JPG", // Recommended: 800x1000px
     action: "/images/candidate/JKCF scholars weekend.JPG", // Recommended: 1200x800px
     quoteBackground: "/images/candidate/David_Guirgis-3591RT_dg.jpg", // Background image for video quote section
@@ -29,11 +29,26 @@ export const IMAGE_PATHS = {
     organizer: "/images/endorsements/organizer.svg", // Recommended: 600x600px
   },
 
-  // Campaign assets
-  logo: "/images/logo.png", // DAVID! speech bubble logo
+  // Campaign assets — context-specific logos (see LOGO_ASSETS)
+  logo: "/images/logos/LOGO - horizontal .png",
   yardSign: "/images/placeholder.svg", // Placeholder until yard sign mockup is added
-  ogImage: "/images/logo.png", // Fallback until OG image is added
+  ogImage: "/images/logos/LOGO - No speech bubble.png", // Text lockup for social / OG
   placeholder: "/images/placeholder.svg", // Recommended: 400x400px (fallback)
+} as const;
+
+/**
+ * Brand logo assets — use the right asset per context:
+ * - speechBubbleOnly: Navbar (compact)
+ * - horizontal: full lockup, horizontal layout
+ * - vertical: Hero (stacked lockup), Footer (stacked column)
+ * - noBubble: OG / social preview (text-only lockup)
+ */
+export const LOGO_ASSETS = {
+  horizontal: "/images/logos/LOGO - horizontal .png",
+  noBubble: "/images/logos/LOGO - No speech bubble.png",
+  vertical: "/images/logos/Logo - vertical .png",
+  speechBubbleOnly: "/images/logos/Speech bubble only.png",
+  brandGuide: "/images/logos/Brand guide.png",
 } as const;
 
 /**

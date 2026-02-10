@@ -70,7 +70,7 @@ export class ErrorBoundary extends Component<
       // Default error UI
       return (
         <div className="flex min-h-screen items-center justify-center px-4">
-          <div className="max-w-md rounded-lg border border-error/20 bg-error/5 p-8 text-center">
+          <div className="max-w-md organic-card-1 border border-error/20 bg-error/5 p-8 text-center tilt-2">
             <div className="mb-4">
               <svg
                 className="mx-auto h-12 w-12 text-error"
@@ -98,7 +98,7 @@ export class ErrorBoundary extends Component<
                 <summary className="cursor-pointer text-sm font-medium text-gray-700">
                   Error details (development only)
                 </summary>
-                <pre className="mt-2 overflow-auto rounded bg-gray-100 p-4 text-xs text-gray-800">
+                <pre className="mt-2 overflow-auto organic-sm bg-gray-100 p-4 text-xs text-gray-800">
                   {this.state.error.toString()}
                   {this.state.error.stack}
                 </pre>

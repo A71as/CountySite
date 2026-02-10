@@ -1,17 +1,21 @@
+"use client";
+
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
 import { IMAGE_PATHS } from "@/lib/constants/images";
 
+const DEFAULT_AMOUNT = 50;
+
 export function Donate() {
+  const reduceMotion = useReducedMotion();
+  const [selectedAmount, setSelectedAmount] = useState<number>(DEFAULT_AMOUNT);
   const candidateName =
     process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
   const actBlueBaseUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
-
-  // Debug log (remove after testing)
-  if (typeof window !== "undefined") {
-    console.log("ActBlue URL:", actBlueBaseUrl);
-  }
 
   const donationAmounts = [10, 25, 50, 100, 250, 500];
 
@@ -31,94 +35,127 @@ export function Donate() {
   };
 
   return (
-    <SectionWrapper id="donate" background="default">
-      <div className="grid grid-cols-1 gap-0 lg:grid-cols-12 lg:gap-16 min-h-[500px]">
-        {/* Left column - Content (7 columns) */}
-        <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center py-12 lg:py-0">
-          {/* Swiss-style systematic label */}
-          <div className="uppercase text-xs tracking-[0.2em] text-primary-600 font-medium mb-6">
-            Support the Campaign
+    <SectionWrapper id="donate" fullBleed className="!p-0 !bg-transparent overflow-hidden">
+      {/* Split background: left half red, right half white */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] w-full">
+        {/* Left half — red background, all donation content; centered */}
+        <div className="relative bg-primary-500 flex flex-col justify-center items-center py-12 lg:py-16">
+          <div className="grain-overlay-colored absolute inset-0 pointer-events-none z-0" aria-hidden="true" />
+          <div className="relative z-10 w-full max-w-[1200px] px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <div className="w-full max-w-xl flex flex-col items-center text-center">
+              <ScrollReveal variant="header" className="w-full">
+                {/* Section label — on red, no outline */}
+                <div className="uppercase text-sm tracking-[0.2em] text-white font-subhead font-bold mb-6">
+                  Support the Campaign
+                </div>
+
+                {/* Headline — on red, black outline (large text only) */}
+                <h2 className="font-display text-4xl font-bold leading-[1.1] text-white sm:text-5xl lg:text-6xl max-w-xl mb-8 heading-poster-3d uppercase">
+                  <span className="hand-underline">People-powered.</span> No exceptions.
+                </h2>
+              </ScrollReveal>
+
+              {/* Subheadline — speech bubble (white box) */}
+              <div className="relative w-full max-w-lg mb-8 speech-bubble-accent px-6 py-5">
+                <p className="font-body text-lg text-slate-700 leading-relaxed">
+                  No corporate PAC money. No developers. No dark money. Just working
+                  people who believe Hudson County can do better.
+                </p>
+              </div>
+
+              {/* Campaign line — on red, outline */}
+              <p className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-tight text-white mb-6 leading-[1.15] heading-poster-3d">
+                They have the money. We have each other. Chip in now:
+              </p>
+
+              {/* Donation amount grid */}
+              <motion.div
+                className="relative grid grid-cols-2 sm:grid-cols-3 gap-3 w-full max-w-md mb-4"
+                initial={reduceMotion ? "visible" : "hidden"}
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                variants={{
+                  visible: {
+                    transition: { staggerChildren: 0.06, delayChildren: 0.05 },
+                  },
+                }}
+              >
+                {donationAmounts.map((amount) => {
+                  const isSelected = selectedAmount === amount;
+                  return (
+                    <motion.button
+                      key={amount}
+                      type="button"
+                      onClick={() => setSelectedAmount(amount)}
+                      variants={{
+                        hidden: { opacity: 0, scale: 0.95 },
+                        visible: { opacity: 1, scale: 1 },
+                      }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className={cn(
+                        "relative flex items-center justify-center min-h-[48px] border-2 px-4 py-3 text-center font-heading text-lg font-bold transition-all duration-200 organic-sm",
+                        "hover:scale-105 active:scale-[0.98]",
+                        "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500",
+                        isSelected
+                          ? "bg-white text-primary-600 border-black shadow-lg ring-2 ring-white ring-offset-2 ring-offset-primary-500"
+                          : "bg-white text-primary-700 border-black/80 hover:border-black hover:bg-slate-50 hover:shadow-md",
+                      )}
+                      aria-pressed={isSelected}
+                      aria-label={`Select $${amount} donation`}
+                    >
+                      ${amount}
+                    </motion.button>
+                  );
+                })}
+              </motion.div>
+
+              {/* Warm accent — on red, no outline */}
+              <p className="accent-callout font-accent text-white text-base mb-6 max-w-md">
+                Every dollar counts.
+              </p>
+
+              {/* Main donate CTA — no text outline */}
+              <a
+                href={getActBlueUrl(selectedAmount)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "w-full max-w-lg flex items-center justify-center organic-card-1 bg-[#E92128] text-white border-2 border-black px-8 py-6 sm:py-7 text-center font-display text-2xl sm:text-3xl font-bold block-shadow block-shadow-press transition-all duration-200 uppercase tracking-tight",
+                  "hover:bg-[#DC2626] active:scale-[0.98]",
+                  "focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-500",
+                  "-rotate-1",
+                )}
+              >
+                DONATE NOW VIA ACTBLUE
+              </a>
+
+              {/* FEC disclaimer — on red, no outline */}
+              <p className="mt-8 text-xs leading-relaxed text-white/90 max-w-md">
+                Contributions are not tax deductible. Federal law requires us to
+                collect and report the name, address, occupation, and employer of
+                contributors.
+              </p>
+            </div>
           </div>
-
-          {/* Swiss-style headline */}
-          <h2 className="font-heading text-4xl font-bold leading-[1.1] text-slate-900 sm:text-5xl lg:text-6xl max-w-xl mb-8">
-            People-powered. No exceptions.
-          </h2>
-
-          {/* Subheadline with red accent bar */}
-          <div className="border-l-[6px] border-primary-500 pl-6 max-w-lg mb-10">
-            <p className="text-lg text-slate-700 leading-relaxed">
-              No corporate PAC money. No developers. No dark money. Just working
-              people who believe Hudson County can do better.
-            </p>
-          </div>
-
-          {/* Donation amount grid - Swiss clean grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-md mb-6">
-            {donationAmounts.map((amount) => {
-              const isRecommended = amount === 50 || amount === 100;
-              return (
-                <a
-                  key={amount}
-                  href={getActBlueUrl(amount)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "flex items-center justify-center border-2 px-4 py-4 text-center font-heading text-lg font-semibold transition-all bg-white",
-                    isRecommended
-                      ? "border-primary-500 ring-2 ring-primary-200 hover:bg-primary-500 hover:text-white"
-                      : "border-primary-200 hover:border-primary-500 hover:bg-primary-50",
-                    "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
-                  )}
-                >
-                  ${amount}
-                </a>
-              );
-            })}
-          </div>
-
-          {/* Main donate CTA */}
-          <a
-            href={actBlueBaseUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "max-w-md flex items-center justify-center bg-primary-500 px-8 py-4 text-center font-heading text-lg font-bold text-white transition-all",
-              "hover:bg-primary-600",
-              "focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2",
-            )}
-          >
-            Donate Now via ActBlue
-          </a>
-
-          {/* FEC disclaimer */}
-          <p className="mt-8 text-xs leading-relaxed text-slate-500 max-w-md">
-            Contributions are not tax deductible. Federal law requires us to
-            collect and report the name, address, occupation, and employer of
-            contributors.
-          </p>
         </div>
 
-        {/* Right column - Image (5 columns) */}
-        <div className="order-1 lg:order-2 lg:col-span-5 relative min-h-[380px] lg:min-h-0 lg:aspect-[4/3] lg:mr-[calc(50%-50vw)]">
-          <div className="relative h-full">
-            <div
-              className="absolute inset-x-0 top-0 z-10 h-2 bg-primary-500"
-              aria-hidden="true"
-            />
-            <div className="absolute inset-0 bg-slate-100 rounded-sm lg:rounded-r-none overflow-hidden">
-              <OptimizedImage
-                src={IMAGE_PATHS.candidate.action}
-                alt={`${candidateName} at a community event`}
-                fill
-                priority={false}
-                placeholder="blur"
-                className="object-cover object-center"
-              />
-              <div
-                className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-cream via-cream/70 to-transparent"
-                aria-hidden="true"
-              />
+        {/* Right half — white background, group photo only (3x larger) */}
+        <div className="bg-white relative min-h-[640px] sm:min-h-[760px] lg:min-h-[960px] flex flex-col justify-center items-center py-12 lg:py-16 overflow-hidden">
+          <div className="relative z-10 w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
+            <div className="relative w-full max-w-[84rem] min-h-[640px] sm:min-h-[760px] lg:min-h-[960px] flex items-center justify-center">
+              <div className="relative w-full h-full organic-lg border-4 border-primary-500 overflow-hidden" style={{ transform: "rotate(1.5deg)" }}>
+                <ScrollReveal variant="photo" className="relative w-full h-full min-h-[640px] sm:min-h-[760px] lg:min-h-[960px] organic-lg overflow-hidden bg-slate-100">
+                  <OptimizedImage
+                    src={IMAGE_PATHS.candidate.action}
+                    alt={`${candidateName} at a community event with supporters`}
+                    fill
+                    priority={false}
+                    placeholder="blur"
+                    className="object-cover object-[center_30%]"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </ScrollReveal>
+              </div>
             </div>
           </div>
         </div>

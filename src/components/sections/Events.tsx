@@ -106,11 +106,11 @@ export function Events() {
       {/* Section header */}
       <div className="mb-12 text-center">
         <div className="mb-3">
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+          <span className="text-sm font-subhead font-bold uppercase tracking-wide text-accent-600">
             Community Events
           </span>
         </div>
-        <h2 className="font-display text-4xl leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+        <h2 className="font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl uppercase tracking-tight">
           Upcoming Events
         </h2>
         <p className="mt-4 text-lg text-slate-600 sm:text-xl">
@@ -142,11 +142,11 @@ export function Events() {
                   visible: { opacity: 1, y: 0 },
                 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative overflow-hidden rounded-xl bg-white p-6 shadow-soft border border-slate-200 transition-shadow hover:shadow-elevated"
+                className="relative overflow-hidden organic-card-3 bg-white p-6 shadow-soft border-2 border-slate-200 transition-all duration-200 hover:shadow-elevated hover:-translate-y-1 tilt-1"
               >
                 {/* Date badge */}
-                <div className="absolute right-4 top-4 flex flex-col items-center rounded-lg bg-accent-500 px-3 py-2 text-center text-white shadow-sm">
-                  <span className="text-xs font-semibold uppercase">
+                <div className="absolute right-4 top-4 flex flex-col items-center organic-sm bg-primary-500 px-3 py-2 text-center text-white shadow-sm rotate-[2deg]">
+                  <span className="text-xs font-subhead font-bold uppercase">
                     {getMonthAbbr(event.date)}
                   </span>
                   <span className="text-2xl font-bold">
@@ -156,7 +156,7 @@ export function Events() {
 
                 {/* Event content */}
                 <div className="pr-20">
-                  <h3 className="mb-3 font-heading text-xl font-semibold text-slate-900">
+                  <h3 className="mb-3 font-heading text-xl font-bold text-slate-900">
                     {event.title}
                   </h3>
 

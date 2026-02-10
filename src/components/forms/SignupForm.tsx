@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { signupSchema, type SignupFormData } from "@/lib/validations";
+import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { trackEvent } from "@/lib/analytics";
@@ -13,9 +14,17 @@ import Link from "next/link";
 
 export interface SignupFormProps {
   variant?: "hero" | "footer";
+  /** Button label (e.g. "COUNT ME IN" for hero) */
+  submitLabel?: string;
+  /** "short" = "We respect your privacy." + links only */
+  privacyVariant?: "short" | "full";
 }
 
-export function SignupForm({ variant = "hero" }: SignupFormProps) {
+export function SignupForm({
+  variant = "hero",
+  submitLabel,
+  privacyVariant = "full",
+}: SignupFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -118,72 +127,80 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
     console.warn("NEXT_PUBLIC_TURNSTILE_SITE_KEY is not set");
   }
 
-  return (
+  const isHero = variant === "hero";
+  const inputVariant = isHero ? "hero" : "default";
+
+  const formContent = (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn("space-y-4", variant === "footer" && "max-w-md")}
+      className={cn("space-y-4 min-w-0 w-full", variant === "footer" && "max-w-md")}
     >
       {/* Success message */}
       {isSuccess && (
-        <div className="rounded-lg bg-success/10 border border-success/20 p-4 text-sm text-success">
-          <p className="font-semibold">You&apos;re in! 🎉</p>
+        <div className="organic-sm bg-success/10 border-2 border-success/20 p-4 text-sm text-success">
+          <p className="font-subhead font-bold">You&apos;re in!</p>
           <p>Check your email for next steps.</p>
         </div>
       )}
 
       {/* Error message */}
       {error && (
-        <div className="rounded-lg bg-error/10 border border-error/20 p-4 text-sm text-error">
+        <div className="organic-sm bg-error/10 border-2 border-error/20 p-4 text-sm text-error">
           {error}
         </div>
       )}
 
-      {/* Hidden turnstile token field for validation */}
       <input type="hidden" {...register("turnstileToken")} />
 
-      {/* Form fields */}
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
         <Input
           type="text"
           label="First Name"
-          placeholder="First name"
+          placeholder="What should we call you?"
           error={errors.first_name?.message}
+          inputVariant={inputVariant}
           {...register("first_name")}
         />
         <Input
           type="text"
           label="Last Name"
-          placeholder="Last name"
+          placeholder="Your last name"
           error={errors.last_name?.message}
+          inputVariant={inputVariant}
           {...register("last_name")}
         />
         <Input
           type="email"
           label="Email"
-          placeholder="your@email.com"
+          placeholder="you@example.com"
           error={errors.email?.message}
+          inputVariant={inputVariant}
           {...register("email")}
         />
         <Input
           type="tel"
           label="Phone (optional)"
-          placeholder="(555) 123-4567"
+          placeholder="For text updates"
           error={errors.phone?.message}
+          inputVariant={inputVariant}
           {...register("phone")}
         />
         <div className="sm:col-span-2">
           <Input
             type="text"
+            inputMode="numeric"
+            autoComplete="postal-code"
+            maxLength={5}
             label="ZIP Code"
-            placeholder="07302"
+            placeholder="Your ZIP"
             error={errors.zip_code?.message}
+            inputVariant={inputVariant}
             {...register("zip_code")}
             className="sm:max-w-[200px]"
           />
         </div>
       </div>
 
-      {/* Turnstile */}
       {turnstileSiteKey && (
         <div className="flex justify-center">
           <Turnstile
@@ -201,41 +218,70 @@ export function SignupForm({ variant = "hero" }: SignupFormProps) {
         </div>
       )}
 
-      {/* Privacy reassurance */}
-      <p className="text-xs leading-relaxed text-slate-600 bg-slate-50 p-3 rounded border border-slate-200">
-        🔒 We respect your privacy. Unsubscribe anytime.
-      </p>
+      {privacyVariant !== "short" && (
+        <p className="font-body text-xs leading-relaxed text-slate-600 bg-slate-50 p-3 organic-sm border border-slate-200">
+          We respect your privacy. Unsubscribe anytime.
+        </p>
+      )}
 
-      {/* Submit button */}
-      <Button
-        type="submit"
-        variant="primary"
-        size="md"
-        isLoading={isSubmitting}
-        disabled={isSubmitting || !turnstileToken}
-        className="w-full"
-      >
-        {isSubmitting ? "Sending..." : "Get Campaign Updates"}
-      </Button>
+      {variant === "hero" ? (
+        <button
+          type="submit"
+          disabled={isSubmitting || !turnstileToken}
+          className="count-me-in-button"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="inline-block h-5 w-5 animate-spin mr-2 align-middle" aria-hidden />
+              Sending...
+            </>
+          ) : (
+            submitLabel ?? "COUNT ME IN"
+          )}
+        </button>
+      ) : (
+        <Button
+          type="submit"
+          variant="primary"
+          size="md"
+          isLoading={isSubmitting}
+          disabled={isSubmitting || !turnstileToken}
+          className="w-full font-subhead font-bold uppercase tracking-wide organic-md"
+        >
+          {isSubmitting ? "Sending..." : submitLabel ?? "Get Campaign Updates"}
+        </Button>
+      )}
 
-      {/* Legal text */}
-      <p className="text-xs leading-relaxed text-slate-500">
-        By signing up, you agree to receive campaign updates via email and text.
-        Message and data rates may apply. Text STOP to opt out.{" "}
-        <Link
-          href="/privacy"
-          className="underline hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm"
-        >
-          Privacy Policy
-        </Link>
-        {" · "}
-        <Link
-          href="/terms"
-          className="underline hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-sm"
-        >
-          Terms of Service
-        </Link>
-      </p>
+      {privacyVariant === "short" ? (
+        <p className="hero-form-privacy mt-3">
+          We respect your privacy.{" "}
+          <Link href="/privacy" className="underline">
+            Privacy Policy
+          </Link>
+          {" · "}
+          <Link href="/terms" className="underline">
+            Terms of Service
+          </Link>
+        </p>
+      ) : (
+        <p className="font-body text-xs leading-relaxed text-slate-500">
+          By signing up, you agree to receive campaign updates via email and text.
+          Message and data rates may apply. Text STOP to opt out.{" "}
+          <Link href="/privacy" className="underline hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 organic-sm">
+            Privacy Policy
+          </Link>
+          {" · "}
+          <Link href="/terms" className="underline hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 organic-sm">
+            Terms of Service
+          </Link>
+        </p>
+      )}
     </form>
   );
+
+  if (isHero) {
+    return <div className="hero-form-card w-full">{formContent}</div>;
+  }
+
+  return formContent;
 }

@@ -38,16 +38,17 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
     const shadowVariants = {
       none: "",
-      sm: "shadow-sm",
-      md: "shadow-md",
-      lg: "shadow-lg",
+      sm: "block-shadow-sm",
+      md: "block-shadow",
+      lg: "block-shadow-md",
     };
 
     const baseClasses = cn(
-      "rounded-lg border border-gray-200 bg-white",
+      "organic-card-1 border-2 border-black bg-white tilt-1",
       paddingVariants[padding],
       shadowVariants[shadow],
-      hover && "transition-shadow hover:shadow-lg",
+      hover &&
+        "transition-all duration-200 hover:translate-y-0.5 hover:shadow-[2px_2px_0_#000000] active:scale-[0.99]",
       className
     );
 

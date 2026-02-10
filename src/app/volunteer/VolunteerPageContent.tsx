@@ -135,7 +135,7 @@ export function VolunteerPageContent() {
             <div className="mx-auto w-16 h-16 bg-primary-500 flex items-center justify-center mb-6">
               <Check className="w-8 h-8 text-white" />
             </div>
-            <h1 className="font-heading text-4xl font-bold text-slate-900 mb-4">
+            <h1 className="font-display text-4xl font-bold text-slate-900 mb-4 uppercase tracking-tight">
               Welcome to the team!
             </h1>
             <p className="text-lg text-slate-600 mb-8">
@@ -158,7 +158,7 @@ export function VolunteerPageContent() {
   return (
     <main className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-slate-900 text-white">
+      <div className="bg-warmDark text-white">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <Link
             href="/"
@@ -169,10 +169,10 @@ export function VolunteerPageContent() {
           </Link>
           
           <div className="max-w-2xl">
-            <div className="uppercase text-xs tracking-[0.2em] text-primary-400 font-medium mb-4">
+            <div className="uppercase text-xs tracking-[0.2em] text-primary-400 font-subhead font-bold mb-4">
               Join the Movement
             </div>
-            <h1 className="font-heading text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl mb-6">
+            <h1 className="font-display text-4xl font-bold leading-[1.1] sm:text-5xl lg:text-6xl mb-6 uppercase tracking-tight">
               Volunteer with David
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed">
@@ -188,14 +188,18 @@ export function VolunteerPageContent() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* Error message */}
           {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 p-4 text-red-700">
+            <div className="relative bg-red-50 p-4 pl-6 text-red-700">
+              <div
+                className="absolute left-0 top-2 bottom-2 w-2 rounded-full bg-red-500"
+                aria-hidden="true"
+              />
               {error}
             </div>
           )}
 
           {/* Contact Information */}
           <div>
-            <h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-200">
+            <h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 organic-divider-b">
               Contact Information
             </h2>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -245,8 +249,8 @@ export function VolunteerPageContent() {
 
           {/* Address */}
           <div>
-            <h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-200">
-              Address
+<h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 organic-divider-b">
+            Address
             </h2>
             <div className="grid gap-4">
               <Input
@@ -292,8 +296,8 @@ export function VolunteerPageContent() {
 
           {/* Volunteer Interests */}
           <div>
-            <h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-200">
-              How would you like to help?
+<h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 organic-divider-b">
+            How would you like to help?
             </h2>
             <div className="grid gap-3 sm:grid-cols-2">
               {volunteerInterests.map((interest) => (
@@ -301,10 +305,10 @@ export function VolunteerPageContent() {
                   key={interest.id}
                   type="button"
                   onClick={() => toggleInterest(interest.id)}
-                  className={`flex items-center gap-3 p-4 border-2 text-left transition-colors ${
+                  className={`flex items-center gap-3 p-4 border-2 text-left transition-all duration-200 organic-sm ${
                     selectedInterests.includes(interest.id)
-                      ? "border-primary-500 bg-primary-50"
-                      : "border-slate-200 hover:border-slate-300"
+                      ? "border-primary-500 bg-primary-50 shadow-sm"
+                      : "border-slate-200 hover:border-primary-300 hover:shadow-sm"
                   }`}
                 >
                   <div
@@ -326,14 +330,14 @@ export function VolunteerPageContent() {
 
           {/* Availability */}
           <div>
-            <h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 border-b border-slate-200">
-              Availability (optional)
+<h2 className="font-heading text-xl font-bold text-slate-900 mb-6 pb-2 organic-divider-b">
+            Availability (optional)
             </h2>
             <textarea
               {...register("availability")}
               rows={3}
               placeholder="Let us know your general availability (weekends, evenings, etc.)"
-              className="w-full px-4 py-3 border border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none"
+              className="w-full px-4 py-3 border-2 border-primary-200 bg-primary-50/40 text-slate-900 placeholder:text-slate-400 placeholder:italic focus:border-primary-500 focus:ring-2 focus:ring-primary-400 focus:bg-white outline-none organic-input transition-all duration-200 hover:border-primary-400 hover:bg-white"
             />
           </div>
 

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Share2,
   Flag,
@@ -9,6 +11,7 @@ import {
   Download,
 } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 import { VolunteerForm } from "@/components/forms/VolunteerForm";
 import Link from "next/link";
@@ -44,31 +47,31 @@ export function GetInvolved() {
 
   return (
     <SectionWrapper id="volunteer" background="default">
-      {/* Section header */}
-      <div className="mb-12 text-center">
+      {/* Section header — scroll reveal (no form animation) */}
+      <ScrollReveal variant="header" className="mb-12 text-center">
         <div className="mb-3">
-          <span className="text-sm font-semibold uppercase tracking-wide text-accent-600">
+          <span className="text-sm font-subhead font-bold uppercase tracking-wide text-accent-600">
             Join Us
           </span>
         </div>
-        <h2 className="font-display text-4xl leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
+        <h2 className="font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl uppercase tracking-tight">
           Get Involved
         </h2>
         <p className="mt-4 text-lg text-slate-600 sm:text-xl">
           Every action makes a difference
         </p>
-      </div>
+      </ScrollReveal>
 
-      {/* Three tiers of engagement */}
+      {/* Three tiers of engagement — varied organic radii + tilts */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Tier 1 - Low commitment */}
-        <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-soft transition-shadow hover:shadow-elevated">
+        <div className="organic-card-1 border-2 border-slate-200 bg-white p-8 shadow-soft transition-all duration-200 hover:shadow-elevated hover:-translate-y-1 tilt-1">
           <div className="mb-6 flex items-center justify-center">
-            <div className="rounded-full bg-primary-50 p-4">
+            <div className="organic-sm bg-primary-50 p-4">
               <Share2 className="h-8 w-8 text-primary-600" />
             </div>
           </div>
-          <h3 className="mb-4 text-center font-heading text-xl font-semibold text-slate-900">
+          <h3 className="mb-4 text-center font-display text-xl font-bold text-slate-900 uppercase tracking-tight">
             Spread the Word
           </h3>
           <div className="space-y-4">
@@ -99,13 +102,13 @@ export function GetInvolved() {
         </div>
 
         {/* Tier 2 - Medium commitment */}
-        <div className="rounded-xl border border-primary-200 bg-primary-50/30 p-8 shadow-soft transition-shadow hover:shadow-elevated">
+        <div className="organic-card-2 border-2 border-primary-200 bg-primary-50/30 p-8 shadow-soft transition-all duration-200 hover:shadow-elevated hover:-translate-y-1 tilt-2">
           <div className="mb-6 flex items-center justify-center">
-            <div className="rounded-full bg-primary-100 p-4">
+            <div className="organic-sm bg-primary-100 p-4">
               <Flag className="h-8 w-8 text-primary-600" />
             </div>
           </div>
-          <h3 className="mb-4 text-center font-heading text-xl font-semibold text-slate-900">
+          <h3 className="mb-4 text-center font-display text-xl font-bold text-slate-900 uppercase tracking-tight">
             Show Your Support
           </h3>
           <div className="space-y-4">
@@ -116,7 +119,7 @@ export function GetInvolved() {
             </Link>
             <a
               href="#"
-              className="flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 transition-all hover:bg-slate-50 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
+              className="flex items-center justify-center gap-2 organic-sm border-2 border-slate-300 bg-white px-4 py-3 text-sm font-subhead font-bold text-slate-700 transition-all duration-200 hover:bg-slate-50 hover:border-primary-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
             >
               <Download className="h-4 w-4" />
               Download Graphics
@@ -125,19 +128,19 @@ export function GetInvolved() {
         </div>
 
         {/* Tier 3 - High commitment */}
-        <div className="rounded-xl border border-accent-200 bg-accent-50/30 p-8 shadow-soft transition-shadow hover:shadow-elevated">
+        <div className="organic-card-3 border-2 border-accent-200 bg-accent-50/30 p-8 shadow-soft transition-all duration-200 hover:shadow-elevated hover:-translate-y-1 tilt-3">
           <div className="mb-6 flex items-center justify-center">
-            <div className="rounded-full bg-accent-100 p-4">
+            <div className="organic-sm bg-accent-100 p-4">
               <Users className="h-8 w-8 text-accent-600" />
             </div>
           </div>
-          <h3 className="mb-4 text-center font-heading text-xl font-semibold text-slate-900">
+          <h3 className="mb-4 text-center font-display text-xl font-bold text-slate-900 uppercase tracking-tight">
             Join the Team
           </h3>
-          <p className="mb-6 text-center text-sm text-slate-600">
+          <p className="mb-6 text-center text-sm text-slate-600 font-body">
             Knock doors, make calls, help at events
           </p>
-          <div className="rounded-lg border border-slate-200 bg-white p-4">
+          <div className="organic-form border-2 border-black bg-white p-4 block-shadow">
             <VolunteerForm />
           </div>
         </div>

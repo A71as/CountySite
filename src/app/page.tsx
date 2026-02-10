@@ -5,6 +5,7 @@ import { Commissioner } from "@/components/sections/Commissioner";
 import { Donate } from "@/components/sections/Donate";
 import { Issues } from "@/components/sections/Issues";
 import { Endorsements } from "@/components/sections/Endorsements";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
 const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
@@ -36,19 +37,24 @@ export default function HomePage() {
     <>
       {/* Hero with contact form */}
       <Hero />
-      
+      <SectionDivider index={0} />
+
       {/* Bio section */}
       <About />
-      
+      <SectionDivider index={1} />
+
       {/* WTF is a County Commissioner + District Map */}
       <Commissioner />
-      
+      <SectionDivider index={2} />
+
       {/* Donation solicitation */}
       <Donate />
-      
+      <SectionDivider index={3} />
+
       {/* Big 4 Policies */}
       <Issues />
-      
+      <SectionDivider index={4} />
+
       {/* Endorsements */}
       <Endorsements />
     </>

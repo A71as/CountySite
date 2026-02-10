@@ -3,29 +3,592 @@
 @tailwind utilities;
 
 :root {
-  --background: #FEFDFB;
-  --foreground: #1E293B;
+  --background: #FFAEAE;
+  --foreground: #0F172A;
   --primary: #E92128;
   --accent: #525252;
-  --font-heading: system-ui, -apple-system, sans-serif;
-  --font-body: system-ui, -apple-system, sans-serif;
+  --light-pink: #FFAEAE;
+  /* Sticky header heights: announcement bar (set by JS), nav h-16 */
+  --nav-height: 64px;
+  /* Type system: --font-display (Barber Chop), --font-section (Bernoru), --font-body (Gelica), --font-accent (Homemade Apple).
+     Fonts loaded in layout.tsx via next/font (local + Google); Next injects @font-face with proper weight. Fallbacks: sans-serif (display/section), serif (body), cursive (accent). */
+  font-size: 16px;
+}
+
+/* ── Poster frame: fixed 6px black border — signature zine/poster look, always visible ── */
+.poster-frame,
+.viewport-frame {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 6px solid #000000;
+  border-radius: 3px;
+  pointer-events: none;
+  z-index: 9999;
+  box-sizing: border-box;
 }
 
 /* Dark mode disabled - campaign site uses light backgrounds */
 
+/* ── Paper/grain texture for handmade feel (applied to body) ── */
+.grain-texture {
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Full-page paper grain overlay — barely perceptible (0.03–0.05), printed-piece feel */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.04;
+}
+
+/* Section-level paper texture (~3%) for white/light backgrounds — zine feel */
+.section-paper-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='sp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23sp)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.03;
+}
+
+/* Stronger grain on pink (#FFAEAE) and red (#E92128) sections — risograph/screen-print feel */
+.grain-overlay-colored {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='gc'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23gc)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.05;
+}
+
+/* ── Barber Chop poster 3D: white fill + black drop shadow offset bottom-right ── */
+.heading-poster-3d {
+  color: #ffffff;
+  text-shadow: 4px 4px 0 #000000;
+}
+
+/* ── COUNT ME IN button: hero form CTA — bold campaign red, most assertive element ── */
+.hero-form-card .count-me-in-button,
+.count-me-in-button {
+  background-color: #E92128 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 12px;
+  font-family: var(--font-section), sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 14px 32px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 2px 8px rgba(233, 33, 40, 0.35);
+}
+.hero-form-card .count-me-in-button:hover:not(:disabled),
+.count-me-in-button:hover:not(:disabled) {
+  background-color: #C91B22 !important;
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(233, 33, 40, 0.45);
+}
+.hero-form-card .count-me-in-button:disabled,
+.count-me-in-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Hero form inputs — Gelica, 10–12px radius, 1.5px black border, focus warm pink tint */
+.hero-form-card .input-hero-wrap input {
+  font-family: var(--font-body), serif;
+  border-radius: 11px;
+  border: 1.5px solid #000000;
+  background: #fff;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.hero-form-card .input-hero-wrap input:focus {
+  outline: none;
+  background: rgba(255, 174, 174, 0.15);
+  border-color: #000000;
+}
+.hero-form-card .input-hero-wrap.input-hero-wrap {
+  background: none;
+  padding-bottom: 0;
+  background-image: none;
+}
+
+/* Hero form privacy text — Gelica, 11–12px, #666, links underlined */
+.hero-form-privacy {
+  font-family: var(--font-body), serif;
+  font-size: clamp(11px, 2vw, 12px);
+  line-height: 1.5;
+  color: #666666;
+}
+.hero-form-privacy a {
+  text-decoration: underline;
+  color: inherit;
+}
+.hero-form-privacy a:hover {
+  color: #333;
+}
+
+/* ── Hero form card: physical card/sticker, organic radius, white, subtle shadow ── */
+.hero-form-card {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 17px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem 2rem;
+}
+@media (min-width: 640px) {
+  .hero-form-card {
+    padding: 1.75rem 2.25rem;
+  }
+}
+
+/* ── Legacy form card (other uses) ── */
+.form-card {
+  background: #FFFFFF !important;
+  border-radius: 16px 22px 18px 24px / 20px 16px 24px 18px;
+  box-shadow: 4px 4px 0px 0px #000000 !important;
+  padding: 32px;
+}
+
+/* ── Nav: logo centered between left and right clusters ── */
+.nav-left {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+}
+.nav-center {
+  flex: 0 0 auto;
+}
+.nav-right {
+  display: flex;
+  gap: 1.5rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+/* Nav bar: white or very light pink, clean and minimal */
+.nav-bar-bg {
+  background-color: rgba(255, 254, 254, 0.98);
+}
+@supports (background: color-mix(in srgb, white, #FFAEAE 20%)) {
+  .nav-bar-bg {
+    background-color: color-mix(in srgb, white 80%, #FFAEAE 20%);
+  }
+}
+
+/* On scroll: sticky with white and thin bottom border */
+.nav-bar-scrolled {
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Left nav links — Bernoru Semicondensed; Volunteer bold, others medium */
+.nav-link {
+  font-family: var(--font-section), sans-serif;
+  font-size: clamp(14px, 1.5vw, 15px);
+  font-weight: 500;
+}
+
+/* Nav logo — DAVID! speech bubble, 48–56px height, links to top */
+.nav-logo-image {
+  height: clamp(48px, 5vw, 56px);
+  width: auto;
+}
+
+/* Donate: pill button — #E92128, white text, full pill, Bernoru bold */
+.nav-donate-pill {
+  font-family: var(--font-section), sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #FFFFFF;
+  background-color: #E92128;
+  border-radius: 999px;
+  padding: 0.5rem 1.25rem;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.nav-donate-pill:hover {
+  background-color: #C91B22;
+}
+.nav-donate-pill:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #E92128;
+}
+
+/* ── Block shadow (logo treatment): solid black, offset bottom-right, no blur ── */
+.block-shadow {
+  box-shadow: 4px 4px 0 #000000;
+}
+.block-shadow-sm {
+  box-shadow: 3px 3px 0 #000000;
+}
+.block-shadow-md {
+  box-shadow: 5px 5px 0 #000000;
+}
+/* Hover: button "presses down" — shadow shrinks */
+.block-shadow-press:hover {
+  box-shadow: 2px 2px 0 #000000;
+}
+.block-shadow-press:active {
+  box-shadow: 1px 1px 0 #000000;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ORGANIC / HANDMADE DESIGN SYSTEM
+   Grassroots campaign aesthetic — imperfection is intentional
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Organic asymmetric border-radius (cards, buttons, inputs) ── */
+.organic-sm {
+  border-radius: 8px 12px 10px 14px / 10px 8px 14px 12px;
+}
+/* Slightly rounder for form inputs — more handmade feel */
+.organic-input {
+  border-radius: 12px 16px 14px 18px / 14px 12px 18px 14px;
+}
+.organic-md {
+  border-radius: 16px 22px 18px 24px / 20px 16px 24px 18px;
+}
+.organic-lg {
+  border-radius: 24px 32px 28px 36px / 30px 24px 36px 28px;
+}
+
+/* Distinct card/container radii — no two identical (handmade feel) */
+.organic-card-1 {
+  border-radius: 14px 20px 16px 22px / 18px 14px 20px 16px;
+}
+.organic-card-2 {
+  border-radius: 10px 18px 12px 20px / 16px 12px 18px 14px;
+}
+.organic-card-3 {
+  border-radius: 20px 14px 22px 16px / 16px 20px 14px 18px;
+}
+.organic-form {
+  border-radius: 18px 24px 20px 26px / 22px 18px 24px 20px;
+}
+
+/* Section accent bar (e.g. dark section top) — organic bottom corners only */
+.organic-bar-top {
+  border-bottom-left-radius: 18px 22px;
+  border-bottom-right-radius: 22px 18px;
+}
+
+/* Hero form container — more irregular corners, paper texture, subtle tilt */
+.organic-form-hero {
+  border-radius: 14px 8px 12px 6px / 10px 6px 14px 8px;
+  transform: rotate(-0.5deg);
+  background-color: #FAFAF8;
+  position: relative;
+  overflow: hidden;
+}
+.organic-form-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='fh'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23fh)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.03;
+  z-index: 0;
+}
+
+/* ── Organic photo treatment — wavy red border (no displacement filter) ── */
+.organic-photo {
+  position: relative;
+  border: 4px solid #E92128;
+  border-radius: 18px 26px 22px 30px / 24px 18px 28px 22px;
+  overflow: hidden;
+}
+
+/* Photo frames: thick red border, organic rounded corners (no sharp edges per brand) */
+.organic-photo-frame {
+  position: relative;
+  border: 4px solid #E92128;
+  border-radius: 24px 32px 28px 36px / 28px 24px 32px 28px;
+  overflow: hidden;
+  box-shadow: 5px 5px 0 #000000;
+}
+
+/* Standard photo/map frame — organic red border (use for ALL photos site-wide) */
+.photo-frame-standard {
+  border-radius: 24px 32px 28px 36px / 30px 24px 36px 28px;
+  border: 3px solid #E92128;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Soft shadow for photo frames (8–12px blur, brand checklist) */
+.frame-shadow {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Slight tilts for playful imperfection (0.5–1.5deg, randomized feel) ── */
+.slight-tilt {
+  transform: rotate(-1.5deg);
+}
+.slight-tilt-right {
+  transform: rotate(1.5deg);
+}
+.slight-tilt-sm {
+  transform: rotate(-0.75deg);
+}
+.slight-tilt-sm-right {
+  transform: rotate(0.75deg);
+}
+.tilt-1 { transform: rotate(0.5deg); }
+.tilt-2 { transform: rotate(-0.7deg); }
+.tilt-3 { transform: rotate(1deg); }
+.tilt-4 { transform: rotate(-1.2deg); }
+.tilt-5 { transform: rotate(1.5deg); }
+.tilt-6 { transform: rotate(-1deg); }
+
+/* ── Speech bubble family: same stroke (2.5px), same organic shape site-wide ── */
+:root {
+  --speech-bubble-stroke: 2.5px;
+  --speech-bubble-radius: 20px 24px 22px 18px / 18px 22px 24px 20px;
+}
+
+/* Speech bubble accent — bold campaign callout */
+.speech-bubble-accent {
+  position: relative;
+  border: var(--speech-bubble-stroke) solid #E92128;
+  border-radius: var(--speech-bubble-radius);
+  background: white;
+}
+.speech-bubble-accent::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 14px solid #E92128;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+}
+.speech-bubble-accent::before {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 12px solid white;
+  z-index: 1;
+}
+
+/* ── Organic dividers (replace straight border-t/border-b between sections) ── */
+.organic-divider-t {
+  position: relative;
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+.organic-divider-t::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q25 0 50 5 T100 5 T150 5 T200 5' stroke='%23cbd5e1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 120px 10px;
+  pointer-events: none;
+}
+.organic-divider-t.organic-divider-light::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q25 0 50 5 T100 5 T150 5 T200 5' stroke='rgba(255,255,255,0.2)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.organic-divider-b {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+.organic-divider-b::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q30 10 60 5 T120 5 T180 5' stroke='%23cbd5e1' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 120px 10px;
+  pointer-events: none;
+}
+.organic-divider-b.organic-divider-light::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q30 10 60 5 T120 5 T180 5' stroke='rgba(255,255,255,0.2)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Navbar: wavy divider when scrolled (no straight line) */
+.nav-organic-divider {
+  position: relative;
+}
+.nav-organic-divider::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q25 0 50 5 T100 5 T150 5 T200 5' stroke='%23e2e8f0' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 120px 10px;
+  pointer-events: none;
+}
+
+/* ── Hand-drawn wavy/squiggly underline — marker-like, not straight ── */
+.hand-underline {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 14'%3E%3Cpath d='M0 8 Q12 2 24 7 Q38 12 50 6 Q62 10 72 5 Q84 11 96 6 Q108 10 120 7' stroke='%23E92128' stroke-width='2.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 100px 14px;
+  padding-bottom: 12px;
+}
+
+/* Policy section — hand-drawn squiggly connector (branch from Audit to three cards) */
+.squiggly-connector {
+  stroke: rgb(233 33 40 / 0.5);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 6 5;
+}
+
+/* Accent/callout — Homemade Apple, handwritten; always use rotate(-2deg) per brand guide */
+.tagline-accent,
+.accent-handwritten,
+.accent-callout {
+  font-family: var(--font-accent), cursive;
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+
+/* When font-display is applied with accent-callout, use Barber Chop (overrides .accent-callout font) */
+.accent-callout.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+/* Input field — hand-drawn wavy bottom (replaces straight red line) */
+.input-wavy-bottom {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8'%3E%3Cpath d='M0 4 Q 20 0, 40 4 T 80 3.5 T 120 4' stroke='%23E92128' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-position: bottom left;
+  background-repeat: repeat-x;
+  background-size: 120px 8px;
+  padding-bottom: 8px;
+}
+
+/* ── Speckle texture for depth on flat sections ── */
+.texture-speckle {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Hand-drawn/sketchy icon treatment (policy cards, etc.) ── */
+.icon-sketch {
+  filter: drop-shadow(0.6px 0.4px 0 rgba(255,255,255,0.35)) drop-shadow(-0.3px 0.4px 0 rgba(0,0,0,0.12));
+}
+
+/* ── Highlight marker effect for key numbers ── */
+.marker-highlight {
+  position: relative;
+  display: inline;
+  padding: 0.05em 0.15em;
+}
+.marker-highlight::before {
+  content: "";
+  position: absolute;
+  inset: -2px -4px;
+  background: rgba(233, 33, 40, 0.12);
+  border-radius: 4px 8px 6px 10px / 6px 4px 8px 6px;
+  z-index: -1;
+  transform: rotate(-0.5deg);
+}
+
+/* Skip to main content — visible on focus for keyboard users */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link:focus {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.25rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: #E92128;
+  color: white;
+  font-weight: 700;
+  border-radius: 12px 16px 14px 18px / 14px 12px 18px 14px;
+  outline: 2px solid white;
+  outline-offset: 2px;
+  text-decoration: none;
+}
+
+/* WCAG AA: red text on light pink (#FFAEAE) — use darker red for contrast */
+.text-primary-on-light-pink {
+  color: #991B1B;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    /* Anchor links scroll so target clears the sticky nav + announcement bar */
+    scroll-padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 8px);
   }
 
   body {
     color: var(--foreground);
     background: var(--background);
-    font-family: var(--font-body);
-    /* Retro-modern text rendering */
+    font-family: var(--font-body), serif;
+    font-size: 1rem; /* 16px base; use text-lg (1.125rem) for 18px body copy where desired */
+    line-height: 1.6;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Poster-frame border (fallback): inset 6px black, 2–3px radius — see .viewport-frame for fixed overlay */
+    box-shadow: inset 0 0 0 6px #000000;
+    border-radius: 3px;
   }
 
   /* Selection highlight */
@@ -37,6 +600,19 @@
   ::-moz-selection {
     background-color: #FECACA;
     color: #0F172A;
+  }
+
+  /* In-text links in body copy: red, wavy underline (hand-drawn feel) */
+  .prose-campaign a,
+  .content-link {
+    color: #E92128;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-underline-offset: 0.2em;
+  }
+  .prose-campaign a:hover,
+  .content-link:hover {
+    color: #B91C1C;
   }
 
   /* Focus-visible outline styles */
@@ -52,32 +628,34 @@
 }
 
 @layer components {
-  /* Custom prose styles for campaign content */
+  /* Custom prose styles for campaign content — brand hierarchy */
   .prose-campaign {
-    @apply prose prose-lg max-w-none;
+    @apply prose prose-lg max-w-none font-body;
   }
 
-  .prose-campaign h1,
+  /* H1: Barber Chop only (hero/display); red or black for hierarchy */
+  .prose-campaign h1 {
+    @apply font-display font-bold uppercase tracking-tight text-4xl sm:text-5xl text-primary-500;
+  }
+
+  /* H2/H3/H4: Bernoru Semicondensed, section headers */
   .prose-campaign h2,
   .prose-campaign h3,
   .prose-campaign h4 {
-    @apply text-primary-600 font-display font-bold tracking-tight;
-  }
-
-  .prose-campaign h1 {
-    @apply text-4xl sm:text-5xl;
+    @apply font-heading font-bold tracking-tight text-slate-900;
   }
 
   .prose-campaign h2 {
-    @apply text-3xl sm:text-4xl;
+    @apply text-3xl sm:text-4xl uppercase;
   }
 
   .prose-campaign h3 {
-    @apply text-2xl sm:text-3xl;
+    @apply text-2xl sm:text-3xl uppercase;
   }
 
   .prose-campaign a {
-    @apply text-primary-600 underline hover:text-primary-700;
+    /* Red, wavy underline inherited from @layer base */
+    text-underline-offset: 0.2em;
   }
 
   .prose-campaign ul,
@@ -94,13 +672,21 @@
   }
 
   .prose-campaign li {
-    @apply leading-relaxed;
+    @apply leading-relaxed font-body;
   }
 
   .prose-campaign p {
-    @apply leading-relaxed;
+    @apply leading-relaxed font-body text-slate-700 text-base sm:text-lg;
   }
+}
 
+/* Election countdown banner — subtle pulse (0.9 → 1 opacity, 2s loop) */
+@keyframes countdown-pulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+.countdown-pulse {
+  animation: countdown-pulse 2s ease-in-out infinite;
 }
 
 @layer utilities {
@@ -122,6 +708,37 @@
   .animation-delay-6000 {
     animation-delay: 6s;
   }
+
+  /* Section divider speech bubble — gentle bounce on hover */
+  .divider-bubble-animate {
+    transition: transform 0.2s ease-out;
+  }
+  .group:hover .divider-bubble-animate {
+    animation: divider-bubble-bounce 0.5s ease-in-out;
+  }
+}
+
+@keyframes divider-bubble-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  30% {
+    transform: translateY(-4px) scale(1.08) rotate(-2deg);
+  }
+  60% {
+    transform: translateY(1px) scale(1.02) rotate(2deg);
+  }
+}
+
+/* Nav logo Easter egg — subtle speech bubble "pop" on click */
+@keyframes logo-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); }
+  70% { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+.logo-pop-trigger {
+  animation: logo-pop 0.35s ease-out;
 }
 
 /* ── Brand crosshatch diamond texture (from speech-bubble interiors in the brand guide) ── */
@@ -132,38 +749,503 @@
   background-size: 20px 20px;
 }
 
-/* Variant for light backgrounds — darker crosshatch lines */
+/* Variant for light backgrounds — 15% opacity crosshatch (brand quilted feel) */
 .brand-crosshatch-dark {
   background-image:
-    linear-gradient(45deg, rgba(233,33,40,0.04) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.04) 75%),
-    linear-gradient(-45deg, rgba(233,33,40,0.04) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.04) 75%);
+    linear-gradient(45deg, rgba(233,33,40,0.08) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.08) 75%),
+    linear-gradient(-45deg, rgba(233,33,40,0.08) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.08) 75%);
   background-size: 20px 20px;
 }
 
-/* ── Poster-inspired hero styles ── */
+/* Light pink crosshatch — 15% opacity, full-bleed consistent density (brand checklist) */
+.brand-crosshatch-pink {
+  background-image:
+    linear-gradient(45deg, rgba(255,174,174,0.15) 25%, transparent 25%, transparent 75%, rgba(255,174,174,0.15) 75%),
+    linear-gradient(-45deg, rgba(255,174,174,0.15) 25%, transparent 25%, transparent 75%, rgba(255,174,174,0.15) 75%);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
 
-/* Poster gradient background to match reference palette */
+/* ── Hero background — campaign poster match: warm, saturated, confident ── */
+
+/* Poster gradient — definitive pink top, warm mid-section, full red bottom */
 .hero-poster-bg {
   background: linear-gradient(
     180deg,
-    #f6c6ca 0%,
-    #f05f66 45%,
-    #e92128 100%
+    #FFAEAE 0%,
+    #FFAEAE 30%,
+    #F48689 55%,
+    #EE5A5D 75%,
+    #E92128 100%
   );
 }
 
-/* Sunburst rays — radiating from behind the candidate (right side) */
+/* Sunburst rays — poster match: emanates from behind David's photo (upper-right) */
 .hero-sunburst {
   background: repeating-conic-gradient(
-    from 0deg at 65% 50%,
-    rgba(255, 210, 214, 0.35) 0deg 4.5deg,
-    transparent 4.5deg 9deg
+    from 0deg at 65% 76%,
+    rgba(255, 210, 212, 0.45) 0deg 6deg,
+    rgba(255, 185, 187, 0.2) 6deg 12deg
   );
-  opacity: 0.55;
-  mix-blend-mode: screen;
+  opacity: 0.65;
+}
+@media (max-width: 767px) {
+  .hero-sunburst {
+    opacity: 0.5;
+  }
 }
 
-/* Speech bubble tail — points down toward candidate */
+/* Speech bubble — election date callout; same organic shape as family (stroke from component) */
+.speech-bubble {
+  border-radius: var(--speech-bubble-radius);
+}
+/* Hero election bubble — hand-drawn character to match DAVID! logo mark */
+.speech-bubble-election {
+  border-radius: 18px 26px 20px 22px / 22px 16px 24px 18px;
+}
+/* Gentle "pop" entrance — spoken into existence (scale 0.9 → 1.02 → 1, 300ms), slight tilt */
+@keyframes election-bubble-pop {
+  0% { transform: scale(0.9) rotate(2deg); }
+  60% { transform: scale(1.02) rotate(2deg); }
+  100% { transform: scale(1) rotate(2deg); }
+}
+.election-bubble-pop {
+  animation: election-bubble-pop 0.3s ease-out forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .election-bubble-pop {
+    animation: none;
+  }
+}
+
+/* Hero full-height section — minimal dead space; content starts immediately below nav */
+.hero-splash-bg {
+  background-color: #FFF0F0; /* near-white pink: breathing room + brand warmth */
+  min-height: 100vh;
+  /* 24px clearance below nav so district/headline/form stay above fold (1366x768) */
+  padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 24px);
+}
+
+/* Radial burst REMOVED from hero; can be reintroduced in policy/donation sections if desired */
+
+/* Hero paper grain overlay — handmade/printed-piece feel (0.03–0.05) */
+.hero-grain-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.04;
+}
+
+/* Hero layout: left column = photo + brush stroke (~45–50%), right = content (Valdez-aligned) */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 1023px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}
+
+/* Left column: no background — gradient layers only; one continuous environment */
+.hero-left-column {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0.5rem 1.5rem 2rem;
+  overflow: hidden;
+  background: none;
+}
+@media (min-width: 1024px) {
+  .hero-left-column {
+    padding-top: 0.25rem;
+    overflow: visible;
+    margin-right: -30px;
+  }
+}
+@media (max-width: 1023px) {
+  .hero-left-column {
+    min-height: auto;
+    padding: 1rem 1rem 1.5rem;
+    margin-right: 0;
+  }
+}
+
+/* Photo area wrapper — no background; bottom mask fades to next section over bottom 20% */
+.hero-photo-area {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background: none;
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+@media (max-width: 1023px) {
+  .hero-photo-area {
+    min-height: auto;
+  }
+}
+
+/* Background layers: soft radials + texture only (no rays/sunburst) */
+.hero-photo-bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+}
+/* BASE: radial centered slightly above head — fills entire area, no visible rectangle */
+.hero-photo-bg-base {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 150% 140% at 50% 38%,
+    #F4828A 0%,
+    #FFAEAE 45%,
+    #FFAEAE 100%
+  );
+}
+/* GLOW: large radial centered on chest — fades fully to transparent, no edge */
+.hero-photo-bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 180% 160% at 50% 48%,
+    rgba(233, 33, 40, 0.1) 0%,
+    rgba(233, 33, 40, 0.04) 35%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+/* TEXTURE: paper grain, multiply, 0.04–0.06 opacity */
+.hero-photo-bg-texture {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='hp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23hp)' opacity='0.5'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+/* Right edge: feathered fade over 60–80px so pink breathes into content area */
+.hero-photo-area-right-fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 70px;
+  background: linear-gradient(to right, transparent 0%, #FFF0F0 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+@media (max-width: 1023px) {
+  .hero-photo-area-right-fade {
+    display: none;
+  }
+}
+
+/* David photo wrapper — no background; only the image defines shape */
+.hero-cutout-wrapper {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 1rem;
+  transform: translateY(var(--parallax-y, 0));
+  will-change: transform;
+  background: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cutout-wrapper {
+    transform: none;
+  }
+}
+.hero-cutout-wrapper .hero-cutout-image {
+  height: auto;
+  max-height: 85vh;
+  min-height: 320px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  will-change: transform;
+  filter: saturate(1.05) contrast(1.03) brightness(1.02);
+}
+@media (max-width: 1023px) {
+  .hero-cutout-wrapper {
+    min-height: auto;
+    padding: 0 0.5rem;
+  }
+  .hero-cutout-wrapper .hero-cutout-image {
+    max-height: 65vh;
+    min-height: 280px;
+    max-width: 85vw;
+  }
+  .hero-photo-duotone {
+    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  }
+}
+
+/* Warm red duotone overlay — campaign poster monochromatic feel */
+.hero-photo-duotone {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  /* Bottom edge: fade into section background so legs don’t hard-clip — subject dissolves into paper (poster feel) */
+  -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+/* Duotone overlay — graduated: lighter on face/center, stronger at edges and bottom (natural, not flat) */
+.hero-photo-duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      ellipse 70% 65% at 50% 35%,
+      rgba(233, 33, 40, 0.04) 0%,
+      rgba(233, 33, 40, 0.08) 50%,
+      rgba(233, 33, 40, 0.14) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(233, 33, 40, 0.06) 0%,
+      rgba(233, 33, 40, 0.1) 40%,
+      rgba(233, 33, 40, 0.18) 100%
+    );
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Soft ellipse shadow under David to ground the photo */
+.hero-cutout-shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  width: 40%;
+  min-width: 100px;
+  max-width: 220px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  filter: blur(14px);
+  transform: translateX(-50%);
+  z-index: -1;
+}
+@media (max-width: 1023px) {
+  .hero-cutout-shadow {
+    bottom: 2%;
+  }
+}
+
+/* Election date bubble — over David's photo (upper-left), sticker-style; avoids district identifier */
+.hero-election-bubble-wrapper {
+  position: absolute;
+  top: 12%;
+  left: 14%;
+  z-index: 5;
+  pointer-events: none;
+}
+@media (max-width: 1023px) {
+  .hero-election-bubble-wrapper {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Speech bubble variant: sticker feel — slight rotation, drop shadow, tail points down toward David */
+.speech-bubble-tail-at-david.speech-bubble-election-callout {
+  transform: rotate(2deg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+.speech-bubble-tail-at-david.speech-bubble-election-callout::after {
+  left: 50%;
+  right: auto;
+  bottom: -10px;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #000000;
+}
+.speech-bubble-tail-at-david.speech-bubble-election-callout::before {
+  left: 50%;
+  right: auto;
+  bottom: -7px;
+  transform: translateX(-50%);
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 9px solid white;
+}
+@media (max-width: 1023px) {
+  .speech-bubble-tail-at-david.speech-bubble-election-callout {
+    transform: rotate(2deg);
+  }
+  .speech-bubble-tail-at-david.speech-bubble-election-callout::after {
+    transform: translateX(-50%) rotate(2deg);
+  }
+  .speech-bubble-tail-at-david.speech-bubble-election-callout::before {
+    transform: translateX(-50%) rotate(2deg);
+  }
+}
+
+/* Hero right column — minimal top padding so district/headline/form start right below nav */
+.hero-right-column {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.5rem 1.5rem 2rem;
+}
+@media (min-width: 1024px) {
+  .hero-right-column {
+    padding: 0.25rem 2.5rem 2rem 1.75rem;
+    max-width: 520px;
+    margin-left: 0;
+  }
+}
+
+/* Hero text hierarchy — above-the-fold: district, headline, “Join the movement”, form + CTA visible */
+.hero-district-label {
+  font-family: var(--font-section), sans-serif;
+  font-weight: 500;
+  font-size: clamp(12px, 2vw, 13px);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #E92128;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.hero-headline {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #000000;
+  margin-bottom: 0.375rem;
+}
+
+.hero-join-annotation {
+  font-family: var(--font-accent), cursive;
+  font-size: clamp(20px, 2.2vw, 24px);
+  color: #E92128;
+  transform: rotate(-2deg);
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  margin-top: 0.125rem;
+}
+
+/* Tight spacing between annotation and hero form */
+.hero-right-column .hero-form-animate form {
+  margin-top: 0;
+}
+
+/* Hero logo entrance — scale-up with bounce (fast, subtle) */
+@keyframes hero-logo-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateX(-12px);
+  }
+  70% {
+    transform: scale(1.02) translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+.hero-logo-animate {
+  animation: hero-logo-in 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+
+/* Hero form card — fade and rise with delay */
+@keyframes hero-form-in {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-form-animate {
+  animation: hero-form-in 0.5s ease-out 0.35s forwards;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-animate,
+  .hero-form-animate {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* Hero left-column logo — white/inverted variant (brand guide red-bg); no container */
+.hero-logo-bubble {
+  position: relative;
+  background: #ffffff;
+  border: 2.5px solid #000000;
+  border-radius: var(--speech-bubble-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+/* Tail: black outline (::after) + white fill (::before) */
+.hero-logo-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 12px solid #000000;
+}
+.hero-logo-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 10px solid #ffffff;
+  z-index: 1;
+}
+
 .speech-bubble::after {
   content: "";
   position: absolute;
@@ -171,10 +1253,45 @@
   left: 24px;
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 12px solid transparent;
+  border-left: 9px solid transparent;
+  border-right: 13px solid transparent;
   border-top: 14px solid white;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+  transform: rotate(2deg);
+}
+
+/* Hero election date callout — black border, white bg, black tail (handmade feel) */
+.speech-bubble-election-callout {
+  border: 2.5px solid #000000;
+  border-radius: var(--speech-bubble-radius);
+  background: white;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.speech-bubble-election-callout::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #000000;
+}
+.speech-bubble-election-callout::before {
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 9px solid white;
+  z-index: 1;
 }
 
 /* Halftone dot overlay — retro newspaper / pop-art print texture */

@@ -67,7 +67,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Support the campaign with a donation"
-            className="relative w-full max-w-lg rounded-sm bg-white p-6 shadow-elevated sm:p-8"
+            className="relative w-full max-w-lg organic-form bg-white p-6 sm:p-8 border-2 border-black tilt-4 block-shadow"
             onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -85,13 +85,13 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             </button>
 
             <div className="space-y-5">
-              <div className="uppercase text-xs tracking-[0.2em] text-primary-500 font-semibold">
+              <div className="uppercase text-xs tracking-[0.2em] text-primary-500 font-subhead font-bold">
                 Quick Donate
               </div>
-              <h2 className="font-heading text-2xl font-bold leading-tight text-slate-900 sm:text-3xl">
+              <h2 className="font-display text-2xl font-bold uppercase leading-tight text-slate-900 sm:text-3xl tracking-tight">
                 They have the money. We have each other.
               </h2>
-              <p className="text-sm text-slate-600">
+              <p className="font-body text-sm text-slate-600">
                 Every dollar helps us knock more doors, talk to more neighbors,
                 and hold Hudson County government accountable. Chip in now.
               </p>
@@ -105,7 +105,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                     external
                     variant="secondary"
                     size="sm"
-                    className="w-full font-heading text-base"
+                    className="w-full font-display text-base"
                   >
                     ${amount}
                   </Button>

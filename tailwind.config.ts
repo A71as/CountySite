@@ -54,15 +54,30 @@ const config: Config = {
         },
         navy: "#1E293B",
         cream: "#FEFDFB",
-        blush: "#FEFDFB",
+        blush: "#FFF5F5",
+        lightPink: "#FFAEAE", // Brand guide — dominant background accent
+        warmDark: "#2D1518",
+        footerWarm: "#3D1A1E", // Slightly lighter warm dark pink for footer
         success: "#10B981",
         warning: "#F59E0B",
         error: "#EF4444",
       },
       fontFamily: {
-        display: ["var(--font-display)", "system-ui", "sans-serif"], // Bebas Neue for large headings
-        heading: ["var(--font-heading)", "system-ui", "sans-serif"], // Space Grotesk for section headings
-        body: ["var(--font-body)", "system-ui", "sans-serif"], // Inter for body text
+        // H1/Hero only — Barber Chop, bold, uppercase, red or black
+        display: ["var(--font-display)", "sans-serif"],
+        // H2/Section headers & subheadings — Bernoru Semicondensed, bold
+        heading: ["var(--font-section)", "sans-serif"],
+        subhead: ["var(--font-section)", "sans-serif"],
+        // Body — Gelica, regular serif, 16–18px
+        body: ["var(--font-body)", "serif"],
+        subtitle: ["var(--font-section)", "sans-serif"],
+        // Accent/callout — Homemade Apple, handwritten; use with rotate(-2deg)
+        accent: ["var(--font-accent)", "cursive"],
+      },
+      borderRadius: {
+        "organic-sm": "8px 12px 10px 14px / 10px 8px 14px 12px",
+        "organic-md": "16px 22px 18px 24px / 20px 16px 24px 18px",
+        "organic-lg": "24px 32px 28px 36px / 30px 24px 36px 28px",
       },
       keyframes: {
         "fade-in": {
@@ -107,6 +122,10 @@ const config: Config = {
           "0%, 100%": { backgroundPosition: "0% 50%" },
           "50%": { backgroundPosition: "100% 50%" },
         },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-1deg)" },
+          "50%": { transform: "rotate(1deg)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.5s ease-in-out",
@@ -117,6 +136,7 @@ const config: Config = {
         "blob": "blob 7s ease-in-out infinite",
         "blob-reverse": "blob-reverse 8s ease-in-out infinite",
         "gradient-shift": "gradient-shift 8s ease infinite",
+        "wiggle": "wiggle 0.3s ease-in-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

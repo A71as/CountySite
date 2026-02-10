@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "accent";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   isLoading?: boolean;
   href?: string;
   external?: boolean;
@@ -27,21 +27,22 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center rounded-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+      "inline-flex items-center justify-center font-display font-bold uppercase tracking-tight transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 block-shadow-sm block-shadow-press";
 
     const variants = {
       primary:
-        "bg-primary-500 text-white shadow-sm hover:bg-primary-600 hover:shadow-md focus-visible:ring-primary-500 active:bg-primary-700",
+        "organic-md bg-[#E92128] text-white hover:bg-[#DC2626] focus-visible:ring-[#E92128] active:scale-[0.98] active:translate-y-0.5",
       secondary:
-        "border-2 border-slate-300 text-slate-700 bg-white hover:bg-accent-50 hover:border-primary-300 focus-visible:ring-primary-500 active:bg-accent-100",
+        "organic-md border-2 border-black bg-white text-black hover:bg-slate-50 focus-visible:ring-accent-500 active:scale-[0.98] active:translate-y-0.5",
       accent:
-        "bg-accent-400 text-slate-900 shadow-sm hover:bg-accent-500 hover:shadow-md focus-visible:ring-accent-500 active:bg-accent-600",
+        "organic-md bg-accent-600 text-white hover:bg-accent-700 focus-visible:ring-accent-500 active:scale-[0.98] active:translate-y-0.5",
     };
 
     const sizes = {
-      sm: "h-8 px-3 text-sm",
-      md: "h-10 px-4 text-base",
-      lg: "h-12 px-6 text-lg",
+      sm: "min-h-[44px] h-auto py-2 px-3 text-sm",
+      md: "min-h-[44px] h-auto py-2.5 px-5 text-base",
+      lg: "min-h-[48px] h-auto py-3 px-6 text-lg",
+      xl: "min-h-[52px] h-auto py-3.5 px-8 text-xl",
     };
 
     const buttonClasses = cn(

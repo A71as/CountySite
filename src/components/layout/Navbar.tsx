@@ -3,34 +3,23 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { LOGO_ASSETS } from "@/lib/constants/images";
 import { cn } from "@/lib/utils";
 
-// Navigation link type
-interface NavLink {
-  label: string;
-  href: string;
-  isPage?: boolean;
-  emphasis?: "bold" | "normal";
-}
-
-// Navigation links configuration - Claire Valdez style
-// Left side links
-const leftNavLinks: NavLink[] = [
-  { label: "Volunteer", href: "/volunteer", isPage: true, emphasis: "bold" },
-  { label: "Commissioner", href: "#commissioner" },
+// Left nav: text links — Bernoru, medium, black, 14–15px (Volunteer bold)
+const leftNavLinks: { label: string; href: string; bold?: boolean }[] = [
+  { label: "Volunteer", href: "/volunteer", bold: true },
+  { label: "WTF is a Commissioner?", href: "#commissioner" },
   { label: "Issues", href: "#issues" },
-];
-
-// Right side links
-const rightNavLinks: NavLink[] = [
   { label: "Endorsements", href: "#endorsements" },
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [heroInView, setHeroInView] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,8 +30,42 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const pathname = usePathname();
+
+  // Hide nav logo when hero section's large logo is visible (reduces visual redundancy)
+  useEffect(() => {
+    if (pathname !== "/") {
+      setHeroInView(false);
+      return;
+    }
+
+    const hero = document.getElementById("home");
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { threshold: 0.01, rootMargin: "0px" }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [pathname]);
+
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const [logoPop, setLogoPop] = useState(false);
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    handleLinkClick();
+    if (pathname === "/") {
+      e.preventDefault();
+      setLogoPop(true);
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setLogoPop(false);
+      }, 350);
+    }
   };
 
   useEffect(() => {
@@ -56,6 +79,18 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMobileMenuOpen]);
 
+  // Lock body scroll when full-screen menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
   const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#donate";
 
@@ -64,24 +99,23 @@ export function Navbar() {
       className={cn(
         "fixed left-0 right-0 z-40 transition-all duration-300",
         "top-[var(--announcement-height)]",
-        isScrolled ? "bg-white border-b border-slate-200" : "bg-white"
+        "nav-bar-bg",
+        isScrolled && "nav-bar-scrolled"
       )}
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Left navigation */}
-          <div className="hidden items-center gap-6 lg:flex flex-1">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex h-16 items-center justify-between gap-4">
+          {/* Left: Volunteer, WTF is a Commissioner?, Issues, Endorsements — Bernoru, 14–15px, black; Volunteer bold */}
+          <div className="nav-left hidden lg:flex items-center justify-start gap-6 flex-1 min-w-0">
             {leftNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-[13px] uppercase tracking-[0.1em] transition-colors",
-                  link.emphasis === "bold" 
-                    ? "font-bold text-slate-900 hover:text-primary-600" 
-                    : "font-medium text-slate-600 hover:text-slate-900"
+                  "nav-link text-black transition-colors hover:text-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 rounded min-h-[44px] inline-flex items-center shrink-0",
+                  link.bold ? "font-bold" : "font-medium"
                 )}
               >
                 {link.label}
@@ -89,102 +123,104 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Center Logo - DAVID! speech bubble */}
-          <Link
-            href="#home"
-            className="flex items-center transition-opacity hover:opacity-80"
-            onClick={handleLinkClick}
-          >
-            <Image
-              src="/images/logo.png"
-              alt={`${candidateName} for Hudson County Commissioner`}
-              width={120}
-              height={48}
-              className="h-10 w-auto"
-              priority
-            />
-          </Link>
-
-          {/* Right navigation */}
-          <div className="hidden items-center gap-6 lg:flex flex-1 justify-end">
-            {rightNavLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[13px] uppercase tracking-[0.1em] font-medium text-slate-600 transition-colors hover:text-slate-900"
-              >
-                {link.label}
-              </Link>
-            ))}
-            {/* Donate button - emphasized with color */}
-            <Button
-              href={actBlueUrl}
-              external
-              variant="primary"
-              size="sm"
-              className="uppercase tracking-[0.1em] text-[13px] font-bold"
+          {/* Center: DAVID! speech bubble logo — links to top of page, 48–56px height */}
+          <div className="nav-center flex-shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:translate-x-0 lg:translate-y-0">
+            <Link
+              href="/"
+              className={cn(
+                "flex items-center justify-center transition-opacity duration-300 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 rounded min-h-[44px]",
+                logoPop && "logo-pop-trigger"
+              )}
+              onClick={handleLogoClick}
+              aria-label="Go to top of page"
             >
-              Donate
-            </Button>
+              <Image
+                src={LOGO_ASSETS.speechBubbleOnly}
+                alt={`${candidateName} — Democratic Socialist for Hudson County Commissioner`}
+                width={180}
+                height={96}
+                className="nav-logo-image"
+                priority
+              />
+            </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="rounded-md p-2 text-slate-900 transition-colors hover:bg-slate-100 lg:hidden"
-            aria-expanded={isMobileMenuOpen}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {isMobileMenuOpen ? (
-              <X className="h-6 w-6" aria-hidden="true" />
-            ) : (
-              <Menu className="h-6 w-6" aria-hidden="true" />
-            )}
-          </button>
+          {/* Right: Donate pill button — the one button that looks like a button */}
+          <div className="nav-right hidden lg:flex items-center justify-end gap-6 flex-1 min-w-0">
+            <a
+              href={actBlueUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-donate-pill"
+            >
+              Donate
+            </a>
+          </div>
+
+          {/* Mobile: hamburger (left), logo centered, Donate pill (right) */}
+          <div className="flex items-center justify-between w-full lg:hidden">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-900 transition-colors hover:bg-black/5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+            {/* Spacer for balance — logo is in nav-center which is absolutely centered on mobile */}
+            <div className="w-11 flex-shrink-0" aria-hidden="true" />
+            <a
+              href={actBlueUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-donate-pill text-sm px-4 py-2 min-h-[44px] inline-flex items-center justify-center"
+              onClick={handleLinkClick}
+            >
+              Donate
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile: full-screen overlay menu */}
       {isMobileMenuOpen && (
-        <div className="border-t border-slate-200 bg-white lg:hidden">
-          <div className="space-y-1 px-4 py-4">
-            {[...leftNavLinks, ...rightNavLinks].map((link) => (
+        <div
+          className="fixed inset-0 z-50 bg-white lg:hidden flex flex-col items-center justify-center px-6 py-20"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Main menu"
+        >
+          <nav className="flex flex-col items-center gap-1 w-full max-w-sm">
+            {leftNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={handleLinkClick}
                 className={cn(
-                  "block px-3 py-3 text-sm uppercase tracking-wider transition-colors",
-                  link.emphasis === "bold"
-                    ? "font-bold text-slate-900"
-                    : "font-medium text-slate-600"
+                  "w-full min-h-[44px] flex items-center justify-center px-4 py-3 nav-link text-slate-900 hover:bg-slate-50 hover:text-primary-600 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2",
+                  link.bold && "font-bold text-primary-600"
                 )}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-4 grid grid-cols-2 gap-3">
-              <Button
-                href="/volunteer"
-                variant="secondary"
-                size="md"
-                className="w-full uppercase tracking-wider text-sm font-bold"
-                onClick={handleLinkClick}
-              >
-                Volunteer
-              </Button>
-              <Button
+            <div className="w-full pt-6 mt-4 organic-divider-t">
+              <a
                 href={actBlueUrl}
-                external
-                variant="primary"
-                size="md"
-                className="w-full uppercase tracking-wider text-sm"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-donate-pill w-full min-h-[48px] flex items-center justify-center"
                 onClick={handleLinkClick}
               >
                 Donate
-              </Button>
+              </a>
             </div>
-          </div>
+          </nav>
         </div>
       )}
     </nav>

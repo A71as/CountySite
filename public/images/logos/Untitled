@@ -1,0 +1,70 @@
+Restructure the left side content column of the hero section. 
+The right side (David's photo with sunburst background) stays 
+as-is. The left column content should be reordered from top 
+to bottom as follows:
+
+ORDER (top to bottom):
+
+1. DAVID! LOGO (stacked/vertical version — specific variant)
+
+   Use this specific logo variant:
+   - The DAVID! speech bubble: RED filled (#E92128) bubble 
+     with black outline, "DAVID!" in white text with black 
+     3D drop shadow (the standard red version of the mark)
+   - Below the speech bubble, stacked text:
+     Line 1: "Democratic Socialist" — RED (#E92128), Bernoru 
+     Semicondensed, bold
+     Line 2: "for Hudson County" — WHITE (#FFFFFF), Bernoru 
+     Semicondensed, bold
+     Line 3: "Commissioner" — WHITE (#FFFFFF), Bernoru 
+     Semicondensed, bold
+
+   LEGIBILITY ON PINK/RED BACKGROUND:
+   Since this logo sits on the hero's pink (#FFAEAE) to red 
+   (#E92128) gradient background, the red "Democratic Socialist" 
+   text may disappear against the background. To solve this, 
+   use one of these approaches (in order of preference):
+
+   BEST OPTION — Use the inverted/white version of the logo. 
+   On the pink/red hero background, everything should go white, 
+   matching how the campaign poster handles branding on red:
+   - Speech bubble: WHITE filled bubble, "DAVID!" in red text 
+     with subtle shadow
+   - "Democratic Socialist" in WHITE
+   - "for Hudson County Commissioner" in WHITE
+   This is the variant shown on page 5 of the brand guide 
+   (red background variant).
+
+   ALTERNATIVE — Place the red speech bubble version on a 
+   subtle dark or semi-transparent dark backing/container to 
+   match the dark background shown in the reference image. 
+   This preserves the red bubble but gives it a dark field 
+   to sit on.
+
+   Size: Speech bubble mark approximately 200-240px wide on 
+   desktop. Tagline text proportional, roughly 14-16px.
+   Left-aligned within the left column.
+   This is the first element at the top of the left column.
+
+   Use Intersection Observer: hide or fade the small nav bar 
+   DAVID! logo while this hero logo is visible in the viewport. 
+   Show the nav logo once the user scrolls past the hero section 
+   and this logo leaves the viewport.
+
+   margin-bottom: 32-40px
+
+2. DISTRICT NEIGHBORHOODS
+   - Text: "DISTRICT 4 · JOURNAL SQUARE · DOWNTOWN · THE HEIGHTS"
+   - Use the shortened version matching the campaign mailer. 
+     Keep to one line on desktop.
+   - Font: Bernoru Semicondensed, uppercase, letter-spacing 
+     slightly widened (tracking +0.05em)
+   - Color: white (#FFFFFF) to sit on the pink background. 
+     Test legibility — if white is too stark, use #FFF0F0 
+     or a very light pink.
+   - Size: 14-16px, smaller than the logo tagline text
+   - margin-bottom: 20-28px
+
+3. BIO BLURB
+   - Full text: "David Sabry Guirgis is a social worker, 
+     organizer, and democratic socialist running for Hudson

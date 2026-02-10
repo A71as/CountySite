@@ -1,7 +1,56 @@
+"use client";
+
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { IMAGE_PATHS } from "@/lib/constants/images";
+
+/** Key phrases to bold in the bio for scannable emphasis (mailer-style) */
+const BIO_BOLD_PHRASES = [
+  "social worker, organizer, and democratic socialist",
+  "Right to Counsel",
+  "free community college for all",
+  "green social housing",
+  "universal childcare",
+  "audit everything",
+];
+
+/** Wraps key phrases in bold for scannable emphasis; returns array of string | JSX */
+function bioWithBoldPhrases(text: string): (string | React.ReactNode)[] {
+  type Segment = { type: "text"; value: string } | { type: "bold"; value: string };
+  const segments: Segment[] = [{ type: "text", value: text }];
+  for (const phrase of BIO_BOLD_PHRASES) {
+    const next: Segment[] = [];
+    for (const seg of segments) {
+      if (seg.type === "bold") {
+        next.push(seg);
+        continue;
+      }
+      let remaining = seg.value;
+      while (true) {
+        const i = remaining.indexOf(phrase);
+        if (i === -1) {
+          if (remaining.length) next.push({ type: "text", value: remaining });
+          break;
+        }
+        if (i > 0) next.push({ type: "text", value: remaining.slice(0, i) });
+        next.push({ type: "bold", value: phrase });
+        remaining = remaining.slice(i + phrase.length);
+      }
+    }
+    segments.length = 0;
+    segments.push(...next);
+  }
+  return segments.map((seg, idx) =>
+    seg.type === "bold" ? (
+      <span key={`${seg.value}-${idx}`} className="font-bold text-slate-900">
+        {seg.value}
+      </span>
+    ) : (
+      seg.value
+    )
+  );
+}
 
 export interface AboutProps {
   bio?: string;
@@ -37,89 +86,81 @@ export function About({
   return (
     <SectionWrapper
       id="about"
-      background="blush"
+      background="white"
       className="relative overflow-hidden"
     >
-      {/* Subtle crosshatch texture on blush bg */}
-      <div
-        className="absolute inset-0 brand-crosshatch-dark pointer-events-none"
-        aria-hidden="true"
-      />
+      <div className="absolute inset-0 texture-speckle pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 brand-crosshatch-dark pointer-events-none opacity-80" aria-hidden="true" />
 
-      {/* Section header */}
-      <div className="relative mb-20 max-w-5xl">
-        <div className="uppercase text-xs tracking-[0.2em] text-primary-500 font-semibold mb-6">
+      {/* Section header — scroll reveal */}
+      <ScrollReveal variant="header" className="relative mb-20 max-w-5xl">
+        <div className="uppercase text-sm tracking-[0.25em] text-primary-500 font-subhead font-bold mb-6">
           About
         </div>
-        <h2 className="font-display text-5xl font-bold text-slate-900 uppercase tracking-tight sm:text-6xl lg:text-6xl leading-[0.95]">
+        <h2 className="font-display text-5xl font-bold text-primary-500 uppercase tracking-tight sm:text-6xl lg:text-7xl leading-[0.95] hand-underline inline-block">
           Meet {candidateName.split(" ")[0]}
         </h2>
-      </div>
+      </ScrollReveal>
 
-      {/* Two-column layout */}
-      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-        {/* Left column - Image with brand-red frame accent */}
+      {/* Two-column layout — photo column 1.5x text column */}
+      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16 items-center">
+        {/* Left column - Family photo: hand-drawn organic red border (mailer aesthetic) */}
         <div className="order-2 lg:order-1">
-          <div className="relative">
-            {/* Brand red accent border — echoes the speech bubble outline */}
-            <div
-              className="absolute -inset-2 bg-primary-500 rounded-sm"
-              aria-hidden="true"
-            />
-            {/* Candidate photo */}
-            <div className="relative rounded-sm overflow-hidden shadow-elevated">
+          <div className="relative slight-tilt-right" style={{ transform: "rotate(-2deg)" }}>
+            <ScrollReveal variant="photo" className="relative photo-frame-standard overflow-hidden">
               <OptimizedImage
                 src={IMAGE_PATHS.candidate.about}
-                alt={`${candidateName} at his Columbia University graduation, where he earned his Master of Social Work degree to serve his community`}
+                alt="David Guirgis with his mother at his graduation ceremony"
                 width={600}
                 height={750}
                 priority={false}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 placeholder="blur"
                 className="w-full h-auto"
+                quality={82}
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
 
         {/* Right column - Bio */}
         <div className="order-1 space-y-6 lg:order-2">
-          {/* Bio paragraphs */}
-          <div className="prose prose-lg max-w-none space-y-4">
+          {/* Bio paragraphs — Gelica (serif), key phrases bolded for scannable emphasis */}
+          <div className="prose prose-lg max-w-none space-y-4 font-body">
             {displayBio.split("\n\n").map((paragraph, i) => (
-              <p key={i} className="text-slate-700 leading-relaxed">
-                {paragraph}
+              <p key={i} className="font-body text-slate-700 leading-relaxed text-base sm:text-lg">
+                {bioWithBoldPhrases(paragraph)}
               </p>
             ))}
           </div>
 
-          {/* Pull quote — speech-bubble-style card with brand red accent */}
-          <div className="relative my-8 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border-2 border-primary-500/20">
-            {/* Speech bubble tail */}
-            <div
-              className="absolute -bottom-3 left-8 w-0 h-0"
-              style={{
-                borderLeft: "8px solid transparent",
-                borderRight: "12px solid transparent",
-                borderTop: "14px solid white",
-              }}
-              aria-hidden="true"
-            />
-            <blockquote className="relative">
-              <div
-                className="w-10 h-1 bg-primary-500 mb-4"
-                aria-hidden="true"
-              />
-              <p className="font-heading text-xl leading-snug text-slate-900 sm:text-2xl italic">
-                &ldquo;{displayQuote}&rdquo;
-              </p>
-            </blockquote>
+          {/* Pull quote — bold speech bubble callout */}
+          <div className="relative my-8 slight-tilt-sm-right">
+            <div className="speech-bubble-accent p-6 sm:p-8 shadow-soft bg-primary-50/40">
+              <blockquote className="relative">
+                <span
+                  className="block font-display text-6xl sm:text-7xl text-primary-500 leading-none select-none mb-2 drop-shadow-sm"
+                  aria-hidden="true"
+                >
+                  &ldquo;
+                </span>
+                <p className="accent-callout font-display text-xl leading-snug text-slate-900 sm:text-2xl">
+                  {displayQuote}
+                </p>
+                <span
+                  className="block font-display text-6xl sm:text-7xl text-primary-500 leading-none select-none mt-1 text-right drop-shadow-sm"
+                  aria-hidden="true"
+                >
+                  &rdquo;
+                </span>
+              </blockquote>
+            </div>
           </div>
 
           {/* Connection paragraph */}
           {displayConnection && (
-            <div className="prose prose-lg max-w-none">
-              <p className="text-slate-700 leading-relaxed">
+            <div className="prose prose-lg max-w-none font-body">
+              <p className="font-body text-slate-700 leading-relaxed">
                 {displayConnection}
               </p>
             </div>
@@ -128,7 +169,7 @@ export function About({
           {/* Credentials list (optional) */}
           {credentials && credentials.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-lg font-semibold text-slate-900 mb-4">
+              <h3 className="text-lg font-heading font-bold text-slate-900 mb-4">
                 Experience & Background
               </h3>
               <ul className="space-y-3">
@@ -157,8 +198,8 @@ export function About({
       {/* County map graphic section (optional) */}
       {showMap && (
         <div className="mt-12">
-          <div className="rounded-lg border-2 border-gray-200 bg-white p-8 text-center shadow-sm">
-            <h3 className="mb-4 font-heading text-2xl font-semibold text-gray-900">
+          <div className="organic-card-2 border-2 border-gray-200 bg-white p-8 text-center shadow-sm tilt-3">
+            <h3 className="mb-4 font-heading text-2xl font-bold text-gray-900">
               {county} County District
             </h3>
             <p className="mx-auto max-w-2xl text-gray-700">
@@ -169,7 +210,7 @@ export function About({
             </p>
             {/* Placeholder for future map graphic */}
             <div className="mt-6 flex items-center justify-center">
-              <div className="h-64 w-full max-w-2xl rounded-lg bg-gray-100 flex items-center justify-center">
+              <div className="h-64 w-full max-w-2xl organic-md bg-gray-100 flex items-center justify-center">
                 <p className="text-gray-500">Map graphic placeholder</p>
               </div>
             </div>

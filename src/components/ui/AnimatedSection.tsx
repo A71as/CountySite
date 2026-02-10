@@ -10,8 +10,8 @@ interface AnimatedSectionProps {
 }
 
 /**
- * Lightweight scroll-triggered fade-up animation using IntersectionObserver + CSS.
- * Replaces Framer Motion for basic section entrance animations to reduce JS bundle.
+ * Lightweight scroll-triggered fade-up using IntersectionObserver.
+ * Respects prefers-reduced-motion: no animation when user prefers reduced motion.
  */
 export function AnimatedSection({
   children,
@@ -20,8 +20,21 @@ export function AnimatedSection({
 }: AnimatedSectionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduceMotion(mq.matches);
+    const handler = () => setReduceMotion(mq.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setIsVisible(true);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
 
@@ -32,22 +45,24 @@ export function AnimatedSection({
           observer.unobserve(el);
         }
       },
-      { rootMargin: "-80px", threshold: 0.1 }
+      { rootMargin: "-60px", threshold: 0.08 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reduceMotion]);
+
+  const visible = isVisible || reduceMotion;
 
   return (
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-500 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
+        "transition-all duration-[350ms] ease-out",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
         className
       )}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: visible ? "0ms" : `${delay}ms` }}
     >
       {children}
     </div>

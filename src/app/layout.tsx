@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
+import { Gelasio, Barlow_Semi_Condensed, Homemade_Apple } from "next/font/google";
 import "./globals.css";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navbar } from "@/components/layout/Navbar";
@@ -8,28 +9,39 @@ import { Analytics } from "@/components/Analytics";
 import { StructuredData } from "@/components/StructuredData";
 import { ClientLayout } from "@/components/ClientLayout";
 
-// Configure fonts - elegant and professional
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
+/* ── Brand type system (from brand guide) ── */
+
+// H1/Hero headlines only — Barber Chop, bold, uppercase, red (#E92128) or black (#000000)
+const barberChop = localFont({
+  src: "../../public/images/logos/BarberChop.otf",
   variable: "--font-display",
   display: "swap",
+  weight: "700",
 });
 
-const spaceGrotesk = Space_Grotesk({
+// H2/Section headers & subheadings — Bernoru Semicondensed, bold (Barlow Semi Condensed until brand font file added)
+const bernoru = Barlow_Semi_Condensed({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-heading",
+  weight: ["600", "700"],
+  variable: "--font-section",
   display: "swap",
 });
 
-const inter = Inter({
+// Body text — Gelica, regular serif, 16–18px (Gelasio until brand font file added)
+const gelica = Gelasio({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
 });
 
+// Accent/callout — Homemade Apple, handwritten script; use sparingly + rotate(-2deg)
+const homemadeApple = Homemade_Apple({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-accent",
+  display: "swap",
+});
 // Get environment variables for metadata
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
@@ -94,16 +106,23 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang="en"
-      className={`${bebasNeue.variable} ${spaceGrotesk.variable} ${inter.variable}`}
+      className={`${barberChop.variable} ${bernoru.variable} ${gelica.variable} ${homemadeApple.variable}`}
     >
       <body
-        className={`${inter.className} bg-background text-foreground antialiased`}
+        className={`${gelica.className} bg-background text-foreground antialiased font-body text-base`}
       >
+        <div className="poster-frame" aria-hidden="true" />
+        <a
+          href="#main"
+          className="skip-link"
+        >
+          Skip to main content
+        </a>
         <ClientLayout>
           <StructuredData />
           <AnnouncementBar />
           <Navbar />
-          <main>{children}</main>
+          <main id="main">{children}</main>
           <Footer />
           <Analytics />
         </ClientLayout>
