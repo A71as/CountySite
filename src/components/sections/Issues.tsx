@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { BUDGET_MILLIONS } from "@/lib/constants/copy";
 import { cn } from "@/lib/utils";
 
 const cardStagger = {
@@ -38,29 +39,29 @@ export function Issues() {
     {
       icon: Calculator,
       title: "Audit Everything",
-      description: `${county} County carries an operating budget of over $750 million per year — and we run on a surplus. So why are our county schools facing an $11 million budget deficit?`,
+      description: `${county} County carries an operating budget of over $${BUDGET_MILLIONS} million per year — and we run on a surplus. So why are our county schools facing an $11 million budget deficit?`,
       fullExplainer: `One out of every three tax dollars you pay go straight to the County. But for too long, machine politicians and pay-to-play corruption have ensured you don't know where it's going or how it's being spent. That's unacceptable.\n\nAs County Commissioner, I'm going to audit everything — and I'll be a loud voice against corruption. It's time to shine a light on where our money is going and how it's being spent. Because the era of wasteful pay-to-play contracts, no- or low-show jobs, and outrageous payouts for crooked party cronies is over.`,
     },
     {
       icon: Home,
       title: "Green Social Housing",
       description:
-        "The county owns TKTKTK parcels of vacant land — yet they're selling it to a private developer for 20% affordable housing. Meanwhile, a nonprofit developer built 55% affordable housing in Jersey City just last year.",
-      fullExplainer: `And Montgomery County, MD, is following the model of cities like Chicago and New York using their land to build 100% affordable mixed-income housing, with community benefits like recreational access.\n\nThis is called social housing — and I think we should build it right here in Hudson County. 20% affordable housing isn't enough to meet the demands of a housing crisis that makes this city the most expensive cities in the country to rent in, and pre-emptively ceding to private developers displays the exact lack of political imagination that brought us this affordability crisis.\n\nInstead, I'll build 100% affordable, green social housing with access to childcare for all.`,
+        "We deserve housing we can afford and childcare for all. The county is selling public land to private developers instead of using it for the kind of social housing other cities are already building.",
+      fullExplainer: `The county already owns parcels of vacant land and they're selling it to a private developer for only 20% affordable housing. Meanwhile, a nonprofit developer built 55% affordable housing in Jersey City just last year. And Montgomery County, MD, is following the model of cities like Chicago and New York using their land to build 100% affordable mixed-income housing, with community benefits like childcare and recreational access.\n\nThis is called social housing — and I think we should build it right here in Hudson County. 20% affordable housing isn't enough to meet the demands of a housing crisis that makes this city the most expensive cities in the country to rent in, and pre-emptively ceding to private developers displays the exact lack of political imagination that brought us this affordability crisis.`,
     },
     {
       icon: Baby,
       title: "Universal Childcare",
       description:
-        "Childcare for all should be embedded in every county service and program — so no family has to choose between a paycheck and their kids' care.",
-      fullExplainer: `And I'll ensure childcare for all is embedded in all of our county's services and programs — including onsite daycare for Hudson County Community College students. Parents shouldn't have to choose between a paycheck and their kids' safety. This is an investment in our families and in our economy.`,
+        "Childcare for all embedded in every county service and program — including onsite daycare for Hudson County Community College students.",
+      fullExplainer: `I'll ensure childcare for all is embedded in all of our county's services and programs — including onsite daycare for Hudson County Community College students.`,
     },
     {
       icon: GraduationCap,
       title: "Free HCCC",
       description:
-        "Education is a right. Hudson County Community College has changed the lives of millions of people in this county, including my own mother.",
-      fullExplainer: `It should be treated as the public good as it is —and it should be free for everyone, no questions asked.`,
+        "We deserve to learn. Education is a right — Hudson County Community College has changed lives across this county, including my own mother. It should be free for everyone, no questions asked.",
+      fullExplainer: `Education is a right. Hudson County Community College has changed the lives of millions of people in this county, including my own mother. It should be treated as the public good as it is —and it should be free for everyone, no questions asked.`,
     },
   ];
 

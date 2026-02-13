@@ -87,6 +87,9 @@ body::before {
    from designer and replace below. */
 .hero-form-card .count-me-in-button,
 .count-me-in-button {
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
   background-color: #E92128 !important;
   color: #FFFFFF !important;
   border: none !important;
@@ -114,6 +117,8 @@ body::before {
 /* Hero form inputs — reference: white bg, 1px #D9D9D9 border, 5px radius, placeholder #AAAAAA */
 .hero-form-card .input-hero-wrap input {
   font-family: var(--font-body), serif;
+  font-size: 16px; /* Prevents iOS zoom on focus */
+  min-height: 48px;
   border-radius: 5px;
   border: 1px solid #D9D9D9;
   background: #FFFFFF;
@@ -285,10 +290,15 @@ body::before {
   transition: font-size 0.3s ease;
 }
 
-/* Nav logo — DAVID! speech bubble, 48–56px height, links to top */
+/* Nav logo — DAVID! speech bubble; larger on mobile for readability */
 .nav-logo-image {
-  height: clamp(48px, 5vw, 56px);
+  height: clamp(52px, 12vw, 64px);
   width: auto;
+}
+@media (min-width: 768px) {
+  .nav-logo-image {
+    height: clamp(48px, 5vw, 56px);
+  }
 }
 
 /* Donate: pill button — #E92128, white text, full pill, Bernoru bold */
@@ -581,6 +591,13 @@ body::before {
   background-repeat: repeat-x;
   background-size: 120px 8px;
   padding-bottom: 8px;
+}
+/* Mobile: larger touch targets and 16px font to prevent iOS zoom */
+@media (max-width: 767px) {
+  .input-wavy-bottom input {
+    min-height: 48px;
+    font-size: 16px;
+  }
 }
 
 /* ── Speckle texture for depth on flat sections ── */
@@ -981,7 +998,9 @@ body::before {
   background: none;
 }
 @media (min-width: 1024px) {
+  /* Don't stretch photo to row height — photo area drives height via aspect-ratio for consistent crop */
   .hero-left-column {
+    align-items: flex-start;
     padding: 0;
     overflow: hidden;
     margin-right: -20px;
@@ -1010,6 +1029,17 @@ body::before {
   mask-position: 0 0;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+}
+@media (min-width: 1024px) {
+  /* Lock the photo frame to the same shape as the "golden" desktop reference.
+     48vw @ 1920px ≈ 921px and 90vh @ 1080px ≈ 972px, so 921/972 keeps crop consistent down to ~1366px. */
+  .hero-photo-area {
+    /* Ensure aspect-ratio can drive height (override height: 100% from base) */
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 921 / 972;
+    max-height: 90vh;
+  }
 }
 @media (max-width: 1023px) {
   .hero-photo-area {
@@ -1148,7 +1178,7 @@ body::before {
 @media (min-width: 1024px) {
   .hero-right-column {
     padding: 20vh 2.5rem 1rem 1.75rem;
-    /* Bio text and form shifted up further; same scale as desktop on small laptops */
+    padding-top: clamp(160px, 20vh, 220px);
     margin-left: 0;
   }
 }

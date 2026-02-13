@@ -69,39 +69,39 @@ export function AnnouncementBar() {
       className="fixed top-0 left-0 right-0 z-50 text-white"
       style={{ backgroundColor: "#E92128" }}
     >
-      <div className="mx-auto max-w-[1200px] px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8 min-w-0">
-        <div className="flex items-center justify-between gap-3 min-w-0">
-          {/* Countdown — brand red, white text; shorter on very narrow screens */}
+      <div className="mx-auto max-w-[1200px] px-4 py-3 sm:px-6 sm:py-3 lg:px-8 min-w-0 min-h-[48px] flex items-center">
+        <div className="flex items-center justify-between gap-3 min-w-0 w-full">
+          {/* Countdown — readable on mobile */}
           <div className="min-w-0 flex-1 flex items-center gap-2">
             {countdown.isExpired ? (
-              <span className="text-xs sm:text-sm font-medium countdown-pulse">Election Day is here!</span>
+              <span className="text-sm font-medium countdown-pulse">Election Day is here!</span>
             ) : (
               <>
-                <span className="text-xs sm:text-sm font-medium countdown-pulse sm:hidden">
+                <span className="text-sm font-medium countdown-pulse sm:hidden">
                   {countdown.days}d {countdown.hours}h
                 </span>
-                <span className="hidden sm:inline text-xs sm:text-sm font-medium countdown-pulse">
+                <span className="hidden sm:inline text-sm font-medium countdown-pulse">
                   Election Day: {formatCountdown()}
                 </span>
               </>
             )}
           </div>
 
-          {/* CTA link - visible on all screens, truncates if needed */}
+          {/* CTA link — tappable, readable */}
           <Link
             href="/volunteer"
-            className="accent-callout flex-shrink-0 text-xs sm:text-sm font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 whitespace-nowrap"
+            className="accent-callout flex-shrink-0 text-sm font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 whitespace-nowrap py-2 min-h-[44px] inline-flex items-center"
           >
             Join the movement
           </Link>
 
-          {/* Dismiss button */}
+          {/* Dismiss — 44px+ touch target */}
           <button
             onClick={() => setIsDismissed(true)}
-            className="flex-shrink-0 organic-sm p-1.5 sm:p-1 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600"
+            className="flex-shrink-0 organic-sm min-h-[44px] min-w-[44px] flex items-center justify-center p-2.5 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600 touch-manipulation"
             aria-label="Dismiss announcement"
           >
-            <X className="h-5 w-5" aria-hidden="true" />
+            <X className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
       </div>

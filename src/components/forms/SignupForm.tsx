@@ -168,7 +168,7 @@ export function SignupForm({
             <Input
               type="text"
               label="First Name"
-              placeholder="What should we call you"
+              placeholder="Your first name"
               error={errors.first_name?.message}
               inputVariant={inputVariant}
               {...register("first_name")}
@@ -270,7 +270,7 @@ export function SignupForm({
           <Input
             type="text"
             label="First Name"
-            placeholder="What should we call you"
+            placeholder="Your first name"
             error={errors.first_name?.message}
             inputVariant={inputVariant}
             {...register("first_name")}

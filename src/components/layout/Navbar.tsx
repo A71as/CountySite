@@ -119,12 +119,12 @@ export function Navbar() {
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative min-w-0">
         <div className="flex items-center justify-between gap-4 nav-inner transition-all duration-300 ease-out">
-          {/* Left: Volunteer, WTF is a Commissioner?, Issues — Bernoru, 14–15px, black; Volunteer bold */}
-          <div className="nav-left hidden lg:flex items-center justify-start gap-6 flex-1 min-w-0">
+          {/* Left: nav links — hidden on mobile/tablet; hamburger shows below md */}
+          <div className="nav-left hidden md:flex items-center justify-start gap-6 flex-1 min-w-0">
             {leftNavLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={link.href.startsWith("#") && pathname !== "/" ? `/${link.href}` : link.href}
                 className={cn(
                   "nav-link text-black transition-colors hover:text-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 rounded min-h-[44px] inline-flex items-center shrink-0",
                   link.bold ? "font-bold" : "font-medium"
@@ -135,8 +135,8 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Center: DAVID! speech bubble logo — links to top of page, 48–56px height */}
-          <div className="nav-center flex-shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 lg:static lg:translate-x-0 lg:translate-y-0">
+          {/* Center: DAVID! speech bubble logo — links to top of page */}
+          <div className="nav-center flex-shrink-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
             <Link
               href="/"
               className={cn(
@@ -157,8 +157,8 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Right: Donate pill button — the one button that looks like a button */}
-          <div className="nav-right hidden lg:flex items-center justify-end gap-6 flex-1 min-w-0">
+          {/* Right: Donate pill button */}
+          <div className="nav-right hidden md:flex items-center justify-end gap-6 flex-1 min-w-0">
             <a
               href={actBlueUrl}
               target="_blank"
@@ -169,28 +169,27 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* Mobile: hamburger (left), logo centered, Donate pill (right) */}
-          <div className="flex items-center justify-between w-full lg:hidden">
+          {/* Mobile/tablet: hamburger (left), logo centered, Donate (right) — reliable touch targets */}
+          <div className="flex items-center justify-between w-full md:hidden">
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2.5 min-h-[44px] min-w-[44px] flex items-center justify-center text-slate-900 transition-colors hover:bg-black/5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2"
+              className="p-3 min-h-[48px] min-w-[48px] flex items-center justify-center text-slate-900 transition-colors hover:bg-black/5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 touch-manipulation"
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6" aria-hidden="true" />
+                <X className="h-7 w-7" aria-hidden="true" />
               ) : (
-                <Menu className="h-6 w-6" aria-hidden="true" />
+                <Menu className="h-7 w-7" aria-hidden="true" />
               )}
             </button>
-            {/* Spacer for balance — logo is in nav-center which is absolutely centered on mobile */}
-            <div className="w-11 flex-shrink-0" aria-hidden="true" />
+            <div className="w-12 flex-shrink-0" aria-hidden="true" />
             <a
               href={actBlueUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="nav-donate-pill text-sm px-4 py-2 min-h-[44px] inline-flex items-center justify-center"
+              className="nav-donate-pill text-base px-5 py-3 min-h-[48px] min-w-[100px] inline-flex items-center justify-center touch-manipulation"
               onClick={handleLinkClick}
             >
               Donate
@@ -199,22 +198,22 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile: full-screen overlay menu */}
+      {/* Mobile/tablet: full-screen overlay menu — large, readable links */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-50 bg-white lg:hidden flex flex-col items-center justify-center px-6 py-20"
+          className="fixed inset-0 z-50 bg-white md:hidden flex flex-col items-center justify-center px-6 py-20"
           role="dialog"
           aria-modal="true"
           aria-label="Main menu"
         >
-          <nav className="flex flex-col items-center gap-1 w-full max-w-sm">
+          <nav className="flex flex-col items-center gap-2 w-full max-w-sm">
             {leftNavLinks.map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={link.href.startsWith("#") && pathname !== "/" ? `/${link.href}` : link.href}
                 onClick={handleLinkClick}
                 className={cn(
-                  "w-full min-h-[44px] flex items-center justify-center px-4 py-3 nav-link text-slate-900 hover:bg-slate-50 hover:text-primary-600 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2",
+                  "w-full min-h-[52px] flex items-center justify-center px-5 py-4 text-lg font-medium text-slate-900 hover:bg-slate-50 hover:text-primary-600 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 touch-manipulation",
                   link.bold && "font-bold text-primary-600"
                 )}
               >
@@ -226,7 +225,7 @@ export function Navbar() {
                 href={actBlueUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nav-donate-pill w-full min-h-[48px] flex items-center justify-center"
+                className="nav-donate-pill w-full min-h-[56px] flex items-center justify-center text-lg font-bold touch-manipulation"
                 onClick={handleLinkClick}
               >
                 Donate
