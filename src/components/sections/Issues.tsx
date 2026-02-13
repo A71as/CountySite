@@ -95,9 +95,9 @@ export function Issues() {
         <div className="absolute inset-0 brand-crosshatch-pink opacity-70" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
       {/* Section opener + header — SectionHeader is the single animation source; lead line static */}
-      <div className="relative mb-14 max-w-5xl pt-8">
+      <div className="relative mb-14 max-w-5xl">
         <SectionHeader
           showDivider={false}
           title={

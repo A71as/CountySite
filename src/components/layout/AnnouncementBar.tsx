@@ -69,28 +69,28 @@ export function AnnouncementBar() {
       className="fixed top-0 left-0 right-0 z-50 text-white"
       style={{ backgroundColor: "#E92128" }}
     >
-      <div className="mx-auto max-w-[1200px] px-4 py-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center gap-4">
-          {/* Countdown — brand red, white text, no clock icon */}
-          <div className="hidden items-center gap-2 sm:flex">
-            <span className="text-sm font-medium countdown-pulse">
-              Election Day: {formatCountdown()}
-            </span>
+      <div className="mx-auto max-w-[1200px] px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8 min-w-0">
+        <div className="flex items-center justify-between gap-3 min-w-0">
+          {/* Countdown — brand red, white text; shorter on very narrow screens */}
+          <div className="min-w-0 flex-1 flex items-center gap-2">
+            {countdown.isExpired ? (
+              <span className="text-xs sm:text-sm font-medium countdown-pulse">Election Day is here!</span>
+            ) : (
+              <>
+                <span className="text-xs sm:text-sm font-medium countdown-pulse sm:hidden">
+                  {countdown.days}d {countdown.hours}h
+                </span>
+                <span className="hidden sm:inline text-xs sm:text-sm font-medium countdown-pulse">
+                  Election Day: {formatCountdown()}
+                </span>
+              </>
+            )}
           </div>
 
-          {/* Mobile */}
-          <div className="flex items-center gap-2 sm:hidden">
-            <span className="text-sm font-medium countdown-pulse">
-              {countdown.isExpired
-                ? "Election Day is here!"
-                : `${countdown.days}d ${countdown.hours}h`}
-            </span>
-          </div>
-
-          {/* CTA link - warmer, more inviting */}
+          {/* CTA link - visible on all screens, truncates if needed */}
           <Link
             href="/volunteer"
-            className="accent-callout hidden text-sm font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 sm:inline-block"
+            className="accent-callout flex-shrink-0 text-xs sm:text-sm font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 whitespace-nowrap"
           >
             Join the movement
           </Link>
@@ -98,7 +98,7 @@ export function AnnouncementBar() {
           {/* Dismiss button */}
           <button
             onClick={() => setIsDismissed(true)}
-            className="ml-auto flex-shrink-0 organic-sm p-1 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600"
+            className="flex-shrink-0 organic-sm p-1.5 sm:p-1 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600"
             aria-label="Dismiss announcement"
           >
             <X className="h-5 w-5" aria-hidden="true" />

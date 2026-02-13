@@ -246,23 +246,35 @@ body::before {
 
 /* Nav expand/collapse — at top: bigger header + huge logo; on scroll: compact */
 .nav-expanded .nav-inner {
-  min-height: 7rem; /* 112px */
+  min-height: 4rem; /* 64px on mobile */
+}
+@media (min-width: 1024px) {
+  .nav-expanded .nav-inner {
+    min-height: 7rem; /* 112px on desktop */
+  }
 }
 .nav-collapsed .nav-inner {
   min-height: 4rem; /* 64px */
 }
-.nav-logo-expanded {
-  height: clamp(96px, 14vw, 140px) !important;
-  width: auto !important;
+/* Larger logo only on desktop — mobile keeps compact for header fit */
+@media (min-width: 1024px) {
+  .nav-logo-expanded {
+    height: clamp(96px, 14vw, 140px) !important;
+    width: auto !important;
+  }
 }
 /* Larger buttons/links when header is expanded */
-.nav-expanded .nav-donate-pill {
-  font-size: 1.125rem;
-  padding: 0.75rem 1.75rem;
-  min-height: 52px;
+@media (min-width: 1024px) {
+  .nav-expanded .nav-donate-pill {
+    font-size: 1.125rem;
+    padding: 0.75rem 1.75rem;
+    min-height: 52px;
+  }
 }
-.nav-expanded .nav-link {
-  font-size: clamp(16px, 1.75vw, 18px);
+@media (min-width: 1024px) {
+  .nav-expanded .nav-link {
+    font-size: clamp(16px, 1.75vw, 18px);
+  }
 }
 
 /* Left nav links — Bernoru Semicondensed; Volunteer bold, others medium */
@@ -942,6 +954,7 @@ body::before {
 }
 
 /* Hero layout: left column = photo; right = content; height = content (no 100vh dead space) */
+/* Use stacked layout up to 1279px to prevent floating/empty-space on laptops */
 .hero-grid {
   display: grid;
   grid-template-columns: 48vw 1fr;
@@ -949,7 +962,7 @@ body::before {
   margin: 0;
   padding: 0;
 }
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .hero-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -967,14 +980,14 @@ body::before {
   overflow: hidden;
   background: none;
 }
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .hero-left-column {
     padding: 0;
     overflow: hidden;
     margin-right: -20px;
   }
 }
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .hero-left-column {
     min-height: auto;
     padding: 1rem 1rem 1.5rem;
@@ -998,7 +1011,7 @@ body::before {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .hero-photo-area {
     min-height: auto;
   }
@@ -1042,6 +1055,7 @@ body::before {
 }
 
 /* David photo wrapper — cropped top-to-bottom; image ends at max-height (no left/right crop) */
+/* Parallax disabled below 1280px to prevent floating/empty-space on laptops */
 .hero-cutout-wrapper {
   position: relative;
   z-index: 2;
@@ -1072,8 +1086,10 @@ body::before {
   object-position: top center;
   will-change: transform;
 }
-@media (max-width: 1023px) {
+@media (max-width: 1279px) {
   .hero-cutout-wrapper {
+    transform: none;
+    will-change: auto;
     min-height: auto;
     padding: 0 0.5rem;
   }
@@ -1084,6 +1100,7 @@ body::before {
     max-width: 85vw;
     object-fit: contain;
     object-position: top center;
+    will-change: auto;
   }
 }
 
@@ -1113,13 +1130,19 @@ body::before {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 0 1.5rem 1rem;
+  padding: 0 1rem 1rem;
   background-color: #FFFFFF;
   border: none;
   box-shadow: none;
   min-width: 0;
 }
-@media (min-width: 1024px) {
+@media (min-width: 480px) {
+  .hero-right-column {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+@media (min-width: 1280px) {
   .hero-right-column {
     padding: 20vh 2.5rem 1rem 1.75rem;
     /* Bio text and form shifted up further */
@@ -1171,6 +1194,11 @@ body::before {
   width: 100%;
   max-width: 100%;
 }
+@media (max-width: 640px) {
+  .hero-headline {
+    line-height: 1.12;
+  }
+}
 .hero-headline-black {
   color: #000000;
 }
@@ -1207,9 +1235,14 @@ body::before {
 }
 /* Space between "Join the fight!" and sign-up box — shifts the form card down */
 .hero-right-column .hero-form-card {
-  margin-top: 3.5rem;
+  margin-top: 2rem;
 }
-@media (min-width: 640px) {
+@media (min-width: 480px) {
+  .hero-right-column .hero-form-card {
+    margin-top: 3rem;
+  }
+}
+@media (min-width: 768px) {
   .hero-right-column .hero-form-card {
     margin-top: 4.5rem;
   }

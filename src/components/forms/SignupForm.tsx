@@ -215,7 +215,7 @@ export function SignupForm({
           </div>
         </div>
       ) : compact ? (
-        <div className="grid gap-2 grid-cols-2 sm:grid-cols-4">
+        <div className="grid gap-2 grid-cols-1 md:grid-cols-4">
           <Input
             type="text"
             label="First"
@@ -240,7 +240,7 @@ export function SignupForm({
             inputVariant={inputVariant}
             {...register("email")}
           />
-          <div className="flex gap-2 items-end col-span-2 sm:col-span-1">
+          <div className="flex gap-2 items-end md:col-span-1">
             <Input
               type="text"
               inputMode="numeric"

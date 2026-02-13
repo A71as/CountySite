@@ -108,7 +108,7 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed left-0 right-0 z-40 transition-all duration-300 ease-out",
+        "fixed left-0 right-0 z-40 transition-all duration-300 ease-out overflow-x-hidden",
         "top-[var(--announcement-height)]",
         "nav-bar-bg",
         isScrolled && "nav-bar-scrolled",
@@ -117,7 +117,7 @@ export function Navbar() {
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative min-w-0">
         <div className="flex items-center justify-between gap-4 nav-inner transition-all duration-300 ease-out">
           {/* Left: Volunteer, WTF is a Commissioner?, Issues — Bernoru, 14–15px, black; Volunteer bold */}
           <div className="nav-left hidden lg:flex items-center justify-start gap-6 flex-1 min-w-0">

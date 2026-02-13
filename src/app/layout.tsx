@@ -104,6 +104,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: "/images/logos/Speech%20bubble%20only.png",
+    apple: "/images/logos/Speech%20bubble%20only.png",
+  },
 };
 
 export const viewport: Viewport = {

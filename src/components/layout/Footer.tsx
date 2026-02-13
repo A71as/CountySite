@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Facebook, Instagram, Mail, ArrowUp } from "lucide-react";
+import { Instagram, Mail, ArrowUp } from "lucide-react";
 import { SignupForm } from "@/components/forms/SignupForm";
 import { LOGO_ASSETS } from "@/lib/constants/images";
 
@@ -29,14 +29,8 @@ export function Footer() {
     {
       name: "Instagram",
       icon: Instagram,
-      href: "https://instagram.com/davidguirgis",
+      href: "https://www.instagram.com/davidforjc/",
       ariaLabel: "Follow David on Instagram",
-    },
-    {
-      name: "Facebook",
-      icon: Facebook,
-      href: "https://facebook.com/davidguirgis",
-      ariaLabel: "Follow David on Facebook",
     },
   ];
 

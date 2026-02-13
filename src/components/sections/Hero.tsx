@@ -76,7 +76,7 @@ export function Hero() {
                 height={5400}
                 className="hero-cutout-image"
                 priority
-                sizes="(max-width: 1023px) 85vw, 48vw"
+                sizes="(max-width: 1279px) 85vw, 48vw"
               />
             </div>
             <div className="hero-photo-area-right-fade" aria-hidden="true" />
