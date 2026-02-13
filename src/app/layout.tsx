@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Gelasio, Barlow_Semi_Condensed, Homemade_Apple } from "next/font/google";
+import { Barlow_Semi_Condensed, Homemade_Apple } from "next/font/google";
 import "./globals.css";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Navbar } from "@/components/layout/Navbar";
@@ -27,10 +27,18 @@ const bernoru = Barlow_Semi_Condensed({
   display: "swap",
 });
 
-// Body text — Gelica, regular serif, 16–18px (Gelasio until brand font file added)
-const gelica = Gelasio({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Body text — Gelica (brand serif) from public/images/Gelica-fontiko/
+const gelica = localFont({
+  src: [
+    { path: "../../public/images/Gelica-fontiko/Gelica-Extra-Light.otf", weight: "200" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Light.otf", weight: "300" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Regular.otf", weight: "400" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Medium.otf", weight: "500" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Semi-Bold.otf", weight: "600" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Bold.otf", weight: "700" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Black.otf", weight: "900" },
+    { path: "../../public/images/Gelica-fontiko/Gelica-Italic.otf", weight: "400", style: "italic" },
+  ],
   variable: "--font-body",
   display: "swap",
 });
@@ -96,6 +104,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 interface RootLayoutProps {

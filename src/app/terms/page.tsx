@@ -36,7 +36,7 @@ export default function TermsPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none font-body">
         {/* Header */}
         <div className="mb-8">
           <h1 className="font-display text-4xl font-bold text-primary-600 sm:text-5xl uppercase tracking-tight">

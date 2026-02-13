@@ -26,7 +26,6 @@ interface Issue {
   title: string;
   description: string;
   fullExplainer: string;
-  tagline: string;
 }
 
 export function Issues() {
@@ -41,7 +40,6 @@ export function Issues() {
       title: "Audit Everything",
       description: `${county} County carries an operating budget of over $750 million per year — and we run on a surplus. So why are our county schools facing an $11 million budget deficit?`,
       fullExplainer: `One out of every three tax dollars you pay go straight to the County. But for too long, machine politicians and pay-to-play corruption have ensured you don't know where it's going or how it's being spent. That's unacceptable.\n\nAs County Commissioner, I'm going to audit everything — and I'll be a loud voice against corruption. It's time to shine a light on where our money is going and how it's being spent. Because the era of wasteful pay-to-play contracts, no- or low-show jobs, and outrageous payouts for crooked party cronies is over.`,
-      tagline: "We deserve transparency.",
     },
     {
       icon: Home,
@@ -49,7 +47,6 @@ export function Issues() {
       description:
         "The county owns TKTKTK parcels of vacant land — yet they're selling it to a private developer for 20% affordable housing. Meanwhile, a nonprofit developer built 55% affordable housing in Jersey City just last year.",
       fullExplainer: `And Montgomery County, MD, is following the model of cities like Chicago and New York using their land to build 100% affordable mixed-income housing, with community benefits like recreational access.\n\nThis is called social housing — and I think we should build it right here in Hudson County. 20% affordable housing isn't enough to meet the demands of a housing crisis that makes this city the most expensive cities in the country to rent in, and pre-emptively ceding to private developers displays the exact lack of political imagination that brought us this affordability crisis.\n\nInstead, I'll build 100% affordable, green social housing with access to childcare for all.`,
-      tagline: "We deserve housing we can afford.",
     },
     {
       icon: Baby,
@@ -57,7 +54,6 @@ export function Issues() {
       description:
         "Childcare for all should be embedded in every county service and program — so no family has to choose between a paycheck and their kids' care.",
       fullExplainer: `And I'll ensure childcare for all is embedded in all of our county's services and programs — including onsite daycare for Hudson County Community College students. Parents shouldn't have to choose between a paycheck and their kids' safety. This is an investment in our families and in our economy.`,
-      tagline: "We deserve childcare for all.",
     },
     {
       icon: GraduationCap,
@@ -65,7 +61,6 @@ export function Issues() {
       description:
         "Education is a right. Hudson County Community College has changed the lives of millions of people in this county, including my own mother.",
       fullExplainer: `It should be treated as the public good as it is —and it should be free for everyone, no questions asked.`,
-      tagline: "We deserve to learn.",
     },
   ];
 
@@ -153,12 +148,9 @@ export function Issues() {
                 <foundation.icon className="h-8 w-8 text-white icon-sketch" aria-hidden="true" />
               </span>
               <div>
-                <h3 className="font-display text-2xl sm:text-4xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
+                <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
                   {foundation.title}
                 </h3>
-                <p className="mt-2 text-primary-600 text-xl sm:text-2xl font-body italic tagline-accent">
-                  {foundation.tagline}
-                </p>
               </div>
             </div>
           </div>
@@ -266,12 +258,9 @@ export function Issues() {
                     <Icon className="h-7 w-7 text-white icon-sketch" aria-hidden="true" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
+                    <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
                       {issue.title}
                     </h3>
-                    <p className="mt-2 text-primary-600 text-lg sm:text-xl font-body italic tagline-accent issues-card-tagline">
-                      {issue.tagline}
-                    </p>
                   </div>
                 </div>
 

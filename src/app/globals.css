@@ -11,7 +11,8 @@
   /* Sticky header heights: announcement bar (set by JS), nav h-16 */
   --nav-height: 64px;
   /* Type system: --font-display (Barber Chop), --font-section (Bernoru), --font-body (Gelica), --font-accent (Homemade Apple).
-     Fonts loaded in layout.tsx via next/font (local + Google); Next injects @font-face with proper weight. Fallbacks: sans-serif (display/section), serif (body), cursive (accent). */
+     Fonts loaded in layout.tsx via next/font (local + Google); Gelica is the brand serif (Gelasio used until brand font file is added).
+     Fallbacks: sans-serif (display/section), serif (body), cursive (accent). */
   font-size: 16px;
 }
 
@@ -349,12 +350,6 @@ body::before {
 }
 .organic-card-3 {
   border-radius: 20px 14px 22px 16px / 16px 20px 14px 18px;
-}
-
-/* Issues branch cards — Homemade Apple tagline larger and more readable */
-#issues .issues-card-tagline {
-  font-size: clamp(1.125rem, 2.2vw, 1.35rem);
-  line-height: 1.35;
 }
 
 .organic-form {
@@ -702,6 +697,11 @@ body::before {
 }
 
 @layer components {
+  /* All prose uses Gelica (body serif) for consistent reading */
+  .prose {
+    font-family: var(--font-body), serif;
+  }
+
   /* Custom prose styles for campaign content — brand hierarchy */
   .prose-campaign {
     @apply prose prose-lg max-w-none font-body;
@@ -1117,6 +1117,7 @@ body::before {
   background-color: #FFFFFF;
   border: none;
   box-shadow: none;
+  min-width: 0;
 }
 @media (min-width: 1024px) {
   .hero-right-column {
@@ -1145,6 +1146,12 @@ body::before {
   margin-bottom: 0.5rem;
   line-height: 1.3;
   white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .hero-district-label {
+    white-space: normal;
+    word-break: break-word;
+  }
 }
 
 /* Hero headline — poster-scale display; justified, full width; last line left-aligned (mockup) */
