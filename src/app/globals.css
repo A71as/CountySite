@@ -953,8 +953,8 @@ body::before {
   display: none;
 }
 
-/* Hero layout: left column = photo; right = content; height = content (no 100vh dead space) */
-/* Use stacked layout up to 1279px to prevent floating/empty-space on laptops */
+/* Hero layout: left column = photo; right = content; same scale as desktop on small laptops */
+/* Stack only below 1024px so small laptops keep two-column layout; photo anchored, not floating */
 .hero-grid {
   display: grid;
   grid-template-columns: 48vw 1fr;
@@ -962,7 +962,7 @@ body::before {
   margin: 0;
   padding: 0;
 }
-@media (max-width: 1279px) {
+@media (max-width: 1023px) {
   .hero-grid {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -980,14 +980,14 @@ body::before {
   overflow: hidden;
   background: none;
 }
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .hero-left-column {
     padding: 0;
     overflow: hidden;
     margin-right: -20px;
   }
 }
-@media (max-width: 1279px) {
+@media (max-width: 1023px) {
   .hero-left-column {
     min-height: auto;
     padding: 1rem 1rem 1.5rem;
@@ -1011,7 +1011,7 @@ body::before {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
-@media (max-width: 1279px) {
+@media (max-width: 1023px) {
   .hero-photo-area {
     min-height: auto;
   }
@@ -1054,8 +1054,8 @@ body::before {
   display: none;
 }
 
-/* David photo wrapper — cropped top-to-bottom; image ends at max-height (no left/right crop) */
-/* Parallax disabled below 1280px to prevent floating/empty-space on laptops */
+/* David photo wrapper — cropped top-to-bottom; anchored in column, no floating */
+/* Parallax disabled below 1024px; stacked view: photo fills width so it doesn't float */
 .hero-cutout-wrapper {
   position: relative;
   z-index: 2;
@@ -1086,19 +1086,22 @@ body::before {
   object-position: top center;
   will-change: transform;
 }
-@media (max-width: 1279px) {
+@media (max-width: 1023px) {
   .hero-cutout-wrapper {
     transform: none;
     will-change: auto;
     min-height: auto;
-    padding: 0 0.5rem;
+    padding: 0;
+    /* Full width of container so photo is anchored, not floating */
+    justify-content: center;
   }
   .hero-cutout-wrapper .hero-cutout-image {
     min-height: auto;
     max-height: 65vh;
     height: auto;
-    max-width: 85vw;
-    object-fit: contain;
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
     object-position: top center;
     will-change: auto;
   }
@@ -1142,11 +1145,10 @@ body::before {
     padding-right: 1.5rem;
   }
 }
-@media (min-width: 1280px) {
+@media (min-width: 1024px) {
   .hero-right-column {
     padding: 20vh 2.5rem 1rem 1.75rem;
-    /* Bio text and form shifted up further */
-    /* No max-width: use full width of right side (~52% viewport) so justify doesn't over-stretch */
+    /* Bio text and form shifted up further; same scale as desktop on small laptops */
     margin-left: 0;
   }
 }

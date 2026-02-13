@@ -83,7 +83,6 @@ export function About({
   credentials,
   showMap = false,
 }: AboutProps) {
-  const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
   const county = process.env.NEXT_PUBLIC_COUNTY || "County";
   const state = process.env.NEXT_PUBLIC_STATE || "State";
 
@@ -120,8 +119,6 @@ export function About({
     return () => observer.disconnect();
   }, []);
 
-  const firstName = candidateName.split(" ")[0];
-
   return (
     <Section
       id="about"
@@ -148,7 +145,7 @@ export function About({
           showDivider={false}
           title={
             <>
-              Meet {firstName}
+              Meet David
               <MeetDavidUnderlineSvg />
             </>
           }

@@ -95,7 +95,7 @@ export function Issues() {
         <div className="absolute inset-0 brand-crosshatch-pink opacity-70" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
+      <div className="relative z-10 mx-auto w-full min-w-0 max-w-[min(1200px,calc(100vw-2rem))] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
       {/* Section opener + header — SectionHeader is the single animation source; lead line static */}
       <div className="relative mb-14 max-w-5xl">
         <SectionHeader
@@ -113,8 +113,8 @@ export function Issues() {
         </p>
       </div>
 
-      {/* Foundation card — full-width, dominant, campaign graphic style */}
-      <div className="relative mx-auto mb-6 w-full max-w-6xl">
+      {/* Foundation card — full-width within section; same scale as site on small screens */}
+      <div className="relative mx-auto mb-6 w-full max-w-full lg:max-w-6xl">
         <motion.div
           initial={reduceMotion ? undefined : cardStagger.initial}
           whileInView={reduceMotion ? undefined : cardStagger.visible}
@@ -198,7 +198,7 @@ export function Issues() {
       </div>
 
       {/* Hand-drawn squiggly connectors: one trunk down, three branches to cards */}
-      <div className="relative hidden md:block mx-auto max-w-6xl h-20 px-4" aria-hidden="true">
+      <div className="relative hidden md:block mx-auto w-full max-w-full lg:max-w-6xl h-20 px-4" aria-hidden="true">
         <svg viewBox="0 0 800 80" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
           <path
             className="squiggly-connector"
