@@ -11,7 +11,8 @@ interface AnimatedSectionProps {
 
 /**
  * Lightweight scroll-triggered fade-up using IntersectionObserver.
- * Respects prefers-reduced-motion: no animation when user prefers reduced motion.
+ * Trigger at 15% visibility, once; 400ms ease-out, 20px travel.
+ * Respects prefers-reduced-motion.
  */
 export function AnimatedSection({
   children,
@@ -45,7 +46,7 @@ export function AnimatedSection({
           observer.unobserve(el);
         }
       },
-      { rootMargin: "-60px", threshold: 0.08 }
+      { rootMargin: "0px", threshold: 0.15 }
     );
 
     observer.observe(el);
@@ -58,8 +59,8 @@ export function AnimatedSection({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-[350ms] ease-out",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+        "transition-all duration-[400ms] ease-out",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5",
         className
       )}
       style={{ transitionDelay: visible ? "0ms" : `${delay}ms` }}

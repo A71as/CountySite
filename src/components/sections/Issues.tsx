@@ -12,8 +12,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { BUDGET_MILLIONS } from "@/lib/constants/copy";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { cn } from "@/lib/utils";
 
 const cardStagger = {
@@ -33,38 +32,39 @@ interface Issue {
 export function Issues() {
   const county = process.env.NEXT_PUBLIC_COUNTY || "Hudson";
   const reduceMotion = useReducedMotion();
+  // -1 = foundation card expanded, 0/1/2 = branch card expanded, null = none
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const issues: Issue[] = [
     {
       icon: Calculator,
       title: "Audit Everything",
-      description: `${county} County has never had an independent audit. We don't know where $${BUDGET_MILLIONS} million goes each year. Audit Everything is the foundation—exposing waste and corruption to fund the other three policies.`,
-      fullExplainer: `Hudson County has never had a truly independent, comprehensive audit. That means we don't know where hundreds of millions of taxpayer dollars go every year—only that working families aren't seeing the results. Audit Everything means: transparent accounting, forensic audits of contracts and land deals, and public accountability so we can reclaim wasted funds and redirect them to housing, childcare, and education. Every dollar we recover is a dollar we can invest in our community instead of in corruption and sweetheart deals.`,
+      description: `${county} County carries an operating budget of over $750 million per year — and we run on a surplus. So why are our county schools facing an $11 million budget deficit?`,
+      fullExplainer: `One out of every three tax dollars you pay go straight to the County. But for too long, machine politicians and pay-to-play corruption have ensured you don't know where it's going or how it's being spent. That's unacceptable.\n\nAs County Commissioner, I'm going to audit everything — and I'll be a loud voice against corruption. It's time to shine a light on where our money is going and how it's being spent. Because the era of wasteful pay-to-play contracts, no- or low-show jobs, and outrageous payouts for crooked party cronies is over.`,
       tagline: "We deserve transparency.",
     },
     {
       icon: Home,
-      title: "Social Housing on County Land",
+      title: "Green Social Housing",
       description:
-        "We use recovered funds and better land stewardship to build permanently affordable, publicly-owned social housing—not luxury developments that price out working families.",
-      fullExplainer: `Branching from Audit Everything: we use recovered funds and better stewardship of county-owned land to build permanently affordable, publicly-owned social housing. That means housing that stays affordable forever—not luxury developments that displace working families. We'll prioritize county land for community benefit, partner with community land trusts, and ensure new construction serves residents who need it most, with strong tenant protections and no more backroom deals that hand public assets to developers.`,
+        "The county owns TKTKTK parcels of vacant land — yet they're selling it to a private developer for 20% affordable housing. Meanwhile, a nonprofit developer built 55% affordable housing in Jersey City just last year.",
+      fullExplainer: `And Montgomery County, MD, is following the model of cities like Chicago and New York using their land to build 100% affordable mixed-income housing, with community benefits like recreational access.\n\nThis is called social housing — and I think we should build it right here in Hudson County. 20% affordable housing isn't enough to meet the demands of a housing crisis that makes this city the most expensive cities in the country to rent in, and pre-emptively ceding to private developers displays the exact lack of political imagination that brought us this affordability crisis.\n\nInstead, I'll build 100% affordable, green social housing with access to childcare for all.`,
       tagline: "We deserve housing we can afford.",
     },
     {
       icon: Baby,
       title: "Universal Childcare",
       description:
-        "We reinvest savings from the audit to make childcare accessible and affordable for all families in Hudson County.",
-      fullExplainer: `Branching from Audit Everything: we reinvest savings and reallocated funds to make childcare accessible and affordable for every family in Hudson County. Parents shouldn't have to choose between a paycheck and their kids' safety. We'll expand publicly funded childcare, support providers with living wages, and ensure no family is priced out of quality early care and education. This is an investment in our kids and in our economy.`,
+        "Childcare for all should be embedded in every county service and program — so no family has to choose between a paycheck and their kids' care.",
+      fullExplainer: `And I'll ensure childcare for all is embedded in all of our county's services and programs — including onsite daycare for Hudson County Community College students. Parents shouldn't have to choose between a paycheck and their kids' safety. This is an investment in our families and in our economy.`,
       tagline: "We deserve childcare for all.",
     },
     {
       icon: GraduationCap,
       title: "Free HCCC",
       description:
-        "We fund free tuition at Hudson County Community College so every resident can access education without crushing debt.",
-      fullExplainer: `Branching from Audit Everything: we fund free tuition at Hudson County Community College so every resident can access higher education and workforce training without crushing debt. Community college should be a ladder for working families—not another bill. We'll work with HCCC to remove financial barriers, support wraparound services, and ensure that every person in Hudson County has a real shot at the education they deserve.`,
+        "Education is a right. Hudson County Community College has changed the lives of millions of people in this county, including my own mother.",
+      fullExplainer: `It should be treated as the public good as it is —and it should be free for everyone, no questions asked.`,
       tagline: "We deserve to learn.",
     },
   ];
@@ -79,25 +79,44 @@ export function Issues() {
   ];
 
   return (
-    <SectionWrapper id="issues" background="white" className="relative overflow-hidden">
-      <div className="absolute inset-0 texture-speckle pointer-events-none" aria-hidden="true" />
-      <div className="absolute inset-0 brand-crosshatch-dark pointer-events-none opacity-80" aria-hidden="true" />
+    <SectionWrapper id="issues" background="blush" fullBleed className="relative overflow-hidden section-spacing-top section-spacing-bottom" topFade={{ from: "#FFF5F5", to: "transparent" }} bottomFade={{
+        from: "rgba(61,26,30,0)",
+        to: "#3D1A1E",
+        height: "clamp(56px, 7vh, 120px)",
+        blendMode: "multiply",
+        stops: [
+          { color: "rgba(61,26,30,0)", at: "0%" },
+          { color: "rgba(61,26,30,0.10)", at: "20%" },
+          { color: "rgba(61,26,30,0.22)", at: "45%" },
+          { color: "rgba(61,26,30,0.38)", at: "65%" },
+          { color: "rgba(61,26,30,0.62)", at: "85%" },
+          { color: "#3D1A1E", at: "100%" },
+        ],
+      }}>
+      {/* Pattern full-bleed with gradient mask so it fades in from Donate gradient and out into footer */}
+      <div className="absolute inset-0 pattern-fade-vertical pointer-events-none" aria-hidden="true">
+        <div className="absolute inset-0 texture-speckle" />
+        <div className="absolute inset-0 brand-crosshatch-dark" />
+        <div className="absolute inset-0 brand-crosshatch-pink opacity-70" />
+      </div>
 
-      {/* Section opener + header */}
-      <ScrollReveal variant="header" className="relative mb-14 max-w-5xl">
-        <p className="accent-callout font-accent text-3xl sm:text-4xl lg:text-5xl text-primary-500 mb-4">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      {/* Section opener + header — SectionHeader is the single animation source; lead line static */}
+      <div className="relative mb-14 max-w-5xl pt-8">
+        <SectionHeader
+          showDivider={false}
+          title={
+            <>
+              <span className="hand-underline">Audit Everything</span> is the
+              foundation.
+            </>
+          }
+        />
+
+        <p className="accent-callout font-accent text-3xl sm:text-4xl lg:text-5xl text-primary-500 mt-6">
           We deserve more.
         </p>
-        <div className="uppercase text-sm tracking-[0.25em] text-primary-600 font-subhead font-bold mb-4">
-          Big Four Policies
-        </div>
-        <h2 className="font-display text-4xl font-bold text-slate-900 sm:text-5xl lg:text-6xl leading-[1.1] uppercase tracking-tight">
-          <span className="hand-underline">Audit Everything</span> is the foundation.
-        </h2>
-        <p className="mt-6 text-lg text-slate-600 max-w-2xl font-body">
-          It funds the other three policies with real savings and accountability for {county} County.
-        </p>
-      </ScrollReveal>
+      </div>
 
       {/* Foundation card — full-width, dominant, campaign graphic style */}
       <div className="relative mx-auto mb-6 w-full max-w-6xl">
@@ -137,7 +156,7 @@ export function Issues() {
                 <h3 className="font-display text-2xl sm:text-4xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
                   {foundation.title}
                 </h3>
-                <p className="mt-2 text-primary-600 text-lg font-body italic tagline-accent">
+                <p className="mt-2 text-primary-600 text-xl sm:text-2xl font-body italic tagline-accent">
                   {foundation.tagline}
                 </p>
               </div>
@@ -147,6 +166,41 @@ export function Issues() {
           <p className="relative z-10 mt-6 text-slate-700 leading-relaxed font-body text-base sm:text-lg max-w-3xl">
             {foundation.description}
           </p>
+
+          <AnimatePresence initial={false}>
+            {expandedIndex === -1 && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="relative z-10 pt-6 mt-6 organic-divider-t text-slate-700 leading-relaxed font-body text-base sm:text-lg max-w-3xl space-y-4">
+                  {foundation.fullExplainer.split(/\n\n+/).map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <button
+            type="button"
+            onClick={() => setExpandedIndex(expandedIndex === -1 ? null : -1)}
+            className="relative z-10 mt-4 min-h-[44px] flex items-center gap-1.5 py-2 text-sm font-subhead font-bold text-primary-600 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 organic-sm transition-colors"
+            aria-expanded={expandedIndex === -1}
+          >
+            {expandedIndex === -1 ? (
+              <>
+                Read less <ChevronUp className="h-4 w-4" aria-hidden="true" />
+              </>
+            ) : (
+              <>
+                Read more <ChevronDown className="h-4 w-4" aria-hidden="true" />
+              </>
+            )}
+          </button>
 
         </motion.div>
       </div>
@@ -193,7 +247,7 @@ export function Issues() {
             >
               <div
                 className={cn(
-                  "relative bg-white/95 p-6 shadow-soft backdrop-blur-sm transition-all duration-300 hover:shadow-elevated overflow-hidden",
+                  "relative bg-white/95 p-7 sm:p-8 shadow-soft backdrop-blur-sm transition-all duration-300 hover:shadow-elevated overflow-hidden",
                   cardRadii[index],
                   cardBorders[index]
                 )}
@@ -204,24 +258,24 @@ export function Issues() {
                 />
 
                 <div className="relative flex items-start gap-4 min-w-0">
-                  <span className="relative inline-flex h-12 w-12 items-center justify-center bg-primary-500 organic-sm shadow-sm flex-shrink-0 ">
+                  <span className="relative inline-flex h-14 w-14 flex-shrink-0 items-center justify-center bg-primary-500 organic-sm shadow-sm ">
                     <span
                       className="absolute inset-0 organic-sm border-2 border-dashed border-primary-300 scale-[1.15] opacity-60"
                       aria-hidden="true"
                     />
-                    <Icon className="h-6 w-6 text-white icon-sketch" aria-hidden="true" />
+                    <Icon className="h-7 w-7 text-white icon-sketch" aria-hidden="true" />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold text-slate-900 leading-tight uppercase tracking-tight">
                       {issue.title}
                     </h3>
-                    <p className="mt-1.5 text-primary-600 text-base font-body italic tagline-accent">
+                    <p className="mt-2 text-primary-600 text-lg sm:text-xl font-body italic tagline-accent issues-card-tagline">
                       {issue.tagline}
                     </p>
                   </div>
                 </div>
 
-                <p className="relative mt-4 text-slate-600 leading-relaxed text-sm font-body">
+                <p className="relative mt-5 text-slate-600 leading-relaxed text-base font-body">
                   {issue.description}
                 </p>
 
@@ -234,9 +288,11 @@ export function Issues() {
                       transition={{ duration: 0.25, ease: "easeInOut" }}
                       className="overflow-hidden"
                     >
-                      <p className="pt-4 mt-4 organic-divider-t text-slate-700 leading-relaxed text-sm font-body">
-                        {issue.fullExplainer}
-                      </p>
+                      <div className="pt-4 mt-4 organic-divider-t text-slate-700 leading-relaxed text-base font-body space-y-3">
+                        {issue.fullExplainer.split(/\n\n+/).map((para, i) => (
+                          <p key={i}>{para}</p>
+                        ))}
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -244,7 +300,7 @@ export function Issues() {
                 <button
                   type="button"
                   onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                  className="mt-4 min-h-[44px] flex items-center gap-1.5 py-2 text-sm font-subhead font-bold text-primary-600 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 organic-sm transition-colors"
+                  className="mt-5 min-h-[48px] flex items-center gap-1.5 py-2 text-base font-subhead font-bold text-primary-600 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 organic-sm transition-colors"
                   aria-expanded={isExpanded}
                 >
                   {isExpanded ? (
@@ -261,6 +317,7 @@ export function Issues() {
             </motion.div>
           );
         })}
+      </div>
       </div>
     </SectionWrapper>
   );

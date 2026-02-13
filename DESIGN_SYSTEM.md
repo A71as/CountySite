@@ -26,6 +26,8 @@ This website is built to **build trust, demonstrate competence, and invite commu
 
 The only **100% straight edge** in the layout is the **black border around the site** (frame). All other elements use rounded/organic edges (e.g. `rounded-xl`, `rounded-2xl`).
 
+**Client question — Hero “COUNT ME IN” button color:** The hero signup button is implemented as brand red `#E92128` with white text (per brand kit). The client mockup shows a softer coral/salmon tone (approx. `#E07070` / `#D4686E`), which may be intentional so the button doesn’t compete with the strong red headline. **Action:** Confirm with the client; if they prefer the softer tone, get the exact hex from their designer and update `globals.css` (search for “COUNT ME IN button”).
+
 ### Typography (Brand kit — four fonts)
 
 **Hierarchy (load order in `layout.tsx`):**

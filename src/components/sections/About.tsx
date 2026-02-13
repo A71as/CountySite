@@ -1,9 +1,25 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
-import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { Section } from "@/components/ui/Section";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { IMAGE_PATHS } from "@/lib/constants/images";
+
+/** Hand-drawn red underline (marker wobble, 8–10px overshoot) for Meet David */
+function MeetDavidUnderlineSvg() {
+  return (
+    <svg className="underline-squiggle" viewBox="0 0 200 14" fill="none" preserveAspectRatio="none" aria-hidden>
+      <path
+        d="M0 9 Q15 4 30 8 Q50 12 70 6 Q90 11 110 7 Q130 12 150 6 Q170 10 200 8"
+        stroke="#E92128"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 /** Key phrases to bold in the bio for scannable emphasis (mailer-style) */
 const BIO_BOLD_PHRASES = [
@@ -83,31 +99,69 @@ export function About({
   const displayQuote = quote || defaultQuote;
   const displayConnection = connection || defaultConnection;
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [revealVisible, setRevealVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      setRevealVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) setRevealVisible(true);
+      },
+      { threshold: 0.15, rootMargin: "0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const firstName = candidateName.split(" ")[0];
+
   return (
-    <SectionWrapper
+    <Section
       id="about"
-      background="white"
-      className="relative overflow-hidden"
+      className="relative overflow-hidden section-spacing-top section-spacing-bottom bg-white"
+      innerClassName="min-h-0"
+      style={{ paddingBottom: "12rem", scrollMarginTop: "calc(var(--announcement-height, 0px) + 4rem)" }}
     >
-      <div className="absolute inset-0 texture-speckle pointer-events-none" aria-hidden="true" />
-      <div className="absolute inset-0 brand-crosshatch-dark pointer-events-none opacity-80" aria-hidden="true" />
+      {/* Pattern full-bleed — extends up to Hero's red line, down through About bottom padding (stops at Commissioner) */}
+      <div
+        className="absolute left-0 right-0 texture-speckle pointer-events-none z-0"
+        style={{ top: "-5.5rem", bottom: "-17.5rem" }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute left-0 right-0 brand-crosshatch-dark pointer-events-none opacity-80 z-0"
+        style={{ top: "-5.5rem", bottom: "-17.5rem" }}
+        aria-hidden="true"
+      />
 
-      {/* Section header — scroll reveal */}
-      <ScrollReveal variant="header" className="relative mb-20 max-w-5xl">
-        <div className="uppercase text-sm tracking-[0.25em] text-primary-500 font-subhead font-bold mb-6">
-          About
-        </div>
-        <h2 className="font-display text-5xl font-bold text-primary-500 uppercase tracking-tight sm:text-6xl lg:text-7xl leading-[0.95] hand-underline inline-block">
-          Meet {candidateName.split(" ")[0]}
-        </h2>
-      </ScrollReveal>
+      <div ref={sectionRef} className={revealVisible ? "about-reveal about-reveal-visible relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-10" : "about-reveal relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-10"}>
+        {/* Section header — SectionHeader is the single animation source */}
+        <SectionHeader
+          eyebrow="ABOUT"
+          showDivider={false}
+          title={
+            <>
+              Meet {firstName}
+              <MeetDavidUnderlineSvg />
+            </>
+          }
+          className="mb-20 max-w-5xl"
+          titleClassName="meet-david-underline inline-block"
+        />
 
-      {/* Two-column layout — photo column 1.5x text column */}
-      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16 items-center">
+        {/* Two-column layout — photo column 1.5x text column; items-start so photo sits at top */}
+        <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16 items-start">
         {/* Left column - Family photo: hand-drawn organic red border (mailer aesthetic) */}
-        <div className="order-2 lg:order-1">
+        <div className="about-reveal-item order-2 lg:order-1" style={{ transitionDelay: "300ms" }}>
           <div className="relative slight-tilt-right" style={{ transform: "rotate(-2deg)" }}>
-            <ScrollReveal variant="photo" className="relative photo-frame-standard overflow-hidden">
+            <div className="relative photo-frame-standard overflow-hidden">
               <OptimizedImage
                 src={IMAGE_PATHS.candidate.about}
                 alt="David Guirgis with his mother at his graduation ceremony"
@@ -119,12 +173,12 @@ export function About({
                 className="w-full h-auto"
                 quality={82}
               />
-            </ScrollReveal>
+            </div>
           </div>
         </div>
 
         {/* Right column - Bio */}
-        <div className="order-1 space-y-6 lg:order-2">
+        <div className="about-reveal-item order-1 space-y-6 lg:order-2" style={{ transitionDelay: "450ms" }}>
           {/* Bio paragraphs — Gelica (serif), key phrases bolded for scannable emphasis */}
           <div className="prose prose-lg max-w-none space-y-4 font-body">
             {displayBio.split("\n\n").map((paragraph, i) => (
@@ -134,21 +188,21 @@ export function About({
             ))}
           </div>
 
-          {/* Pull quote — bold speech bubble callout */}
+          {/* Pull quote — speech bubble callout (brand: white interior, #E92128 border, Gelica quote, red quotes) */}
           <div className="relative my-8 slight-tilt-sm-right">
-            <div className="speech-bubble-accent p-6 sm:p-8 shadow-soft bg-primary-50/40">
+            <div className="speech-bubble-accent bg-white px-3 py-2.5 sm:px-4 sm:py-3 shadow-soft">
               <blockquote className="relative">
                 <span
-                  className="block font-display text-6xl sm:text-7xl text-primary-500 leading-none select-none mb-2 drop-shadow-sm"
+                  className="block font-display text-4xl sm:text-5xl text-primary-500 leading-none select-none mb-0 drop-shadow-sm"
                   aria-hidden="true"
                 >
                   &ldquo;
                 </span>
-                <p className="accent-callout font-display text-xl leading-snug text-slate-900 sm:text-2xl">
+                <p className="font-body text-lg leading-snug text-black sm:text-xl -mt-1">
                   {displayQuote}
                 </p>
                 <span
-                  className="block font-display text-6xl sm:text-7xl text-primary-500 leading-none select-none mt-1 text-right drop-shadow-sm"
+                  className="block font-display text-4xl sm:text-5xl text-primary-500 leading-none select-none mt-0 text-right drop-shadow-sm"
                   aria-hidden="true"
                 >
                   &rdquo;
@@ -193,30 +247,31 @@ export function About({
             </div>
           )}
         </div>
-      </div>
+        </div>
 
-      {/* County map graphic section (optional) */}
-      {showMap && (
-        <div className="mt-12">
-          <div className="organic-card-2 border-2 border-gray-200 bg-white p-8 text-center shadow-sm tilt-3">
-            <h3 className="mb-4 font-heading text-2xl font-bold text-gray-900">
-              {county} County District
-            </h3>
-            <p className="mx-auto max-w-2xl text-gray-700">
-              The district encompasses communities across {county} County,{" "}
-              {state}, representing diverse neighborhoods, rural areas, and
-              urban centers. This district includes [specific areas/communities]
-              and serves approximately [number] residents.
-            </p>
-            {/* Placeholder for future map graphic */}
-            <div className="mt-6 flex items-center justify-center">
-              <div className="h-64 w-full max-w-2xl organic-md bg-gray-100 flex items-center justify-center">
-                <p className="text-gray-500">Map graphic placeholder</p>
+        {/* County map graphic section (optional) */}
+        {showMap && (
+          <div className="mt-12">
+            <div className="organic-card-2 border-2 border-gray-200 bg-white p-8 text-center shadow-sm tilt-3">
+              <h3 className="mb-4 font-heading text-2xl font-bold text-gray-900">
+                {county} County District
+              </h3>
+              <p className="mx-auto max-w-2xl text-gray-700">
+                The district encompasses communities across {county} County,{" "}
+                {state}, representing diverse neighborhoods, rural areas, and
+                urban centers. This district includes [specific areas/communities]
+                and serves approximately [number] residents.
+              </p>
+              {/* Placeholder for future map graphic */}
+              <div className="mt-6 flex items-center justify-center">
+                <div className="h-64 w-full max-w-2xl organic-md bg-gray-100 flex items-center justify-center">
+                  <p className="text-gray-500">Map graphic placeholder</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </SectionWrapper>
+        )}
+      </div>
+    </Section>
   );
 }

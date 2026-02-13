@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import { SignupForm } from "@/components/forms/SignupForm";
+import { Section } from "@/components/ui/Section";
 
 const HERO_BIO =
   "David Sabry Guirgis is a social worker, organizer and democratic socialist running for Hudson County Commissioner to win for the working class.";
@@ -10,7 +11,7 @@ const HERO_BIO =
 const DISTRICT_LABEL =
   "DISTRICT 4 · JOURNAL SQUARE · DOWNTOWN · THE HEIGHTS";
 
-const CANDIDATE_IMAGE = "/images/candidate/no-bg1.png";
+const CANDIDATE_IMAGE = "/images/candidate/no-bg-final.png";
 
 /** Photo area background: soft radial gradients + paper texture (no geometric rays) */
 function HeroPhotoBackground() {
@@ -47,9 +48,9 @@ export function Hero() {
   }, []);
 
   return (
-    <section
+    <Section
       id="home"
-      className="relative w-full min-h-screen overflow-visible hero-splash-bg"
+      className="relative w-full overflow-visible hero-splash-bg pb-0"
       aria-label="Hero"
     >
       {/* Paper grain overlay — subtle texture */}
@@ -60,36 +61,25 @@ export function Hero() {
         {/* LEFT COLUMN: Photo area (gradient bg + texture + right fade + photo), bottom mask */}
         <div className="hero-left-column order-1 lg:order-1">
           <div className="hero-photo-area">
+            {/* Soft radial rays behind David (client mockup): conic gradient, blurred, subtle */}
+            <div className="hero-ray-layer" aria-hidden="true" />
             <HeroPhotoBackground />
             <div
               ref={cutoutRef}
               className="hero-cutout-wrapper"
               style={{ ["--parallax-y" as string]: `${parallaxOffset}px` }}
             >
-              <div className="hero-cutout-shadow" aria-hidden="true" />
-              <div className="hero-photo-duotone">
-                <Image
-                  src={CANDIDATE_IMAGE}
-                  alt="David Sabry Guirgis, candidate for Hudson County Commissioner"
-                  width={4050}
-                  height={5400}
-                  className="hero-cutout-image"
-                  priority
-                  sizes="(max-width: 1023px) 85vw, 42vw"
-                />
-              </div>
+              <Image
+                src={CANDIDATE_IMAGE}
+                alt="David Sabry Guirgis, candidate for Hudson County Commissioner"
+                width={4050}
+                height={5400}
+                className="hero-cutout-image"
+                priority
+                sizes="(max-width: 1023px) 85vw, 48vw"
+              />
             </div>
-            {/* Right edge: feathered fade so pink breathes into content area */}
             <div className="hero-photo-area-right-fade" aria-hidden="true" />
-          </div>
-
-          {/* Election date bubble — above David, tail points at him */}
-          <div className="hero-election-bubble-wrapper">
-            <div className="speech-bubble-election-callout speech-bubble-tail-at-david election-bubble-pop px-3 py-2 sm:px-4 sm:py-2.5">
-              <p className="font-subhead font-bold text-black text-xs sm:text-sm uppercase tracking-tight whitespace-nowrap">
-                ELECTION DAY IS ON JUNE 2, 2026
-              </p>
-            </div>
           </div>
         </div>
 
@@ -101,16 +91,19 @@ export function Hero() {
               {DISTRICT_LABEL}
             </p>
 
-            {/* 2. Main headline — Barber Chop, clamp 36–60px, black; identity phrase in red */}
+            {/* 2. Main headline — justified, word-spaced, line-by-line colors (client mockup) */}
             <h1 className="hero-headline">
-              David Sabry Guirgis is a{" "}
-              <span className="text-[#E92128]">social worker, organizer and democratic socialist</span>
-              {" "}running for Hudson County Commissioner to win for the working class.
+              <span className="hero-headline-black">DAVID </span>
+              <span className="hero-headline-black">SABRY</span>
+              <span className="hero-headline-black"> GUIRGIS IS A</span>{" "}
+              <span className="hero-headline-red">SOCIAL WORKER, ORGANIZER AND DEMOCRATIC SOCIALIST</span>{" "}
+              <span className="hero-headline-black">RUNNING FOR HUDSON COUNTY COMMISSIONER TO</span>{" "}
+              <span className="hero-headline-red">WIN FOR THE WORKING CLASS.</span>
             </h1>
 
-            {/* 3. Hand-written annotation — Homemade Apple, #E92128, -2deg, 22–26px */}
+            {/* 3. Handwritten accent — Homemade Apple, right-aligned margin annotation (mockup) */}
             <p className="hero-join-annotation">
-              Join the movement.
+              Join the fight<span className="hero-join-exclamation">!</span>
             </p>
 
             {/* 4. Form — minimal spacing for natural next action */}
@@ -122,6 +115,17 @@ export function Hero() {
           </div>
         </div>
       </div>
-    </section>
+      {/* White gradient overlay — replaces pink gradient above red line (photo fade area) */}
+      <div
+        className="absolute left-0 right-0 bottom-8 pointer-events-none z-[5]"
+        style={{
+          height: "clamp(100px, 14vh, 180px)",
+          background: "linear-gradient(to bottom, transparent, white)",
+        }}
+        aria-hidden="true"
+      />
+      {/* Bold red separator line — spans full width, barrier between Hero and About */}
+      <div className="relative z-10 w-full h-2 bg-primary-500 mt-12" aria-hidden="true" />
+    </Section>
   );
 }

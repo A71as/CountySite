@@ -11,24 +11,35 @@ import { cn } from "@/lib/utils";
 // Left nav: text links — Bernoru, medium, black, 14–15px (Volunteer bold)
 const leftNavLinks: { label: string; href: string; bold?: boolean }[] = [
   { label: "Volunteer", href: "/volunteer", bold: true },
-  { label: "WTF is a Commissioner?", href: "#commissioner" },
+  { label: "About", href: "#about" },
+  { label: "The Role", href: "#commissioner" },
   { label: "Issues", href: "#issues" },
-  { label: "Endorsements", href: "#endorsements" },
 ];
+
+const SCROLL_THRESHOLD = 120; // px — below this, header is expanded with huge logo
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true); // at top = expanded
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroInView, setHeroInView] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const y = window.scrollY;
+      setIsScrolled(y > 10);
+      setIsExpanded(y < SCROLL_THRESHOLD);
     };
-
-    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // init on mount
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Update --nav-height so hero/sections reserve correct space
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--nav-height", isExpanded ? "112px" : "64px");
+  }, [isExpanded]);
 
   const pathname = usePathname();
 
@@ -97,17 +108,18 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed left-0 right-0 z-40 transition-all duration-300",
+        "fixed left-0 right-0 z-40 transition-all duration-300 ease-out",
         "top-[var(--announcement-height)]",
         "nav-bar-bg",
-        isScrolled && "nav-bar-scrolled"
+        isScrolled && "nav-bar-scrolled",
+        isExpanded ? "nav-expanded" : "nav-collapsed"
       )}
       role="navigation"
       aria-label="Main navigation"
     >
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* Left: Volunteer, WTF is a Commissioner?, Issues, Endorsements — Bernoru, 14–15px, black; Volunteer bold */}
+        <div className="flex items-center justify-between gap-4 nav-inner transition-all duration-300 ease-out">
+          {/* Left: Volunteer, WTF is a Commissioner?, Issues — Bernoru, 14–15px, black; Volunteer bold */}
           <div className="nav-left hidden lg:flex items-center justify-start gap-6 flex-1 min-w-0">
             {leftNavLinks.map((link) => (
               <Link
@@ -139,7 +151,7 @@ export function Navbar() {
                 alt={`${candidateName} — Democratic Socialist for Hudson County Commissioner`}
                 width={180}
                 height={96}
-                className="nav-logo-image"
+                className={cn("nav-logo-image transition-all duration-300 ease-out", isExpanded && "nav-logo-expanded")}
                 priority
               />
             </Link>

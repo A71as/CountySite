@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { BUDGET_MILLIONS } from "@/lib/constants/copy";
 
@@ -48,29 +49,27 @@ export function Commissioner() {
   ];
 
   return (
-    <SectionWrapper id="commissioner" background="white" className="relative">
-      {/* Subtle texture */}
+    <SectionWrapper id="commissioner" background="white" className="relative section-spacing-bottom commissioner-section-tighter-top">
+      {/* Subtle texture only — no diamond pattern; Commissioner stays plain white */}
       <div className="absolute inset-0 texture-speckle pointer-events-none" aria-hidden="true" />
 
-      {/* Section header — scroll reveal. Client preference: informal "WTF is a commissioner?" vs current formal heading; update if requested. */}
-      <ScrollReveal variant="header" className="relative mb-16 max-w-5xl">
-        <div className="uppercase text-base sm:text-lg tracking-[0.2em] text-primary-500 font-subhead font-bold mb-6">
-          The Role
-        </div>
-        <h2 className="font-display text-4xl font-bold text-slate-900 sm:text-5xl lg:text-6xl leading-[1.1] uppercase tracking-tight">
-          What is a County Commissioner?
-        </h2>
-      </ScrollReveal>
+      {/* Section header — SectionHeader is the single animation source */}
+      <div className="relative mb-16 max-w-5xl">
+        <SectionHeader
+          eyebrow="THE ROLE"
+          title="What is a County Commissioner?"
+        />
+      </div>
 
       <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Left column - Explanation */}
         <div className="space-y-8">
           {/* Main callout — speech bubble instead of red bar */}
           <div className="speech-bubble-accent px-6 py-5 tilt-2">
-            <p className="text-xl text-slate-700 leading-relaxed">
+            <p className="text-lg text-slate-700 leading-relaxed">
               County Commissioners run the county government. In {county}{" "}
               County, they vote on a budget of over{" "}
-              <span className="marker-highlight font-heading text-2xl sm:text-3xl text-primary-600">
+              <span className="font-bold font-heading text-primary-600 bg-lightPink/60 px-1 py-0.5 rounded whitespace-nowrap text-xl">
                 ${BUDGET_MILLIONS} million
               </span>{" "}
               and decide how your tax dollars are spent.
@@ -109,7 +108,7 @@ export function Commissioner() {
 
             <p className="text-lg">
               Yet most people don&apos;t know who their commissioner is or what
-              they do. That&apos;s why <span className="font-bold text-primary-600">accountability matters</span>—and
+              they do. That&apos;s why <span className="font-bold text-primary-600 bg-lightPink/60 px-1 py-0.5 rounded">accountability matters</span>—and
               why this race matters.
             </p>
           </div>
@@ -117,7 +116,7 @@ export function Commissioner() {
 
         {/* Right column - District Map (tappable on mobile for full-screen lightbox) */}
         <div className="space-y-6 min-w-0">
-          <div className="uppercase text-xs tracking-[0.2em] text-slate-500 font-subhead font-bold">
+          <div className="text-xl sm:text-2xl tracking-[0.15em] text-primary-600 font-accent font-bold -rotate-[2deg] ml-2 mt-5">
             District 4
           </div>
 

@@ -15,8 +15,8 @@ export const IMAGE_PATHS = {
   // Candidate images
   // Using JPG format for actual photos
   candidate: {
-    hero: "/images/candidate/no-bg1.png", // Hero cutout (transparent PNG), mid-thigh up
-    about: "/images/candidate/Graduation photo.JPG", // Recommended: 800x1000px
+    hero: "/images/candidate/no-bg-final.png", // Hero cutout (green quarter-zip, facing camera)
+    about: "/images/candidate/Graduation photo.JPG", // Recommended: 800x1000px; falls back to placeholder if missing
     action: "/images/candidate/JKCF scholars weekend.JPG", // Recommended: 1200x800px
     quoteBackground: "/images/candidate/David_Guirgis-3591RT_dg.jpg", // Background image for video quote section
   },

@@ -18,12 +18,15 @@ export interface SignupFormProps {
   submitLabel?: string;
   /** "short" = "We respect your privacy." + links only */
   privacyVariant?: "short" | "full";
+  /** Compact layout for footer — denser grid, smaller spacing */
+  compact?: boolean;
 }
 
 export function SignupForm({
   variant = "hero",
   submitLabel,
   privacyVariant = "full",
+  compact = false,
 }: SignupFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -133,7 +136,14 @@ export function SignupForm({
   const formContent = (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={cn("space-y-4 min-w-0 w-full", variant === "footer" && "max-w-md")}
+      className={cn(
+        "min-w-0 w-full",
+        variant === "footer"
+          ? compact
+            ? "space-y-2 max-w-full"
+            : "space-y-3 max-w-md"
+          : "space-y-4"
+      )}
     >
       {/* Success message */}
       {isSuccess && (
@@ -152,40 +162,145 @@ export function SignupForm({
 
       <input type="hidden" {...register("turnstileToken")} />
 
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-        <Input
-          type="text"
-          label="First Name"
-          placeholder="What should we call you?"
-          error={errors.first_name?.message}
-          inputVariant={inputVariant}
-          {...register("first_name")}
-        />
-        <Input
-          type="text"
-          label="Last Name"
-          placeholder="Your last name"
-          error={errors.last_name?.message}
-          inputVariant={inputVariant}
-          {...register("last_name")}
-        />
-        <Input
-          type="email"
-          label="Email"
-          placeholder="you@example.com"
-          error={errors.email?.message}
-          inputVariant={inputVariant}
-          {...register("email")}
-        />
-        <Input
-          type="tel"
-          label="Phone (optional)"
-          placeholder="For text updates"
-          error={errors.phone?.message}
-          inputVariant={inputVariant}
-          {...register("phone")}
-        />
-        <div className="sm:col-span-2">
+      {isHero ? (
+        <div className="hero-form-fields">
+          <div className="hero-form-row hero-form-row-1">
+            <Input
+              type="text"
+              label="First Name"
+              placeholder="What should we call you"
+              error={errors.first_name?.message}
+              inputVariant={inputVariant}
+              {...register("first_name")}
+            />
+            <Input
+              type="text"
+              label="Last Name"
+              placeholder="Your last name"
+              error={errors.last_name?.message}
+              inputVariant={inputVariant}
+              {...register("last_name")}
+            />
+          </div>
+          <div className="hero-form-row hero-form-row-2">
+            <Input
+              type="email"
+              label="Email"
+              placeholder="you@example.com"
+              error={errors.email?.message}
+              inputVariant={inputVariant}
+              {...register("email")}
+            />
+            <Input
+              type="tel"
+              label="Phone (optional)"
+              placeholder="For text updates"
+              error={errors.phone?.message}
+              inputVariant={inputVariant}
+              {...register("phone")}
+            />
+            <div className="hero-form-zip-wrap">
+              <Input
+                type="text"
+                inputMode="numeric"
+                autoComplete="postal-code"
+                maxLength={5}
+                label="ZIP Code"
+                placeholder="Your ZIP"
+                error={errors.zip_code?.message}
+                inputVariant={inputVariant}
+                {...register("zip_code")}
+              />
+            </div>
+          </div>
+        </div>
+      ) : compact ? (
+        <div className="grid gap-2 grid-cols-2 sm:grid-cols-4">
+          <Input
+            type="text"
+            label="First"
+            placeholder="First"
+            error={errors.first_name?.message}
+            inputVariant={inputVariant}
+            {...register("first_name")}
+          />
+          <Input
+            type="text"
+            label="Last"
+            placeholder="Last"
+            error={errors.last_name?.message}
+            inputVariant={inputVariant}
+            {...register("last_name")}
+          />
+          <Input
+            type="email"
+            label="Email"
+            placeholder="you@example.com"
+            error={errors.email?.message}
+            inputVariant={inputVariant}
+            {...register("email")}
+          />
+          <div className="flex gap-2 items-end col-span-2 sm:col-span-1">
+            <Input
+              type="text"
+              inputMode="numeric"
+              autoComplete="postal-code"
+              maxLength={5}
+              label="ZIP"
+              placeholder="ZIP"
+              error={errors.zip_code?.message}
+              inputVariant={inputVariant}
+              {...register("zip_code")}
+              className="min-w-0 flex-1"
+            />
+            <Button
+              type="submit"
+              variant="primary"
+              size="sm"
+              isLoading={isSubmitting}
+              disabled={isSubmitting || !turnstileToken}
+              className="shrink-0 font-subhead font-bold uppercase text-xs organic-sm"
+            >
+              {isSubmitting ? "…" : "Join"}
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+          <Input
+            type="text"
+            label="First Name"
+            placeholder="What should we call you"
+            error={errors.first_name?.message}
+            inputVariant={inputVariant}
+            {...register("first_name")}
+          />
+          <Input
+            type="text"
+            label="Last Name"
+            placeholder="Your last name"
+            error={errors.last_name?.message}
+            inputVariant={inputVariant}
+            {...register("last_name")}
+          />
+          <div className="sm:col-span-2">
+            <Input
+              type="email"
+              label="Email"
+              placeholder="you@example.com"
+              error={errors.email?.message}
+              inputVariant={inputVariant}
+              {...register("email")}
+            />
+          </div>
+          <Input
+            type="tel"
+            label="Phone (optional)"
+            placeholder="For text updates"
+            error={errors.phone?.message}
+            inputVariant={inputVariant}
+            {...register("phone")}
+          />
           <Input
             type="text"
             inputMode="numeric"
@@ -196,10 +311,10 @@ export function SignupForm({
             error={errors.zip_code?.message}
             inputVariant={inputVariant}
             {...register("zip_code")}
-            className="sm:max-w-[200px]"
+            className="sm:max-w-[140px]"
           />
         </div>
-      </div>
+      )}
 
       {turnstileSiteKey && (
         <div className="flex justify-center">
@@ -212,7 +327,7 @@ export function SignupForm({
             }}
             options={{
               theme: "light",
-              size: "normal",
+              size: variant === "footer" ? "compact" : "normal",
             }}
           />
         </div>
@@ -239,7 +354,7 @@ export function SignupForm({
             submitLabel ?? "COUNT ME IN"
           )}
         </button>
-      ) : (
+      ) : !compact ? (
         <Button
           type="submit"
           variant="primary"
@@ -250,7 +365,7 @@ export function SignupForm({
         >
           {isSubmitting ? "Sending..." : submitLabel ?? "Get Campaign Updates"}
         </Button>
-      )}
+      ) : null}
 
       {privacyVariant === "short" ? (
         <p className="hero-form-privacy mt-3">

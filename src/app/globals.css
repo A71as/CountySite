@@ -80,13 +80,16 @@ body::before {
   text-shadow: 4px 4px 0 #000000;
 }
 
-/* ── COUNT ME IN button: hero form CTA — bold campaign red, most assertive element ── */
+/* COUNT ME IN button — brand red #E92128, white text (brand kit).
+   CLIENT CHECK: Mockup shows a softer coral/salmon (~#E07070 / #D4686E). Currently using
+   brand red so headline stays dominant. If client prefers the softer tone, get exact hex
+   from designer and replace below. */
 .hero-form-card .count-me-in-button,
 .count-me-in-button {
   background-color: #E92128 !important;
   color: #FFFFFF !important;
   border: none !important;
-  border-radius: 12px;
+  border-radius: 6px;
   font-family: var(--font-section), sans-serif;
   font-weight: 700;
   font-size: 1rem;
@@ -95,14 +98,11 @@ body::before {
   padding: 14px 32px;
   width: 100%;
   cursor: pointer;
-  transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
-  box-shadow: 0 2px 8px rgba(233, 33, 40, 0.35);
+  transition: background-color 200ms ease;
 }
 .hero-form-card .count-me-in-button:hover:not(:disabled),
 .count-me-in-button:hover:not(:disabled) {
   background-color: #C91B22 !important;
-  transform: scale(1.02);
-  box-shadow: 0 4px 14px rgba(233, 33, 40, 0.45);
 }
 .hero-form-card .count-me-in-button:disabled,
 .count-me-in-button:disabled {
@@ -110,18 +110,20 @@ body::before {
   opacity: 0.7;
 }
 
-/* Hero form inputs — Gelica, 10–12px radius, 1.5px black border, focus warm pink tint */
+/* Hero form inputs — reference: white bg, 1px #D9D9D9 border, 5px radius, placeholder #AAAAAA */
 .hero-form-card .input-hero-wrap input {
   font-family: var(--font-body), serif;
-  border-radius: 11px;
-  border: 1.5px solid #000000;
-  background: #fff;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border-radius: 5px;
+  border: 1px solid #D9D9D9;
+  background: #FFFFFF;
+  transition: border-color 0.2s ease;
+}
+.hero-form-card .input-hero-wrap input::placeholder {
+  color: #AAAAAA;
 }
 .hero-form-card .input-hero-wrap input:focus {
   outline: none;
-  background: rgba(255, 174, 174, 0.15);
-  border-color: #000000;
+  border-color: #999999;
 }
 .hero-form-card .input-hero-wrap.input-hero-wrap {
   background: none;
@@ -144,17 +146,60 @@ body::before {
   color: #333;
 }
 
-/* ── Hero form card: physical card/sticker, organic radius, white, subtle shadow ── */
+/* Hero form card — light grey, thin dark border; overlaps man’s lower-right (mockup) */
 .hero-form-card {
   background: #FFFFFF;
-  border: 2px solid #000000;
+  border: 2px solid #9ca3af;
   border-radius: 17px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem 1rem;
 }
 @media (min-width: 640px) {
   .hero-form-card {
-    padding: 1.75rem 2.25rem;
+    padding: 1.5rem 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-form-card {
+    padding: 1.5rem 1.25rem;
+    /* Width matches headline text block (full right column); no overflow */
+  }
+}
+
+/* Hero form compact grid — Row 1: 2 cols; Row 2: 3 cols (tablet: 2 cols + ZIP below); tighter gap */
+.hero-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hero-form-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+.hero-form-row-1 {
+  grid-template-columns: 1fr;
+}
+.hero-form-row-2 .hero-form-zip-wrap {
+  grid-column: 1 / -1;
+}
+@media (min-width: 768px) {
+  .hero-form-row-1 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-form-row-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-form-row-2 .hero-form-zip-wrap {
+    grid-column: span 2;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-form-row-2 {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .hero-form-row-2 .hero-form-zip-wrap {
+    grid-column: span 1;
   }
 }
 
@@ -198,11 +243,33 @@ body::before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+/* Nav expand/collapse — at top: bigger header + huge logo; on scroll: compact */
+.nav-expanded .nav-inner {
+  min-height: 7rem; /* 112px */
+}
+.nav-collapsed .nav-inner {
+  min-height: 4rem; /* 64px */
+}
+.nav-logo-expanded {
+  height: clamp(96px, 14vw, 140px) !important;
+  width: auto !important;
+}
+/* Larger buttons/links when header is expanded */
+.nav-expanded .nav-donate-pill {
+  font-size: 1.125rem;
+  padding: 0.75rem 1.75rem;
+  min-height: 52px;
+}
+.nav-expanded .nav-link {
+  font-size: clamp(16px, 1.75vw, 18px);
+}
+
 /* Left nav links — Bernoru Semicondensed; Volunteer bold, others medium */
 .nav-link {
   font-family: var(--font-section), sans-serif;
   font-size: clamp(14px, 1.5vw, 15px);
   font-weight: 500;
+  transition: font-size 0.3s ease;
 }
 
 /* Nav logo — DAVID! speech bubble, 48–56px height, links to top */
@@ -225,7 +292,7 @@ body::before {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, font-size 0.3s ease, padding 0.3s ease, min-height 0.3s ease;
 }
 .nav-donate-pill:hover {
   background-color: #C91B22;
@@ -283,6 +350,13 @@ body::before {
 .organic-card-3 {
   border-radius: 20px 14px 22px 16px / 16px 20px 14px 18px;
 }
+
+/* Issues branch cards — Homemade Apple tagline larger and more readable */
+#issues .issues-card-tagline {
+  font-size: clamp(1.125rem, 2.2vw, 1.35rem);
+  line-height: 1.35;
+}
+
 .organic-form {
   border-radius: 18px 24px 20px 26px / 22px 18px 24px 20px;
 }
@@ -709,25 +783,6 @@ body::before {
     animation-delay: 6s;
   }
 
-  /* Section divider speech bubble — gentle bounce on hover */
-  .divider-bubble-animate {
-    transition: transform 0.2s ease-out;
-  }
-  .group:hover .divider-bubble-animate {
-    animation: divider-bubble-bounce 0.5s ease-in-out;
-  }
-}
-
-@keyframes divider-bubble-bounce {
-  0%, 100% {
-    transform: translateY(0) scale(1) rotate(0deg);
-  }
-  30% {
-    transform: translateY(-4px) scale(1.08) rotate(-2deg);
-  }
-  60% {
-    transform: translateY(1px) scale(1.02) rotate(2deg);
-  }
 }
 
 /* Nav logo Easter egg — subtle speech bubble "pop" on click */
@@ -764,6 +819,38 @@ body::before {
     linear-gradient(-45deg, rgba(255,174,174,0.15) 25%, transparent 25%, transparent 75%, rgba(255,174,174,0.15) 75%);
   background-size: 24px 24px;
   background-position: 0 0;
+}
+
+/* Pattern fade in/out so diamond texture blends with section gradients (no hard edge) */
+.pattern-fade-vertical {
+  --pattern-fade-top: 6%;
+  --pattern-fade-bottom: 94%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--pattern-fade-top),
+    black var(--pattern-fade-bottom),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black var(--pattern-fade-top),
+    black var(--pattern-fade-bottom),
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+/* Pattern fades in from top only — for Donate bottom gradient so pattern emerges in the gradient */
+.pattern-fade-in-from-top {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
 /* ── Hero background — campaign poster match: warm, saturated, confident ── */
@@ -818,32 +905,49 @@ body::before {
   }
 }
 
-/* Hero full-height section — minimal dead space; content starts immediately below nav */
+/* Hero — content height; pink background */
 .hero-splash-bg {
-  background-color: #FFF0F0; /* near-white pink: breathing room + brand warmth */
-  min-height: 100vh;
-  /* 24px clearance below nav so district/headline/form stay above fold (1366x768) */
-  padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 24px);
+  padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 20px);
+  background: #FFAEAE;
 }
+
+/* Hero bottom fade — white gradient over bottom 150px so David’s photo (and pink) dissolve into white; no pink overlay on photo */
+/* Hero bottom fade now via Section bottomFade in Hero.tsx */
+
+/* ── Section transition system: spacing and wavy line ── */
+.section-spacing-top {
+  padding-top: 5.5rem; /* 88px — within 80–100px */
+}
+.section-spacing-bottom {
+  padding-bottom: 5.5rem;
+}
+
+/* Commissioner section — slightly less top padding so gap from About quote is smaller */
+#commissioner.commissioner-section-tighter-top {
+  padding-top: 3.5rem;
+}
+@media (min-width: 768px) {
+  #commissioner.commissioner-section-tighter-top {
+    padding-top: 4rem;
+  }
+}
+
+/* Hand-drawn divider: use HandDrawnDivider component with -rotate-[0.3deg] where needed */
 
 /* Radial burst REMOVED from hero; can be reintroduced in policy/donation sections if desired */
 
-/* Hero paper grain overlay — handmade/printed-piece feel (0.03–0.05) */
+/* Hero paper grain — hidden to match clean reference */
 .hero-grain-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-  opacity: 0.04;
+  display: none;
 }
 
-/* Hero layout: left column = photo + brush stroke (~45–50%), right = content (Valdez-aligned) */
+/* Hero layout: left column = photo; right = content; height = content (no 100vh dead space) */
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
-  max-width: 1400px;
-  margin: 0 auto;
+  grid-template-columns: 48vw 1fr;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 @media (max-width: 1023px) {
   .hero-grid {
@@ -852,22 +956,22 @@ body::before {
   }
 }
 
-/* Left column: no background — gradient layers only; one continuous environment */
+/* Left column: photo bleeds to viewport left edge; height follows right column content */
 .hero-left-column {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 0.5rem 1.5rem 2rem;
+  align-items: stretch;
+  justify-content: flex-start;
+  min-height: 0;
+  padding: 0;
   overflow: hidden;
   background: none;
 }
 @media (min-width: 1024px) {
   .hero-left-column {
-    padding-top: 0.25rem;
-    overflow: visible;
-    margin-right: -30px;
+    padding: 0;
+    overflow: hidden;
+    margin-right: -20px;
   }
 }
 @media (max-width: 1023px) {
@@ -878,12 +982,12 @@ body::before {
   }
 }
 
-/* Photo area wrapper — no background; bottom mask fades to next section over bottom 20% */
+/* Photo area — fills left column; bottom fade via mask (black 80% → transparent 100%) */
 .hero-photo-area {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 100vh;
+  min-height: 0;
   background: none;
   -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
@@ -900,7 +1004,21 @@ body::before {
   }
 }
 
-/* Background layers: soft radials + texture only (no rays/sunburst) */
+/* Sunburst (mockup): origin below bottom-left, rays fan up and right; muted coral + pale pink */
+.hero-ray-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-conic-gradient(
+    from 0deg at -5% 108%,
+    #E92128 0deg 3deg,
+    #FFAEAE 3deg 6deg
+  );
+  filter: blur(6px);
+  opacity: 0.6;
+}
+/* Background wrap (transparent; rays show through) */
 .hero-photo-bg-wrap {
   position: absolute;
   inset: 0;
@@ -908,69 +1026,34 @@ body::before {
   pointer-events: none;
   background: transparent;
 }
-/* BASE: radial centered slightly above head — fills entire area, no visible rectangle */
+/* Left column: no local bg — section sunburst shows through */
 .hero-photo-bg-base {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 150% 140% at 50% 38%,
-    #F4828A 0%,
-    #FFAEAE 45%,
-    #FFAEAE 100%
-  );
+  display: none;
 }
-/* GLOW: large radial centered on chest — fades fully to transparent, no edge */
 .hero-photo-bg-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 180% 160% at 50% 48%,
-    rgba(233, 33, 40, 0.1) 0%,
-    rgba(233, 33, 40, 0.04) 35%,
-    transparent 60%
-  );
-  pointer-events: none;
+  display: none;
 }
-/* TEXTURE: paper grain, multiply, 0.04–0.06 opacity */
 .hero-photo-bg-texture {
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='hp'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23hp)' opacity='0.5'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 200px 200px;
-  opacity: 0.05;
-  mix-blend-mode: multiply;
-  pointer-events: none;
+  display: none;
 }
-/* Right edge: feathered fade over 60–80px so pink breathes into content area */
+/* Right-side fade removed so sunburst stays visible behind David (no transparent white box) */
 .hero-photo-area-right-fade {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 70px;
-  background: linear-gradient(to right, transparent 0%, #FFF0F0 100%);
-  pointer-events: none;
-  z-index: 1;
-}
-@media (max-width: 1023px) {
-  .hero-photo-area-right-fade {
-    display: none;
-  }
+  display: none;
 }
 
-/* David photo wrapper — no background; only the image defines shape */
+/* David photo wrapper — cropped top-to-bottom; image ends at max-height (no left/right crop) */
 .hero-cutout-wrapper {
   position: relative;
   z-index: 2;
   pointer-events: none;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
-  min-height: 100vh;
-  padding: 0 1rem;
+  max-height: 90vh;
+  min-height: 0;
+  padding: 0;
   transform: translateY(var(--parallax-y, 0));
   will-change: transform;
   background: none;
@@ -981,15 +1064,13 @@ body::before {
   }
 }
 .hero-cutout-wrapper .hero-cutout-image {
-  height: auto;
-  max-height: 85vh;
-  min-height: 320px;
-  width: auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
   max-width: 100%;
-  object-fit: contain;
-  object-position: center bottom;
+  object-fit: cover;
+  object-position: top center;
   will-change: transform;
-  filter: saturate(1.05) contrast(1.03) brightness(1.02);
 }
 @media (max-width: 1023px) {
   .hero-cutout-wrapper {
@@ -997,13 +1078,12 @@ body::before {
     padding: 0 0.5rem;
   }
   .hero-cutout-wrapper .hero-cutout-image {
+    min-height: auto;
     max-height: 65vh;
-    min-height: 280px;
+    height: auto;
     max-width: 85vw;
-  }
-  .hero-photo-duotone {
-    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    object-fit: contain;
+    object-position: top center;
   }
 }
 
@@ -1022,152 +1102,110 @@ body::before {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
-/* Duotone overlay — graduated: lighter on face/center, stronger at edges and bottom (natural, not flat) */
-.hero-photo-duotone::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-      ellipse 70% 65% at 50% 35%,
-      rgba(233, 33, 40, 0.04) 0%,
-      rgba(233, 33, 40, 0.08) 50%,
-      rgba(233, 33, 40, 0.14) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(233, 33, 40, 0.06) 0%,
-      rgba(233, 33, 40, 0.1) 40%,
-      rgba(233, 33, 40, 0.18) 100%
-    );
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
 
-/* Soft ellipse shadow under David to ground the photo */
-.hero-cutout-shadow {
-  position: absolute;
-  left: 50%;
-  bottom: 4%;
-  width: 40%;
-  min-width: 100px;
-  max-width: 220px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.08);
-  filter: blur(14px);
-  transform: translateX(-50%);
-  z-index: -1;
-}
-@media (max-width: 1023px) {
-  .hero-cutout-shadow {
-    bottom: 2%;
-  }
-}
 
-/* Election date bubble — over David's photo (upper-left), sticker-style; avoids district identifier */
-.hero-election-bubble-wrapper {
-  position: absolute;
-  top: 12%;
-  left: 14%;
-  z-index: 5;
-  pointer-events: none;
-}
-@media (max-width: 1023px) {
-  .hero-election-bubble-wrapper {
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-}
 
-/* Speech bubble variant: sticker feel — slight rotation, drop shadow, tail points down toward David */
-.speech-bubble-tail-at-david.speech-bubble-election-callout {
-  transform: rotate(2deg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-}
-.speech-bubble-tail-at-david.speech-bubble-election-callout::after {
-  left: 50%;
-  right: auto;
-  bottom: -10px;
-  transform: translateX(-50%);
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 12px solid #000000;
-}
-.speech-bubble-tail-at-david.speech-bubble-election-callout::before {
-  left: 50%;
-  right: auto;
-  bottom: -7px;
-  transform: translateX(-50%);
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 9px solid white;
-}
-@media (max-width: 1023px) {
-  .speech-bubble-tail-at-david.speech-bubble-election-callout {
-    transform: rotate(2deg);
-  }
-  .speech-bubble-tail-at-david.speech-bubble-election-callout::after {
-    transform: translateX(-50%) rotate(2deg);
-  }
-  .speech-bubble-tail-at-david.speech-bubble-election-callout::before {
-    transform: translateX(-50%) rotate(2deg);
-  }
-}
 
-/* Hero right column — minimal top padding so district/headline/form start right below nav */
+/* Hero right column — no card: text and form sit directly on background (mockup) */
 .hero-right-column {
   position: relative;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0.5rem 1.5rem 2rem;
+  justify-content: flex-start;
+  padding: 0 1.5rem 1rem;
+  background-color: #FFFFFF;
+  border: none;
+  box-shadow: none;
 }
 @media (min-width: 1024px) {
   .hero-right-column {
-    padding: 0.25rem 2.5rem 2rem 1.75rem;
-    max-width: 520px;
+    padding: 20vh 2.5rem 1rem 1.75rem;
+    /* Bio text and form shifted up further */
+    /* No max-width: use full width of right side (~52% viewport) so justify doesn't over-stretch */
     margin-left: 0;
   }
 }
+/* No card styling on the content wrapper — only the form has a card (.hero-form-card) */
+.hero-right-column .hero-form-animate {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
 
-/* Hero text hierarchy — above-the-fold: district, headline, “Join the movement”, form + CTA visible */
+/* Hero text hierarchy — above-the-fold: district, headline, “Join the fight!”, form + CTA visible */
 .hero-district-label {
   font-family: var(--font-section), sans-serif;
-  font-weight: 500;
-  font-size: clamp(12px, 2vw, 13px);
-  letter-spacing: 2.5px;
+  font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 22px);
+  letter-spacing: 0.25px;
   text-transform: uppercase;
   color: #E92128;
   margin-bottom: 0.5rem;
   line-height: 1.3;
+  white-space: nowrap;
 }
 
+/* Hero headline — poster-scale display; justified, full width; last line left-aligned (mockup) */
 .hero-headline {
   font-family: var(--font-display), sans-serif;
   font-weight: 700;
-  font-size: clamp(28px, 4vw, 48px);
+  font-size: clamp(40px, 5.5vw, 72px);
   line-height: 1.05;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
+  word-spacing: -0.02em;
   text-transform: uppercase;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
   color: #000000;
   margin-bottom: 0.375rem;
+  width: 100%;
+  max-width: 100%;
+}
+.hero-headline-black {
+  color: #000000;
+}
+.hero-headline-red {
+  color: #E92128;
+}
+/* Payoff line — "WIN FOR THE WORKING CLASS." — underline for emphasis (mockup) */
+.hero-headline .hero-headline-red:last-of-type {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
 }
 
+/* Handwritten accent — Homemade Apple, left-aligned */
 .hero-join-annotation {
-  font-family: var(--font-accent), cursive;
-  font-size: clamp(20px, 2.2vw, 24px);
+  font-family: var(--font-accent), Homemade Apple, cursive;
+  font-size: clamp(38px, 4.5vw, 50px);
   color: #E92128;
   transform: rotate(-2deg);
-  display: inline-block;
-  margin-bottom: 0.75rem;
-  margin-top: 0.125rem;
+  text-align: right;
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 0.35rem;
+  margin-left: 0;
+}
+.hero-join-exclamation {
+  font-size: 1.1em;
+  letter-spacing: -0.02em;
 }
 
 /* Tight spacing between annotation and hero form */
 .hero-right-column .hero-form-animate form {
   margin-top: 0;
+}
+/* Space between "Join the fight!" and sign-up box — shifts the form card down */
+.hero-right-column .hero-form-card {
+  margin-top: 3.5rem;
+}
+@media (min-width: 640px) {
+  .hero-right-column .hero-form-card {
+    margin-top: 4.5rem;
+  }
 }
 
 /* Hero logo entrance — scale-up with bounce (fast, subtle) */
@@ -1292,6 +1330,88 @@ body::before {
   border-right: 8px solid transparent;
   border-top: 9px solid white;
   z-index: 1;
+}
+
+/* Section label sticker — tiny speech bubble (ABOUT, etc.): black border, white bg, subtle tail */
+.section-label-bubble {
+  display: inline-block;
+  font-family: var(--font-section), sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #E92128;
+  background: white;
+  border: 1.5px solid #000000;
+  border-radius: 6px 8px 6px 8px;
+  padding: 6px 12px;
+  position: relative;
+  transform: rotate(-1deg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.section-label-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 14px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #000000;
+}
+.section-label-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 15px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
+  z-index: 1;
+}
+
+/* Meet David heading — hand-drawn underline (marker wobble, 8–10px overshoot) */
+.meet-david-underline {
+  position: relative;
+  display: inline-block;
+}
+.meet-david-underline svg.underline-squiggle {
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  bottom: 2px;
+  width: calc(100% + 20px);
+  height: 14px;
+  pointer-events: none;
+}
+
+/* About section uses Section component with topFade (white → transparent) and inline paddingBottom. */
+
+/* Donate left (red) half — top: fade in from white (Commissioner); bottom: fade out to white (Issues) */
+.donate-half-red {
+  position: relative;
+}
+
+/* About section scroll entrance — 15% visibility, stagger 0/150/300/450ms, 400ms ease-out, 20px */
+.about-reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+.about-reveal.about-reveal-visible .about-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Halftone dot overlay — retro newspaper / pop-art print texture */
