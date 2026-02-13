@@ -171,6 +171,26 @@ body::before {
     /* Width matches headline text block (full right column); no overflow */
   }
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-form-card {
+    padding: 1rem 0.875rem;
+  }
+  .hero-form-card .count-me-in-button {
+    min-height: 44px;
+    font-size: 0.9375rem;
+    padding: 12px 24px;
+  }
+  .hero-form-card .input-hero-wrap input {
+    font-size: 15px;
+    min-height: 44px;
+  }
+  .hero-form-card .hero-form-fields {
+    gap: 8px;
+  }
+  .hero-form-card .hero-form-row {
+    gap: 8px;
+  }
+}
 
 /* Hero form compact grid — Row 1: 2 cols; Row 2: 3 cols (tablet: 2 cols + ZIP below); tighter gap */
 .hero-form-fields {
@@ -1182,6 +1202,13 @@ body::before {
     margin-left: 0;
   }
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-right-column {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: clamp(140px, 18vh, 200px);
+  }
+}
 /* No card styling on the content wrapper — only the form has a card (.hero-form-card) */
 .hero-right-column .hero-form-animate {
   background: none;
@@ -1208,6 +1235,12 @@ body::before {
     word-break: break-word;
   }
 }
+/* Small desktop (1024–1536px): scale down so text + form fit side-by-side with photo */
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-district-label {
+    font-size: clamp(14px, 1.8vw, 18px);
+  }
+}
 
 /* Hero headline — poster-scale display; justified, full width; last line left-aligned (mockup) */
 .hero-headline {
@@ -1225,6 +1258,11 @@ body::before {
   margin-bottom: 0.375rem;
   width: 100%;
   max-width: 100%;
+}
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-headline {
+    font-size: clamp(28px, 3.8vw, 52px);
+  }
 }
 @media (max-width: 640px) {
   .hero-headline {
@@ -1256,6 +1294,13 @@ body::before {
   margin-top: 0.35rem;
   margin-left: 0;
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-join-annotation {
+    font-size: clamp(26px, 3.2vw, 36px);
+    margin-bottom: 6px;
+    margin-top: 0.2rem;
+  }
+}
 .hero-join-exclamation {
   font-size: 1.1em;
   letter-spacing: -0.02em;
@@ -1277,6 +1322,12 @@ body::before {
 @media (min-width: 768px) {
   .hero-right-column .hero-form-card {
     margin-top: 4.5rem;
+  }
+}
+/* Small desktop: tighter spacing so form fits with photo */
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-right-column .hero-form-card {
+    margin-top: 2rem;
   }
 }
 
