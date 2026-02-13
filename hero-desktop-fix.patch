@@ -1,0 +1,50 @@
+From: hero desktop consistency fix (>=1024px only)
+Notes:
+- Keeps "golden desktop" (1920x1080+) unchanged.
+- Makes 1366–1536 widths match desktop by fixing hero photo frame aspect ratio
+  and clamping vh-based top padding.
+- No changes below 1024px (mobile/tablet behavior unchanged).
+
+diff --git a/src/app/globals.css b/src/app/globals.css
+--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -997,7 +997,12 @@
+   background: none;
+ }
+ @media (min-width: 1024px) {
++  /* Prevent the left column from stretching to the row height (which is driven
++     by the right column on shorter laptop viewports). This keeps the photo
++     frame consistent instead of "shrinking" on 1366×768. */
+   .hero-left-column {
++    align-items: flex-start;
+     padding: 0;
+     overflow: hidden;
+     margin-right: -20px;
+@@ -1028,6 +1031,20 @@
+   mask-repeat: no-repeat;
+ }
++@media (min-width: 1024px) {
++  /* Lock the photo frame to the same shape as the "golden" desktop reference.
++     48vw @ 1920px ≈ 921px and 90vh @ 1080px ≈ 972px, so 921/972 keeps crop consistent down to ~1366px. */
++  .hero-photo-area {
++    /* Ensure aspect-ratio can drive height (override height: 100% from base) */
++    height: auto;
++    min-height: 0;
++    aspect-ratio: 921 / 972;
++    max-height: 90vh;
++  }
++}
+ @media (max-width: 1023px) {
+   .hero-photo-area {
+     min-height: auto;
+@@ -1169,7 +1186,9 @@
+ }
+ @media (min-width: 1024px) {
+   .hero-right-column {
+-    padding: 20vh 2.5rem 1rem 1.75rem;
++    padding: 20vh 2.5rem 1rem 1.75rem;
++    /* Override top only so 1920 stays golden; clamp(160px, 20vh, 220px) matches 20vh at 1080p, floors at 160 on 768p. */
++    padding-top: clamp(160px, 20vh, 220px);
+     margin-left: 0;
+   }
+ }
