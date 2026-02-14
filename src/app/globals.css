@@ -1136,6 +1136,12 @@ body::before {
   object-position: top center;
   will-change: transform;
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-cutout-wrapper .hero-cutout-image {
+    transform: scale(0.9);
+    transform-origin: center center;
+  }
+}
 @media (max-width: 1023px) {
   .hero-cutout-wrapper {
     transform: none;
@@ -1206,7 +1212,7 @@ body::before {
   .hero-right-column {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    padding-top: clamp(120px, 16vh, 180px);
+    padding-top: clamp(80px, 12vh, 140px);
   }
 }
 /* No card styling on the content wrapper — only the form has a card (.hero-form-card) */
