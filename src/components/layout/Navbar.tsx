@@ -38,12 +38,14 @@ export function Navbar() {
   // Update --nav-height so hero/sections reserve correct space (smaller expanded header on small desktop)
   useEffect(() => {
     const root = document.documentElement;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     const isSmallDesktop =
       typeof window !== "undefined" &&
       window.innerWidth >= 1024 &&
       window.innerWidth <= 1536;
-    const expandedHeight = isSmallDesktop ? "88px" : "112px";
-    root.style.setProperty("--nav-height", isExpanded ? expandedHeight : "64px");
+    const expandedHeight = isMobile ? "56px" : isSmallDesktop ? "88px" : "112px";
+    const collapsedHeight = isMobile ? "56px" : "64px";
+    root.style.setProperty("--nav-height", isExpanded ? expandedHeight : collapsedHeight);
   }, [isExpanded]);
 
   // Re-run height when viewport crosses small-desktop breakpoint
@@ -51,9 +53,11 @@ export function Navbar() {
     const handleResize = () => {
       const root = document.documentElement;
       const isExpanded = window.scrollY < SCROLL_THRESHOLD;
+      const isMobile = window.innerWidth < 768;
       const isSmallDesktop = window.innerWidth >= 1024 && window.innerWidth <= 1536;
-      const expandedHeight = isSmallDesktop ? "88px" : "112px";
-      root.style.setProperty("--nav-height", isExpanded ? expandedHeight : "64px");
+      const expandedHeight = isMobile ? "56px" : isSmallDesktop ? "88px" : "112px";
+      const collapsedHeight = isMobile ? "56px" : "64px";
+      root.style.setProperty("--nav-height", isExpanded ? expandedHeight : collapsedHeight);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -225,6 +229,21 @@ export function Navbar() {
           aria-label="Main menu"
         >
           <nav className="flex flex-col items-center gap-2 w-full max-w-sm">
+            <Link
+              href={pathname === "/" ? "#home" : "/#home"}
+              onClick={handleLinkClick}
+              className="mb-2 flex items-center justify-center w-full"
+              aria-label="Go to hero section"
+            >
+              <Image
+                src={LOGO_ASSETS.speechBubbleOnly}
+                alt={`${candidateName} logo`}
+                width={160}
+                height={86}
+                className="h-auto w-40"
+                priority
+              />
+            </Link>
             {leftNavLinks.map((link) => (
               <Link
                 key={link.href}

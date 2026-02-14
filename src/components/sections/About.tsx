@@ -124,7 +124,7 @@ export function About({
       id="about"
       className="relative overflow-hidden section-spacing-top section-spacing-bottom bg-white"
       innerClassName="min-h-0"
-      style={{ paddingBottom: "clamp(6rem, 12vw, 12rem)", scrollMarginTop: "calc(var(--announcement-height, 0px) + 4rem)" }}
+      style={{ paddingBottom: "clamp(6rem, 12vw, 12rem)", scrollMarginTop: "var(--anchor-offset)" }}
     >
       {/* Pattern full-bleed — extends up to Hero's red line, down through About bottom padding (stops at Commissioner) */}
       <div

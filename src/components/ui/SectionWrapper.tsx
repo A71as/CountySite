@@ -86,7 +86,7 @@ const SectionWrapper = React.forwardRef<HTMLElement, SectionWrapperProps>(
           className
         )}
         style={{
-          scrollMarginTop: "calc(var(--announcement-height, 0px) + 4rem)",
+          scrollMarginTop: "var(--anchor-offset)",
           ...style,
         }}
         {...props}

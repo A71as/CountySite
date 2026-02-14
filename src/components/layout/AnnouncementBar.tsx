@@ -72,13 +72,16 @@ export function AnnouncementBar() {
       <div className="mx-auto max-w-[1200px] px-3 py-2 sm:px-4 sm:py-2.5 md:py-3 md:px-6 lg:px-8 min-w-0 min-h-[40px] md:min-h-[48px] flex items-center announcement-bar-inner">
         <div className="flex items-center justify-between gap-2 min-w-0 w-full">
           {/* Countdown — smaller on small screens */}
-          <div className="min-w-0 flex-1 flex items-center gap-1.5">
+          <div className="min-w-0 flex-1 flex flex-col items-start gap-0.5 sm:flex-row sm:items-center sm:gap-2">
             {countdown.isExpired ? (
               <span className="text-xs md:text-sm font-medium countdown-pulse">Election Day is here!</span>
             ) : (
               <>
-                <span className="text-xs md:text-sm font-medium countdown-pulse sm:hidden">
-                  {countdown.days}d {countdown.hours}h
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] sm:hidden">
+                  Election Day
+                </span>
+                <span className="text-sm font-semibold countdown-pulse sm:hidden">
+                  {countdown.days}d {countdown.hours}h {countdown.minutes}m
                 </span>
                 <span className="hidden sm:inline text-xs md:text-sm font-medium countdown-pulse">
                   Election Day: {formatCountdown()}

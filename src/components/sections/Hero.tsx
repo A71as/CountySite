@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { SignupForm } from "@/components/forms/SignupForm";
 import { Section } from "@/components/ui/Section";
@@ -27,6 +28,7 @@ function HeroPhotoBackground() {
 export function Hero() {
   const cutoutRef = useRef<HTMLDivElement>(null);
   const [parallaxOffset, setParallaxOffset] = useState(0);
+  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#donate";
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -56,7 +58,7 @@ export function Hero() {
       {/* Paper grain overlay — subtle texture */}
       <div className="hero-grain-overlay section-paper-texture" aria-hidden="true" />
 
-      {/* Two-column layout: left = sunburst + photo (contained), right = content; mobile: photo stacks above */}
+      {/* Two-column layout: left = sunburst + photo (contained), right = content; mobile: content leads */}
       <div className="hero-grid">
         {/* LEFT COLUMN: Photo area (gradient bg + texture + right fade + photo), bottom mask */}
         <div className="hero-left-column order-1 lg:order-1">
@@ -92,7 +94,7 @@ export function Hero() {
             </p>
 
             {/* 2. Main headline — justified, word-spaced, line-by-line colors (client mockup) */}
-            <h1 className="hero-headline">
+            <h1 className="hero-headline hero-headline-desktop">
               <span className="hero-headline-black">DAVID </span>
               <span className="hero-headline-black">SABRY</span>
               <span className="hero-headline-black"> GUIRGIS IS A</span>{" "}
@@ -100,6 +102,27 @@ export function Hero() {
               <span className="hero-headline-black">RUNNING FOR HUDSON COUNTY COMMISSIONER TO</span>{" "}
               <span className="hero-headline-red">WIN FOR THE WORKING CLASS.</span>
             </h1>
+            <h1 className="hero-headline hero-headline-mobile" aria-hidden="true">
+              <span className="hero-headline-black">DAVID SABRY GUIRGIS</span>{" "}
+              <span className="hero-headline-black">IS A</span>{" "}
+              <span className="hero-headline-red">SOCIAL WORKER AND ORGANIZER</span>{" "}
+              <span className="hero-headline-black">RUNNING FOR HUDSON COUNTY COMMISSIONER</span>{" "}
+              <span className="hero-headline-red">TO WIN FOR WORKING PEOPLE.</span>
+            </h1>
+
+            <div className="hero-quick-actions">
+              <Link href="/volunteer" className="hero-quick-action hero-quick-action-outline">
+                Volunteer
+              </Link>
+              <a
+                href={actBlueUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-quick-action hero-quick-action-solid"
+              >
+                Donate
+              </a>
+            </div>
 
             {/* 3. Handwritten accent — Homemade Apple, right-aligned margin annotation (mockup) */}
             <p className="hero-join-annotation">

@@ -8,6 +8,7 @@
   --primary: #E92128;
   --accent: #525252;
   --light-pink: #FFAEAE;
+  --anchor-offset: calc((var(--announcement-height, 0px) + var(--nav-height)) * -0.3);
   /* Sticky header heights: announcement bar (set by JS), nav h-16 */
   --nav-height: 64px;
   /* Type system: --font-display (Barber Chop), --font-section (Bernoru), --font-body (Gelica), --font-accent (Homemade Apple).
@@ -171,6 +172,24 @@ body::before {
   padding: 1.25rem 1rem;
 }
 
+@media (max-width: 767px) {
+  .hero-form-card {
+    padding: 0.95rem 0.85rem;
+    border-radius: 14px;
+  }
+
+  .hero-form-card .count-me-in-button {
+    min-height: 44px;
+    font-size: 0.9375rem;
+    padding: 12px 20px;
+  }
+
+  .hero-form-card .input-hero-wrap input {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+
 @media (min-width: 640px) {
   .hero-form-card {
     padding: 1.5rem 1.25rem;
@@ -220,6 +239,16 @@ body::before {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr;
+}
+
+@media (max-width: 767px) {
+  .hero-form-fields {
+    gap: 8px;
+  }
+
+  .hero-form-row {
+    gap: 8px;
+  }
 }
 
 .hero-form-row-1 {
@@ -275,9 +304,59 @@ body::before {
   }
 }
 
+@media (max-width: 360px) {
+  .announcement-bar-inner {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    min-height: 34px;
+  }
+
+  .announcement-bar-inner .countdown-pulse {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .announcement-bar-inner {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .announcement-bar-inner .accent-callout {
+    font-size: 0.7rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+
+  .announcement-bar-inner button {
+    min-height: 32px;
+    min-width: 32px;
+    padding: 0.35rem;
+  }
+}
+
+.announcement-bar-inner .accent-callout {
+  transition: opacity 0.2s ease, transform 0.15s ease, text-decoration-thickness 0.2s ease;
+}
+
+.announcement-bar-inner .accent-callout:hover {
+  opacity: 0.85;
+  text-decoration-thickness: 2px;
+}
+
+.announcement-bar-inner .accent-callout:active {
+  transform: translateY(1px);
+}
+
+.announcement-bar-inner .accent-callout:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #111827;
+  border-radius: 999px;
+}
+
 /* ── Nav: logo centered between left and right clusters ── */
 .nav-left {
-  display: flex;
+  display: none;
   gap: 1.5rem;
   flex: 1;
 }
@@ -287,10 +366,17 @@ body::before {
 }
 
 .nav-right {
-  display: flex;
+  display: none;
   gap: 1.5rem;
   flex: 1;
   justify-content: flex-end;
+}
+
+@media (min-width: 768px) {
+  .nav-left,
+  .nav-right {
+    display: flex;
+  }
 }
 
 /* Nav bar: white or very light pink, clean and minimal */
@@ -333,6 +419,13 @@ body::before {
 .nav-collapsed .nav-inner {
   min-height: 4rem;
   /* 64px */
+}
+
+@media (max-width: 767px) {
+  .nav-expanded .nav-inner,
+  .nav-collapsed .nav-inner {
+    min-height: 3.5rem;
+  }
 }
 
 /* Larger logo only on desktop — mobile keeps compact for header fit */
@@ -398,6 +491,14 @@ body::before {
   }
 }
 
+@media (max-width: 767px) {
+  .nav-logo-image {
+    height: 40px;
+    margin-top: 2px;
+    width: auto;
+  }
+}
+
 /* Donate: pill button — #E92128, white text, full pill, Bernoru bold */
 .nav-donate-pill {
   font-family: var(--font-section), sans-serif;
@@ -413,6 +514,14 @@ body::before {
   justify-content: center;
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease, font-size 0.3s ease, padding 0.3s ease, min-height 0.3s ease;
+}
+
+@media (max-width: 767px) {
+  .nav-donate-pill {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    min-height: 44px;
+  }
 }
 
 .nav-donate-pill:hover {
@@ -812,7 +921,7 @@ body::before {
     scroll-behavior: smooth;
     overflow-x: hidden;
     /* Anchor links scroll so target clears the sticky nav + announcement bar */
-    scroll-padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 8px);
+    scroll-padding-top: var(--anchor-offset);
   }
 
   body {
@@ -1111,6 +1220,19 @@ body::before {
   background: #FFAEAE;
 }
 
+@media (max-width: 767px) {
+  .hero-splash-bg {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-grid {
+    margin-top: calc(-1 * (var(--announcement-height, 0px) + var(--nav-height)));
+    padding-top: calc(var(--announcement-height, 0px) + var(--nav-height));
+  }
+}
+
 /* Hero bottom fade — white gradient over bottom 150px so David’s photo (and pink) dissolve into white; no pink overlay on photo */
 /* Hero bottom fade now via Section bottomFade in Hero.tsx */
 
@@ -1199,8 +1321,15 @@ body::before {
 @media (max-width: 1023px) {
   .hero-left-column {
     min-height: auto;
-    padding: 1rem 1rem 1.5rem;
+    padding: 0.35rem 0.35rem 0.6rem;
     margin-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-left-column {
+    padding: 0 0.3rem 0.4rem;
+    margin-top: -6px;
   }
 }
 
@@ -1244,6 +1373,13 @@ body::before {
 @media (max-width: 1023px) {
   .hero-photo-area {
     min-height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-photo-area {
+    -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
   }
 }
 
@@ -1341,13 +1477,20 @@ body::before {
 
   .hero-cutout-wrapper .hero-cutout-image {
     min-height: auto;
-    max-height: 65vh;
+    max-height: 56vh;
     height: auto;
     width: 100%;
     max-width: 100%;
     object-fit: cover;
     object-position: top center;
     will-change: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-cutout-wrapper .hero-cutout-image {
+    max-height: 60vh;
+    object-position: center -130%;
   }
 }
 
@@ -1382,6 +1525,12 @@ body::before {
   border: none;
   box-shadow: none;
   min-width: 0;
+}
+
+@media (max-width: 767px) {
+  .hero-right-column {
+    padding: 0 0.9rem 0.75rem;
+  }
 }
 
 @media (min-width: 480px) {
@@ -1435,6 +1584,14 @@ body::before {
   }
 }
 
+@media (max-width: 767px) {
+  .hero-district-label {
+    font-size: clamp(12px, 3.6vw, 16px);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.35rem;
+  }
+}
+
 /* Small desktop (1024–1536px): scale down so text + form fit side-by-side with photo */
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-district-label {
@@ -1461,6 +1618,24 @@ body::before {
   max-width: 100%;
 }
 
+.hero-quick-actions {
+  display: none;
+}
+
+.hero-headline-mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .hero-headline-desktop {
+    display: none;
+  }
+
+  .hero-headline-mobile {
+    display: block;
+  }
+}
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-headline {
     font-size: clamp(22px, 3vw, 40px);
@@ -1476,6 +1651,69 @@ body::before {
 @media (max-width: 640px) {
   .hero-headline {
     line-height: 1.12;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-headline {
+    font-size: clamp(30px, 8.6vw, 44px);
+    text-align: left;
+    text-align-last: left;
+    word-spacing: -0.02em;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-quick-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.35rem;
+    margin-bottom: 0.2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-quick-action {
+    font-family: var(--font-section), sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-height: 40px;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+  }
+
+  .hero-quick-action-outline {
+    color: #0f172a;
+    border: 2px solid #0f172a;
+    background: #ffffff;
+  }
+
+  .hero-quick-action-solid {
+    color: #ffffff;
+    background: #e92128;
+    border: 2px solid #e92128;
+  }
+
+  .hero-quick-action:active {
+    transform: translateY(1px);
+  }
+
+  .hero-quick-action:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #111827;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-headline .hero-headline-red:last-of-type {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 }
 
@@ -1515,6 +1753,16 @@ body::before {
   }
 }
 
+@media (max-width: 767px) {
+  .hero-join-annotation {
+    font-size: clamp(26px, 7.8vw, 36px);
+    text-align: left;
+    margin-bottom: 0.5rem;
+    margin-top: 0.2rem;
+    transform: rotate(-1deg);
+  }
+}
+
 .hero-join-exclamation {
   font-size: 1.1em;
   letter-spacing: -0.02em;
@@ -1533,6 +1781,12 @@ body::before {
 @media (min-width: 480px) {
   .hero-right-column .hero-form-card {
     margin-top: 0.6rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-right-column .hero-form-card {
+    margin-top: 0.4rem;
   }
 }
 
@@ -1874,5 +2128,13 @@ body::before {
   .hero-photo-area {
     -webkit-mask-image: none;
     mask-image: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero-headline-mobile {
+    font-size: clamp(26px, 9.4vw, 36px);
+    line-height: 1.08;
+    word-spacing: -0.01em;
   }
 }

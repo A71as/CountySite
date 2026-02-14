@@ -49,7 +49,12 @@ export function Commissioner() {
   ];
 
   return (
-    <SectionWrapper id="commissioner" background="white" className="relative section-spacing-bottom commissioner-section-tighter-top">
+    <SectionWrapper
+      id="commissioner"
+      background="white"
+      className="relative section-spacing-bottom commissioner-section-tighter-top"
+      style={{ scrollMarginTop: "30px" }}
+    >
       {/* Subtle texture only — no diamond pattern; Commissioner stays plain white */}
       <div className="absolute inset-0 texture-speckle pointer-events-none" aria-hidden="true" />
 
