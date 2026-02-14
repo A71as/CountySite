@@ -16,6 +16,21 @@
   font-size: 16px;
 }
 
+/* Small screens: zoom entire site out by 10% so more fits without changing layout */
+@media (max-width: 1536px) {
+  /* Chrome, Safari, Edge: true zoom */
+  html {
+    zoom: 0.9;
+  }
+  /* Firefox: no zoom support — fallback via root font-size (scales rem-based layout; px/vw stay fixed) */
+  @supports not (zoom: 1) {
+    html {
+      zoom: unset;
+      font-size: 90%;
+    }
+  }
+}
+
 /* ── Poster frame: fixed 6px black border — signature zine/poster look, always visible ── */
 .poster-frame,
 .viewport-frame {
@@ -237,6 +252,18 @@ body::before {
   padding: 32px;
 }
 
+/* Announcement bar (election counter) — smaller on small desktop */
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .announcement-bar-inner {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    min-height: 40px;
+  }
+  .announcement-bar-inner .countdown-pulse {
+    font-size: 0.75rem;
+  }
+}
+
 /* ── Nav: logo centered between left and right clusters ── */
 .nav-left {
   display: flex;
@@ -278,6 +305,11 @@ body::before {
     min-height: 7rem; /* 112px on desktop */
   }
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .nav-expanded .nav-inner {
+    min-height: 5.5rem; /* 88px on small desktop */
+  }
+}
 .nav-collapsed .nav-inner {
   min-height: 4rem; /* 64px */
 }
@@ -288,6 +320,11 @@ body::before {
     width: auto !important;
   }
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .nav-logo-expanded {
+    height: clamp(72px, 10vw, 96px) !important;
+  }
+}
 /* Larger buttons/links when header is expanded */
 @media (min-width: 1024px) {
   .nav-expanded .nav-donate-pill {
@@ -296,9 +333,21 @@ body::before {
     min-height: 52px;
   }
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .nav-expanded .nav-donate-pill {
+    font-size: 1rem;
+    padding: 0.5rem 1.25rem;
+    min-height: 44px;
+  }
+}
 @media (min-width: 1024px) {
   .nav-expanded .nav-link {
     font-size: clamp(16px, 1.75vw, 18px);
+  }
+}
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .nav-expanded .nav-link {
+    font-size: clamp(14px, 1.4vw, 15px);
   }
 }
 

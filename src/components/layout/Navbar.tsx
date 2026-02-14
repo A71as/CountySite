@@ -35,11 +35,29 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Update --nav-height so hero/sections reserve correct space
+  // Update --nav-height so hero/sections reserve correct space (smaller expanded header on small desktop)
   useEffect(() => {
     const root = document.documentElement;
-    root.style.setProperty("--nav-height", isExpanded ? "112px" : "64px");
+    const isSmallDesktop =
+      typeof window !== "undefined" &&
+      window.innerWidth >= 1024 &&
+      window.innerWidth <= 1536;
+    const expandedHeight = isSmallDesktop ? "88px" : "112px";
+    root.style.setProperty("--nav-height", isExpanded ? expandedHeight : "64px");
   }, [isExpanded]);
+
+  // Re-run height when viewport crosses small-desktop breakpoint
+  useEffect(() => {
+    const handleResize = () => {
+      const root = document.documentElement;
+      const isExpanded = window.scrollY < SCROLL_THRESHOLD;
+      const isSmallDesktop = window.innerWidth >= 1024 && window.innerWidth <= 1536;
+      const expandedHeight = isSmallDesktop ? "88px" : "112px";
+      root.style.setProperty("--nav-height", isExpanded ? expandedHeight : "64px");
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const pathname = usePathname();
 
