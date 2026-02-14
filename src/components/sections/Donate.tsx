@@ -61,7 +61,7 @@ export function Donate() {
         <HandDrawnDivider variant="light" className="max-w-3xl h-7 -rotate-[0.3deg]" />
       </div>
       {/* Split background: left half red, right half white */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[500px] w-full">
         {/* Left half — red background, all donation content; centered; top fade from white */}
         <div className="relative bg-primary-500 flex flex-col justify-center items-center py-12 lg:py-16 donate-half-red">
           <div className="grain-overlay-colored absolute inset-0 pointer-events-none z-0" aria-hidden="true" />
@@ -166,11 +166,11 @@ export function Donate() {
         </div>
 
         {/* Right half — white background, group photo only (3x larger) */}
-        <div className="bg-white relative min-h-[640px] sm:min-h-[760px] lg:min-h-[960px] flex flex-col justify-center items-center py-12 lg:py-16 overflow-hidden">
+        <div className="bg-white relative min-h-[360px] sm:min-h-[480px] lg:min-h-[clamp(480px,80vh,960px)] flex flex-col justify-center items-center py-12 lg:py-16 overflow-hidden">
           <div className="relative z-10 w-full h-full flex items-center justify-center px-4 sm:px-6 lg:px-8">
-            <div className="relative w-full max-w-[84rem] min-h-[640px] sm:min-h-[760px] lg:min-h-[960px] flex items-center justify-center">
+            <div className="relative w-full max-w-[84rem] min-h-[360px] sm:min-h-[480px] lg:min-h-[clamp(480px,80vh,960px)] flex items-center justify-center">
               <div className="relative w-full h-full organic-lg border-4 border-primary-500 overflow-hidden" style={{ transform: "rotate(1.5deg) scale(0.9)" }}>
-                <ScrollReveal variant="photo" className="relative w-full h-full min-h-[640px] sm:min-h-[760px] lg:min-h-[960px] organic-lg overflow-hidden bg-slate-100">
+                <ScrollReveal variant="photo" className="relative w-full h-full min-h-[360px] sm:min-h-[480px] lg:min-h-[clamp(480px,80vh,960px)] organic-lg overflow-hidden bg-slate-100">
                   <OptimizedImage
                     src={IMAGE_PATHS.candidate.action}
                     alt={`${candidateName} at a community event with supporters`}

@@ -119,8 +119,8 @@ export function Hero() {
       <div
         className="absolute left-0 right-0 bottom-8 pointer-events-none z-[5]"
         style={{
-          height: "clamp(100px, 14vh, 180px)",
-          background: "linear-gradient(to bottom, transparent, white)",
+          height: "clamp(60px, 10vh, 120px)",
+          background: "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.7))",
         }}
         aria-hidden="true"
       />

@@ -58,7 +58,7 @@ export function News() {
       </div>
 
       {/* News cards - horizontal scroll on mobile, grid on desktop */}
-      <div className="overflow-x-auto pb-4 lg:overflow-visible lg:pb-0">
+      <div className="overflow-x-auto pb-4 lg:overflow-visible lg:pb-0 snap-x snap-mandatory scroll-px-4">
         <div className="flex gap-6 lg:grid lg:grid-cols-3 lg:gap-6">
           {newsItems.map((item, index) => (
             <a
@@ -67,7 +67,7 @@ export function News() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group flex min-w-[280px] flex-col organic-card-2 border-2 border-slate-200 bg-white p-6 shadow-soft transition-all duration-200 hover:shadow-elevated hover:border-primary-300 hover:-translate-y-1 tilt-5",
+                "group flex min-w-[280px] flex-col organic-card-2 border-2 border-slate-200 bg-white p-6 shadow-soft transition-all duration-200 hover:shadow-elevated hover:border-primary-300 hover:-translate-y-1 tilt-5 snap-start",
                 "lg:min-w-0",
               )}
             >

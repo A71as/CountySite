@@ -133,7 +133,10 @@ export function VolunteerPageContent() {
       <SectionWrapper
         id="volunteer-success"
         background="blush"
-        className="!pt-[calc(var(--announcement-height,0px)+var(--nav-height,112px)+3rem)] section-spacing-top section-spacing-bottom"
+          className="section-spacing-top section-spacing-bottom !pt-0"
+          style={{
+            paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(2rem, 4vw, 4rem))",
+          }}
       >
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="mx-auto w-20 h-20 bg-primary-500 organic-md flex items-center justify-center mb-8 shadow-elevated">
@@ -165,8 +168,12 @@ export function VolunteerPageContent() {
         id="volunteer"
         background="blush"
         fullBleed
-        className="!pt-[calc(var(--announcement-height,0px)+var(--nav-height,112px)+2rem)] pb-12 section-spacing-bottom"
+        className="section-spacing-bottom !pt-0 !pb-0"
         topFade={{ from: "#FFF5F5", to: "transparent" }}
+        style={{
+          paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(1.5rem, 3vw, 3rem))",
+          paddingBottom: "clamp(2.5rem, 6vw, 3.5rem)",
+        }}
       >
         <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
           <Link
@@ -205,7 +212,7 @@ export function VolunteerPageContent() {
         className="section-spacing-top section-spacing-bottom"
       >
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 sm:space-y-10">
             {error && (
               <div
                 className="relative bg-red-50 border-l-4 border-primary-500 p-4 pl-6 font-body text-slate-800 organic-sm"
