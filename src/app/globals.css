@@ -1048,6 +1048,11 @@ body::before {
   margin: 0;
   padding: 0;
 }
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 @media (max-width: 1023px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -1259,8 +1264,8 @@ body::before {
 }
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-right-column {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     padding-top: clamp(80px, 12vh, 140px);
   }
 }
