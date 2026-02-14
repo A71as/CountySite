@@ -18,10 +18,12 @@
 
 /* Small screens: zoom entire site out by 10% so more fits without changing layout */
 @media (max-width: 1536px) {
+
   /* Chrome, Safari, Edge: true zoom */
   html {
     zoom: 0.9;
   }
+
   /* Firefox: no zoom support — fallback via root font-size (scales rem-based layout; px/vw stay fixed) */
   @supports not (zoom: 1) {
     html {
@@ -119,10 +121,12 @@ body::before {
   cursor: pointer;
   transition: background-color 200ms ease;
 }
+
 .hero-form-card .count-me-in-button:hover:not(:disabled),
 .count-me-in-button:hover:not(:disabled) {
   background-color: #C91B22 !important;
 }
+
 .hero-form-card .count-me-in-button:disabled,
 .count-me-in-button:disabled {
   cursor: not-allowed;
@@ -132,20 +136,24 @@ body::before {
 /* Hero form inputs — reference: white bg, 1px #D9D9D9 border, 5px radius, placeholder #AAAAAA */
 .hero-form-card .input-hero-wrap input {
   font-family: var(--font-body), serif;
-  font-size: 16px; /* Prevents iOS zoom on focus */
+  font-size: 16px;
+  /* Prevents iOS zoom on focus */
   min-height: 48px;
   border-radius: 5px;
   border: 1px solid #D9D9D9;
   background: #FFFFFF;
   transition: border-color 0.2s ease;
 }
+
 .hero-form-card .input-hero-wrap input::placeholder {
   color: #AAAAAA;
 }
+
 .hero-form-card .input-hero-wrap input:focus {
   outline: none;
   border-color: #999999;
 }
+
 .hero-form-card .input-hero-wrap.input-hero-wrap {
   background: none;
   padding-bottom: 0;
@@ -159,10 +167,12 @@ body::before {
   line-height: 1.5;
   color: #666666;
 }
+
 .hero-form-privacy a {
   text-decoration: underline;
   color: inherit;
 }
+
 .hero-form-privacy a:hover {
   color: #333;
 }
@@ -175,33 +185,40 @@ body::before {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 1.25rem 1rem;
 }
+
 @media (min-width: 640px) {
   .hero-form-card {
     padding: 1.5rem 1.25rem;
   }
 }
+
 @media (min-width: 1024px) {
   .hero-form-card {
     padding: 1.5rem 1.25rem;
     /* Width matches headline text block (full right column); no overflow */
   }
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-form-card {
     padding: 0.75rem 0.625rem;
   }
+
   .hero-form-card .count-me-in-button {
     min-height: 40px;
     font-size: 0.875rem;
     padding: 10px 20px;
   }
+
   .hero-form-card .input-hero-wrap input {
     font-size: 14px;
     min-height: 40px;
   }
+
   .hero-form-card .hero-form-fields {
     gap: 6px;
   }
+
   .hero-form-card .hero-form-row {
     gap: 6px;
   }
@@ -213,32 +230,40 @@ body::before {
   flex-direction: column;
   gap: 10px;
 }
+
 .hero-form-row {
   display: grid;
   gap: 10px;
   grid-template-columns: 1fr;
 }
+
 .hero-form-row-1 {
   grid-template-columns: 1fr;
 }
+
 .hero-form-row-2 .hero-form-zip-wrap {
   grid-column: 1 / -1;
 }
+
 @media (min-width: 768px) {
   .hero-form-row-1 {
     grid-template-columns: 1fr 1fr;
   }
+
   .hero-form-row-2 {
     grid-template-columns: 1fr 1fr;
   }
+
   .hero-form-row-2 .hero-form-zip-wrap {
     grid-column: span 2;
   }
 }
+
 @media (min-width: 1024px) {
   .hero-form-row-2 {
     grid-template-columns: 1fr 1fr 1fr;
   }
+
   .hero-form-row-2 .hero-form-zip-wrap {
     grid-column: span 1;
   }
@@ -259,6 +284,7 @@ body::before {
     padding-bottom: 0.5rem;
     min-height: 40px;
   }
+
   .announcement-bar-inner .countdown-pulse {
     font-size: 0.75rem;
   }
@@ -270,9 +296,11 @@ body::before {
   gap: 1.5rem;
   flex: 1;
 }
+
 .nav-center {
   flex: 0 0 auto;
 }
+
 .nav-right {
   display: flex;
   gap: 1.5rem;
@@ -284,6 +312,7 @@ body::before {
 .nav-bar-bg {
   background-color: rgba(255, 254, 254, 0.98);
 }
+
 @supports (background: color-mix(in srgb, white, #FFAEAE 20%)) {
   .nav-bar-bg {
     background-color: color-mix(in srgb, white 80%, #FFAEAE 20%);
@@ -298,21 +327,29 @@ body::before {
 
 /* Nav expand/collapse — at top: bigger header + huge logo; on scroll: compact */
 .nav-expanded .nav-inner {
-  min-height: 4rem; /* 64px on mobile */
+  min-height: 4rem;
+  /* 64px on mobile */
 }
+
 @media (min-width: 1024px) {
   .nav-expanded .nav-inner {
-    min-height: 7rem; /* 112px on desktop */
+    min-height: 7rem;
+    /* 112px on desktop */
   }
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .nav-expanded .nav-inner {
-    min-height: 5.5rem; /* 88px on small desktop */
+    min-height: 5.5rem;
+    /* 88px on small desktop */
   }
 }
+
 .nav-collapsed .nav-inner {
-  min-height: 4rem; /* 64px */
+  min-height: 4rem;
+  /* 64px */
 }
+
 /* Larger logo only on desktop — mobile keeps compact for header fit */
 @media (min-width: 1024px) {
   .nav-logo-expanded {
@@ -320,11 +357,13 @@ body::before {
     width: auto !important;
   }
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .nav-logo-expanded {
     height: clamp(72px, 10vw, 96px) !important;
   }
 }
+
 /* Larger buttons/links when header is expanded */
 @media (min-width: 1024px) {
   .nav-expanded .nav-donate-pill {
@@ -333,6 +372,7 @@ body::before {
     min-height: 52px;
   }
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .nav-expanded .nav-donate-pill {
     font-size: 1rem;
@@ -340,11 +380,13 @@ body::before {
     min-height: 44px;
   }
 }
+
 @media (min-width: 1024px) {
   .nav-expanded .nav-link {
     font-size: clamp(16px, 1.75vw, 18px);
   }
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .nav-expanded .nav-link {
     font-size: clamp(14px, 1.4vw, 15px);
@@ -364,6 +406,7 @@ body::before {
   height: clamp(52px, 12vw, 64px);
   width: auto;
 }
+
 @media (min-width: 768px) {
   .nav-logo-image {
     height: clamp(48px, 5vw, 56px);
@@ -386,9 +429,11 @@ body::before {
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease, font-size 0.3s ease, padding 0.3s ease, min-height 0.3s ease;
 }
+
 .nav-donate-pill:hover {
   background-color: #C91B22;
 }
+
 .nav-donate-pill:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px white, 0 0 0 4px #E92128;
@@ -398,16 +443,20 @@ body::before {
 .block-shadow {
   box-shadow: 4px 4px 0 #000000;
 }
+
 .block-shadow-sm {
   box-shadow: 3px 3px 0 #000000;
 }
+
 .block-shadow-md {
   box-shadow: 5px 5px 0 #000000;
 }
+
 /* Hover: button "presses down" — shadow shrinks */
 .block-shadow-press:hover {
   box-shadow: 2px 2px 0 #000000;
 }
+
 .block-shadow-press:active {
   box-shadow: 1px 1px 0 #000000;
 }
@@ -421,13 +470,16 @@ body::before {
 .organic-sm {
   border-radius: 8px 12px 10px 14px / 10px 8px 14px 12px;
 }
+
 /* Slightly rounder for form inputs — more handmade feel */
 .organic-input {
   border-radius: 12px 16px 14px 18px / 14px 12px 18px 14px;
 }
+
 .organic-md {
   border-radius: 16px 22px 18px 24px / 20px 16px 24px 18px;
 }
+
 .organic-lg {
   border-radius: 24px 32px 28px 36px / 30px 24px 36px 28px;
 }
@@ -436,9 +488,11 @@ body::before {
 .organic-card-1 {
   border-radius: 14px 20px 16px 22px / 18px 14px 20px 16px;
 }
+
 .organic-card-2 {
   border-radius: 10px 18px 12px 20px / 16px 12px 18px 14px;
 }
+
 .organic-card-3 {
   border-radius: 20px 14px 22px 16px / 16px 20px 14px 18px;
 }
@@ -461,6 +515,7 @@ body::before {
   position: relative;
   overflow: hidden;
 }
+
 .organic-form-hero::before {
   content: "";
   position: absolute;
@@ -507,21 +562,42 @@ body::before {
 .slight-tilt {
   transform: rotate(-1.5deg);
 }
+
 .slight-tilt-right {
   transform: rotate(1.5deg);
 }
+
 .slight-tilt-sm {
   transform: rotate(-0.75deg);
 }
+
 .slight-tilt-sm-right {
   transform: rotate(0.75deg);
 }
-.tilt-1 { transform: rotate(0.5deg); }
-.tilt-2 { transform: rotate(-0.7deg); }
-.tilt-3 { transform: rotate(1deg); }
-.tilt-4 { transform: rotate(-1.2deg); }
-.tilt-5 { transform: rotate(1.5deg); }
-.tilt-6 { transform: rotate(-1deg); }
+
+.tilt-1 {
+  transform: rotate(0.5deg);
+}
+
+.tilt-2 {
+  transform: rotate(-0.7deg);
+}
+
+.tilt-3 {
+  transform: rotate(1deg);
+}
+
+.tilt-4 {
+  transform: rotate(-1.2deg);
+}
+
+.tilt-5 {
+  transform: rotate(1.5deg);
+}
+
+.tilt-6 {
+  transform: rotate(-1deg);
+}
 
 /* ── Speech bubble family: same stroke (2.5px), same organic shape site-wide ── */
 :root {
@@ -536,6 +612,7 @@ body::before {
   border-radius: var(--speech-bubble-radius);
   background: white;
 }
+
 .speech-bubble-accent::after {
   content: "";
   position: absolute;
@@ -548,6 +625,7 @@ body::before {
   border-top: 14px solid #E92128;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
 }
+
 .speech-bubble-accent::before {
   content: "";
   position: absolute;
@@ -567,6 +645,7 @@ body::before {
   padding-top: 1rem;
   margin-top: 1rem;
 }
+
 .organic-divider-t::before {
   content: "";
   position: absolute;
@@ -579,14 +658,17 @@ body::before {
   background-size: 120px 10px;
   pointer-events: none;
 }
+
 .organic-divider-t.organic-divider-light::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q25 0 50 5 T100 5 T150 5 T200 5' stroke='rgba(255,255,255,0.2)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
+
 .organic-divider-b {
   position: relative;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 }
+
 .organic-divider-b::after {
   content: "";
   position: absolute;
@@ -599,6 +681,7 @@ body::before {
   background-size: 120px 10px;
   pointer-events: none;
 }
+
 .organic-divider-b.organic-divider-light::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q30 10 60 5 T120 5 T180 5' stroke='rgba(255,255,255,0.2)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
@@ -607,6 +690,7 @@ body::before {
 .nav-organic-divider {
   position: relative;
 }
+
 .nav-organic-divider::after {
   content: "";
   position: absolute;
@@ -661,6 +745,7 @@ body::before {
   background-size: 120px 8px;
   padding-bottom: 8px;
 }
+
 /* Mobile: larger touch targets and 16px font to prevent iOS zoom */
 @media (max-width: 767px) {
   .input-wavy-bottom input {
@@ -678,7 +763,7 @@ body::before {
 
 /* ── Hand-drawn/sketchy icon treatment (policy cards, etc.) ── */
 .icon-sketch {
-  filter: drop-shadow(0.6px 0.4px 0 rgba(255,255,255,0.35)) drop-shadow(-0.3px 0.4px 0 rgba(0,0,0,0.12));
+  filter: drop-shadow(0.6px 0.4px 0 rgba(255, 255, 255, 0.35)) drop-shadow(-0.3px 0.4px 0 rgba(0, 0, 0, 0.12));
 }
 
 /* ── Highlight marker effect for key numbers ── */
@@ -687,6 +772,7 @@ body::before {
   display: inline;
   padding: 0.05em 0.15em;
 }
+
 .marker-highlight::before {
   content: "";
   position: absolute;
@@ -709,6 +795,7 @@ body::before {
   white-space: nowrap;
   border: 0;
 }
+
 .skip-link:focus {
   position: fixed;
   top: 1rem;
@@ -747,7 +834,8 @@ body::before {
     color: var(--foreground);
     background: var(--background);
     font-family: var(--font-body), serif;
-    font-size: 1rem; /* 16px base; use text-lg (1.125rem) for 18px body copy where desired */
+    font-size: 1rem;
+    /* 16px base; use text-lg (1.125rem) for 18px body copy where desired */
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
@@ -777,6 +865,7 @@ body::before {
     text-decoration-style: wavy;
     text-underline-offset: 0.2em;
   }
+
   .prose-campaign a:hover,
   .content-link:hover {
     color: #B91C1C;
@@ -795,6 +884,7 @@ body::before {
 }
 
 @layer components {
+
   /* All prose uses Gelica (body serif) for consistent reading */
   .prose {
     font-family: var(--font-body), serif;
@@ -854,9 +944,17 @@ body::before {
 
 /* Election countdown banner — subtle pulse (0.9 → 1 opacity, 2s loop) */
 @keyframes countdown-pulse {
-  0%, 100% { opacity: 0.9; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
+
 .countdown-pulse {
   animation: countdown-pulse 2s ease-in-out infinite;
 }
@@ -874,9 +972,11 @@ body::before {
   .animation-delay-2000 {
     animation-delay: 2s;
   }
+
   .animation-delay-4000 {
     animation-delay: 4s;
   }
+
   .animation-delay-6000 {
     animation-delay: 6s;
   }
@@ -885,11 +985,23 @@ body::before {
 
 /* Nav logo Easter egg — subtle speech bubble "pop" on click */
 @keyframes logo-pop {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.12); }
-  70% { transform: scale(0.96); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  40% {
+    transform: scale(1.12);
+  }
+
+  70% {
+    transform: scale(0.96);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
+
 .logo-pop-trigger {
   animation: logo-pop 0.35s ease-out;
 }
@@ -897,24 +1009,24 @@ body::before {
 /* ── Brand crosshatch diamond texture (from speech-bubble interiors in the brand guide) ── */
 .brand-crosshatch {
   background-image:
-    linear-gradient(45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%),
-    linear-gradient(-45deg, rgba(255,255,255,0.06) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.06) 75%);
+    linear-gradient(45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
   background-size: 20px 20px;
 }
 
 /* Variant for light backgrounds — 15% opacity crosshatch (brand quilted feel) */
 .brand-crosshatch-dark {
   background-image:
-    linear-gradient(45deg, rgba(233,33,40,0.08) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.08) 75%),
-    linear-gradient(-45deg, rgba(233,33,40,0.08) 25%, transparent 25%, transparent 75%, rgba(233,33,40,0.08) 75%);
+    linear-gradient(45deg, rgba(233, 33, 40, 0.08) 25%, transparent 25%, transparent 75%, rgba(233, 33, 40, 0.08) 75%),
+    linear-gradient(-45deg, rgba(233, 33, 40, 0.08) 25%, transparent 25%, transparent 75%, rgba(233, 33, 40, 0.08) 75%);
   background-size: 20px 20px;
 }
 
 /* Light pink crosshatch — 15% opacity, full-bleed consistent density (brand checklist) */
 .brand-crosshatch-pink {
   background-image:
-    linear-gradient(45deg, rgba(255,174,174,0.15) 25%, transparent 25%, transparent 75%, rgba(255,174,174,0.15) 75%),
-    linear-gradient(-45deg, rgba(255,174,174,0.15) 25%, transparent 25%, transparent 75%, rgba(255,174,174,0.15) 75%);
+    linear-gradient(45deg, rgba(255, 174, 174, 0.15) 25%, transparent 25%, transparent 75%, rgba(255, 174, 174, 0.15) 75%),
+    linear-gradient(-45deg, rgba(255, 174, 174, 0.15) 25%, transparent 25%, transparent 75%, rgba(255, 174, 174, 0.15) 75%);
   background-size: 24px 24px;
   background-position: 0 0;
 }
@@ -923,20 +1035,16 @@ body::before {
 .pattern-fade-vertical {
   --pattern-fade-top: 6%;
   --pattern-fade-bottom: 94%;
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black var(--pattern-fade-top),
-    black var(--pattern-fade-bottom),
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black var(--pattern-fade-top),
-    black var(--pattern-fade-bottom),
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black var(--pattern-fade-top),
+      black var(--pattern-fade-bottom),
+      transparent 100%);
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black var(--pattern-fade-top),
+      black var(--pattern-fade-bottom),
+      transparent 100%);
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   -webkit-mask-position: 0 0;
@@ -955,25 +1063,22 @@ body::before {
 
 /* Poster gradient — definitive pink top, warm mid-section, full red bottom */
 .hero-poster-bg {
-  background: linear-gradient(
-    180deg,
-    #FFAEAE 0%,
-    #FFAEAE 30%,
-    #F48689 55%,
-    #EE5A5D 75%,
-    #E92128 100%
-  );
+  background: linear-gradient(180deg,
+      #FFAEAE 0%,
+      #FFAEAE 30%,
+      #F48689 55%,
+      #EE5A5D 75%,
+      #E92128 100%);
 }
 
 /* Sunburst rays — poster match: emanates from behind David's photo (upper-right) */
 .hero-sunburst {
-  background: repeating-conic-gradient(
-    from 0deg at 65% 76%,
-    rgba(255, 210, 212, 0.45) 0deg 6deg,
-    rgba(255, 185, 187, 0.2) 6deg 12deg
-  );
+  background: repeating-conic-gradient(from 0deg at 65% 76%,
+      rgba(255, 210, 212, 0.45) 0deg 6deg,
+      rgba(255, 185, 187, 0.2) 6deg 12deg);
   opacity: 0.65;
 }
+
 @media (max-width: 767px) {
   .hero-sunburst {
     opacity: 0.5;
@@ -984,19 +1089,31 @@ body::before {
 .speech-bubble {
   border-radius: var(--speech-bubble-radius);
 }
+
 /* Hero election bubble — hand-drawn character to match DAVID! logo mark */
 .speech-bubble-election {
   border-radius: 18px 26px 20px 22px / 22px 16px 24px 18px;
 }
+
 /* Gentle "pop" entrance — spoken into existence (scale 0.9 → 1.02 → 1, 300ms), slight tilt */
 @keyframes election-bubble-pop {
-  0% { transform: scale(0.9) rotate(2deg); }
-  60% { transform: scale(1.02) rotate(2deg); }
-  100% { transform: scale(1) rotate(2deg); }
+  0% {
+    transform: scale(0.9) rotate(2deg);
+  }
+
+  60% {
+    transform: scale(1.02) rotate(2deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(2deg);
+  }
 }
+
 .election-bubble-pop {
   animation: election-bubble-pop 0.3s ease-out forwards;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .election-bubble-pop {
     animation: none;
@@ -1014,8 +1131,10 @@ body::before {
 
 /* ── Section transition system: spacing and wavy line ── */
 .section-spacing-top {
-  padding-top: 5.5rem; /* 88px — within 80–100px */
+  padding-top: 5.5rem;
+  /* 88px — within 80–100px */
 }
+
 .section-spacing-bottom {
   padding-bottom: 5.5rem;
 }
@@ -1024,6 +1143,7 @@ body::before {
 #commissioner.commissioner-section-tighter-top {
   padding-top: 3.5rem;
 }
+
 @media (min-width: 768px) {
   #commissioner.commissioner-section-tighter-top {
     padding-top: 4rem;
@@ -1048,11 +1168,13 @@ body::before {
   margin: 0;
   padding: 0;
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
+
 @media (max-width: 1023px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -1071,7 +1193,9 @@ body::before {
   overflow: hidden;
   background: none;
 }
+
 @media (min-width: 1024px) {
+
   /* Don't stretch photo to row height — photo area drives height via aspect-ratio for consistent crop */
   .hero-left-column {
     align-items: flex-start;
@@ -1080,6 +1204,7 @@ body::before {
     margin-right: -20px;
   }
 }
+
 @media (max-width: 1023px) {
   .hero-left-column {
     min-height: auto;
@@ -1104,7 +1229,9 @@ body::before {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
+
 @media (min-width: 1024px) {
+
   /* Lock the photo frame to the same shape as the "golden" desktop reference.
      48vw @ 1920px ≈ 921px and 90vh @ 1080px ≈ 972px, so 921/972 keeps crop consistent down to ~1366px. */
   .hero-photo-area {
@@ -1115,6 +1242,13 @@ body::before {
     max-height: 90vh;
   }
 }
+
+@media (min-width: 1024px) and (max-width: 1536px) {
+  .hero-photo-area {
+    transform: translateY(-2vh);
+  }
+}
+
 @media (max-width: 1023px) {
   .hero-photo-area {
     min-height: auto;
@@ -1127,14 +1261,13 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: repeating-conic-gradient(
-    from 0deg at -5% 108%,
-    #E92128 0deg 3deg,
-    #FFAEAE 3deg 6deg
-  );
+  background: repeating-conic-gradient(from 0deg at -5% 108%,
+      #E92128 0deg 3deg,
+      #FFAEAE 3deg 6deg);
   filter: blur(6px);
   opacity: 0.6;
 }
+
 /* Background wrap (transparent; rays show through) */
 .hero-photo-bg-wrap {
   position: absolute;
@@ -1143,16 +1276,20 @@ body::before {
   pointer-events: none;
   background: transparent;
 }
+
 /* Left column: no local bg — section sunburst shows through */
 .hero-photo-bg-base {
   display: none;
 }
+
 .hero-photo-bg-glow {
   display: none;
 }
+
 .hero-photo-bg-texture {
   display: none;
 }
+
 /* Right-side fade removed so sunburst stays visible behind David (no transparent white box) */
 .hero-photo-area-right-fade {
   display: none;
@@ -1176,11 +1313,13 @@ body::before {
   will-change: transform;
   background: none;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .hero-cutout-wrapper {
     transform: none;
   }
 }
+
 .hero-cutout-wrapper .hero-cutout-image {
   width: 100%;
   height: 100%;
@@ -1190,12 +1329,14 @@ body::before {
   object-position: top center;
   will-change: transform;
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-cutout-wrapper .hero-cutout-image {
     transform: scale(0.9);
     transform-origin: center center;
   }
 }
+
 @media (max-width: 1023px) {
   .hero-cutout-wrapper {
     transform: none;
@@ -1205,6 +1346,7 @@ body::before {
     /* Full width of container so photo is anchored, not floating */
     justify-content: center;
   }
+
   .hero-cutout-wrapper .hero-cutout-image {
     min-height: auto;
     max-height: 65vh;
@@ -1249,12 +1391,14 @@ body::before {
   box-shadow: none;
   min-width: 0;
 }
+
 @media (min-width: 480px) {
   .hero-right-column {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
 }
+
 @media (min-width: 1024px) {
   .hero-right-column {
     padding: 20vh 2.5rem 1rem 1.75rem;
@@ -1262,6 +1406,7 @@ body::before {
     margin-left: 0;
   }
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-right-column {
     padding-left: 0.5rem;
@@ -1269,6 +1414,7 @@ body::before {
     padding-top: clamp(80px, 12vh, 140px);
   }
 }
+
 /* No card styling on the content wrapper — only the form has a card (.hero-form-card) */
 .hero-right-column .hero-form-animate {
   background: none;
@@ -1289,12 +1435,14 @@ body::before {
   line-height: 1.3;
   white-space: nowrap;
 }
+
 @media (max-width: 480px) {
   .hero-district-label {
     white-space: normal;
     word-break: break-word;
   }
 }
+
 /* Small desktop (1024–1536px): scale down so text + form fit side-by-side with photo */
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-district-label {
@@ -1320,27 +1468,33 @@ body::before {
   width: 100%;
   max-width: 100%;
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-headline {
     font-size: clamp(22px, 3vw, 40px);
     margin-bottom: 0.25rem;
   }
+
   .hero-headline .hero-headline-red:last-of-type {
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
   }
 }
+
 @media (max-width: 640px) {
   .hero-headline {
     line-height: 1.12;
   }
 }
+
 .hero-headline-black {
   color: #000000;
 }
+
 .hero-headline-red {
   color: #E92128;
 }
+
 /* Payoff line — "WIN FOR THE WORKING CLASS." — underline for emphasis (mockup) */
 .hero-headline .hero-headline-red:last-of-type {
   text-decoration: underline;
@@ -1360,6 +1514,7 @@ body::before {
   margin-top: 0.35rem;
   margin-left: 0;
 }
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-join-annotation {
     font-size: clamp(20px, 2.5vw, 28px);
@@ -1367,6 +1522,7 @@ body::before {
     margin-top: 0.1rem;
   }
 }
+
 .hero-join-exclamation {
   font-size: 1.1em;
   letter-spacing: -0.02em;
@@ -1376,20 +1532,24 @@ body::before {
 .hero-right-column .hero-form-animate form {
   margin-top: 0;
 }
+
 /* Space between "Join the fight!" and sign-up box — shifts the form card down */
 .hero-right-column .hero-form-card {
   margin-top: 2rem;
 }
+
 @media (min-width: 480px) {
   .hero-right-column .hero-form-card {
     margin-top: 3rem;
   }
 }
+
 @media (min-width: 768px) {
   .hero-right-column .hero-form-card {
     margin-top: 4.5rem;
   }
 }
+
 /* Small desktop: tighter spacing so form fits with photo */
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-right-column .hero-form-card {
@@ -1403,14 +1563,17 @@ body::before {
     opacity: 0;
     transform: scale(0.92) translateX(-12px);
   }
+
   70% {
     transform: scale(1.02) translateX(0);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateX(0);
   }
 }
+
 .hero-logo-animate {
   animation: hero-logo-in 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
 }
@@ -1421,16 +1584,20 @@ body::before {
     opacity: 0;
     transform: translateY(16px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .hero-form-animate {
   animation: hero-form-in 0.5s ease-out 0.35s forwards;
   opacity: 0;
 }
+
 @media (prefers-reduced-motion: reduce) {
+
   .hero-logo-animate,
   .hero-form-animate {
     animation: none;
@@ -1446,6 +1613,7 @@ body::before {
   border-radius: var(--speech-bubble-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 /* Tail: black outline (::after) + white fill (::before) */
 .hero-logo-bubble::after {
   content: "";
@@ -1459,6 +1627,7 @@ body::before {
   border-right: 11px solid transparent;
   border-top: 12px solid #000000;
 }
+
 .hero-logo-bubble::before {
   content: "";
   position: absolute;
@@ -1495,6 +1664,7 @@ body::before {
   position: relative;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
+
 .speech-bubble-election-callout::after {
   content: "";
   position: absolute;
@@ -1507,6 +1677,7 @@ body::before {
   border-right: 10px solid transparent;
   border-top: 12px solid #000000;
 }
+
 .speech-bubble-election-callout::before {
   content: "";
   position: absolute;
@@ -1539,6 +1710,7 @@ body::before {
   transform: rotate(-1deg);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
+
 .section-label-bubble::after {
   content: "";
   position: absolute;
@@ -1550,6 +1722,7 @@ body::before {
   border-right: 6px solid transparent;
   border-top: 7px solid #000000;
 }
+
 .section-label-bubble::before {
   content: "";
   position: absolute;
@@ -1568,6 +1741,7 @@ body::before {
   position: relative;
   display: inline-block;
 }
+
 .meet-david-underline svg.underline-squiggle {
   position: absolute;
   left: -10px;
@@ -1591,10 +1765,12 @@ body::before {
   transform: translateY(20px);
   transition: opacity 400ms ease-out, transform 400ms ease-out;
 }
+
 .about-reveal.about-reveal-visible .about-reveal-item {
   opacity: 1;
   transform: translateY(0);
 }
+
 @media (prefers-reduced-motion: reduce) {
   .about-reveal-item {
     opacity: 1;
@@ -1607,28 +1783,26 @@ body::before {
 .hero-halftone {
   position: relative;
 }
+
 /* Removed halftone dots for cleaner, more modern look */
 
 /* Subtle edge gradient mask — candidate fades into red bg */
 .hero-image-fade {
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 6%,
-    black 94%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 6%,
-    black 94%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%);
 }
 
 /* Custom scrollbar styling */
 @layer base {
+
   /* Webkit browsers (Chrome, Safari, Edge) */
   ::-webkit-scrollbar {
     width: 8px;
@@ -1657,6 +1831,7 @@ body::before {
 
 /* Print styles */
 @media print {
+
   /* Hide navigation and interactive elements */
   nav,
   button,
