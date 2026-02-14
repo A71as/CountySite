@@ -173,22 +173,22 @@ body::before {
 }
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-form-card {
-    padding: 1rem 0.875rem;
+    padding: 0.75rem 0.625rem;
   }
   .hero-form-card .count-me-in-button {
-    min-height: 44px;
-    font-size: 0.9375rem;
-    padding: 12px 24px;
+    min-height: 40px;
+    font-size: 0.875rem;
+    padding: 10px 20px;
   }
   .hero-form-card .input-hero-wrap input {
-    font-size: 15px;
-    min-height: 44px;
+    font-size: 14px;
+    min-height: 40px;
   }
   .hero-form-card .hero-form-fields {
-    gap: 8px;
+    gap: 6px;
   }
   .hero-form-card .hero-form-row {
-    gap: 8px;
+    gap: 6px;
   }
 }
 
@@ -1204,9 +1204,9 @@ body::before {
 }
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-right-column {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: clamp(140px, 18vh, 200px);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: clamp(120px, 16vh, 180px);
   }
 }
 /* No card styling on the content wrapper — only the form has a card (.hero-form-card) */
@@ -1238,7 +1238,8 @@ body::before {
 /* Small desktop (1024–1536px): scale down so text + form fit side-by-side with photo */
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-district-label {
-    font-size: clamp(14px, 1.8vw, 18px);
+    font-size: clamp(12px, 1.5vw, 15px);
+    margin-bottom: 0.35rem;
   }
 }
 
@@ -1261,7 +1262,12 @@ body::before {
 }
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-headline {
-    font-size: clamp(28px, 3.8vw, 52px);
+    font-size: clamp(22px, 3vw, 40px);
+    margin-bottom: 0.25rem;
+  }
+  .hero-headline .hero-headline-red:last-of-type {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 }
 @media (max-width: 640px) {
@@ -1296,9 +1302,9 @@ body::before {
 }
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-join-annotation {
-    font-size: clamp(26px, 3.2vw, 36px);
-    margin-bottom: 6px;
-    margin-top: 0.2rem;
+    font-size: clamp(20px, 2.5vw, 28px);
+    margin-bottom: 4px;
+    margin-top: 0.1rem;
   }
 }
 .hero-join-exclamation {
@@ -1327,7 +1333,7 @@ body::before {
 /* Small desktop: tighter spacing so form fits with photo */
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-right-column .hero-form-card {
-    margin-top: 2rem;
+    margin-top: 1.25rem;
   }
 }
 
