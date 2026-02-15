@@ -44,7 +44,7 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://plausible.io https://cdnjs.cloudflare.com",
               "frame-src 'self' https://www.youtube.com https://player.vimeo.com https://challenges.cloudflare.com https://secure.actblue.com",
-              "connect-src 'self' https://plausible.io https://*.supabase.co https://*.supabase.in https://*.basemaps.cartocdn.com",
+              "connect-src 'self' https://challenges.cloudflare.com https://plausible.io https://*.supabase.co https://*.supabase.in https://*.basemaps.cartocdn.com",
               "img-src 'self' blob: data: https:",
               "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com",
               "font-src 'self' data: https://fonts.gstatic.com",

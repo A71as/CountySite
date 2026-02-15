@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -23,6 +23,7 @@ export function Navbar() {
   const [isExpanded, setIsExpanded] = useState(true); // at top = expanded
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [heroInView, setHeroInView] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,32 +36,27 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Update --nav-height so hero/sections reserve correct space (smaller expanded header on small desktop)
-  useEffect(() => {
+  // Measure actual nav height so sections never slide under the fixed header
+  useLayoutEffect(() => {
     const root = document.documentElement;
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const isSmallDesktop =
-      typeof window !== "undefined" &&
-      window.innerWidth >= 1024 &&
-      window.innerWidth <= 1536;
-    const expandedHeight = isMobile ? "56px" : isSmallDesktop ? "88px" : "112px";
-    const collapsedHeight = isMobile ? "56px" : "64px";
-    root.style.setProperty("--nav-height", isExpanded ? expandedHeight : collapsedHeight);
-  }, [isExpanded]);
+    const navEl = navRef.current;
+    if (!navEl) return;
 
-  // Re-run height when viewport crosses small-desktop breakpoint
-  useEffect(() => {
-    const handleResize = () => {
-      const root = document.documentElement;
-      const isExpanded = window.scrollY < SCROLL_THRESHOLD;
-      const isMobile = window.innerWidth < 768;
-      const isSmallDesktop = window.innerWidth >= 1024 && window.innerWidth <= 1536;
-      const expandedHeight = isMobile ? "56px" : isSmallDesktop ? "88px" : "112px";
-      const collapsedHeight = isMobile ? "56px" : "64px";
-      root.style.setProperty("--nav-height", isExpanded ? expandedHeight : collapsedHeight);
+    const updateHeight = () => {
+      const height = navEl.getBoundingClientRect().height;
+      root.style.setProperty("--nav-height", `${height}px`);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    updateHeight();
+
+    const resizeObserver = new ResizeObserver(() => updateHeight());
+    resizeObserver.observe(navEl);
+    window.addEventListener("resize", updateHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHeight);
+    };
   }, []);
 
   const pathname = usePathname();
@@ -132,6 +128,7 @@ export function Navbar() {
 
   return (
     <nav
+      ref={navRef}
       className={cn(
         "fixed left-0 right-0 z-40 transition-all duration-300 ease-out overflow-x-hidden",
         "top-[var(--announcement-height)]",

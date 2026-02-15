@@ -1773,7 +1773,7 @@ body::before {
   display: block;
   line-height: 1.2;
   margin-bottom: 0.8rem;
-  margin-top: 0.55rem;
+  margin-top: calc(0.55rem + 20px);
   margin-left: 0;
 }
 
@@ -1781,7 +1781,7 @@ body::before {
   .hero-join-annotation {
     font-size: clamp(20px, 2.5vw, 28px);
     margin-bottom: 0.5rem;
-    margin-top: 0.3rem;
+    margin-top: calc(0.3rem + 20px);
   }
 }
 
@@ -1790,7 +1790,7 @@ body::before {
     font-size: clamp(26px, 7.8vw, 36px);
     text-align: left;
     margin-bottom: 0.6rem;
-    margin-top: 0.2rem;
+    margin-top: calc(0.2rem + 20px);
     transform: rotate(-1deg);
   }
 }
