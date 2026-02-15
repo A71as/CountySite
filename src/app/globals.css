@@ -8,13 +8,27 @@
   --primary: #E92128;
   --accent: #525252;
   --light-pink: #FFAEAE;
+  --announcement-height: 48px;
   --anchor-offset: calc((var(--announcement-height, 0px) + var(--nav-height)) * -0.3);
-  /* Sticky header heights: announcement bar (set by JS), nav h-16 */
-  --nav-height: 64px;
+  /* Sticky header heights: announcement bar (set by JS), nav defaults to expanded height */
+  --nav-height: 112px;
   /* Type system: --font-display (Barber Chop), --font-section (Bernoru), --font-body (Gelica), --font-accent (Homemade Apple).
      Fonts loaded in layout.tsx via next/font (local + Google); Gelica is the brand serif (Gelasio used until brand font file is added).
      Fallbacks: sans-serif (display/section), serif (body), cursive (accent). */
   font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --announcement-height: 40px;
+    --nav-height: 56px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1536px) {
+  :root {
+    --nav-height: 88px;
+  }
 }
 
 /* Avoid global zoom scaling so layouts remain consistent across devices */
@@ -1757,17 +1771,17 @@ body::before {
   transform: rotate(-2deg);
   text-align: right;
   display: block;
-  line-height: 1.1;
-  margin-bottom: 10px;
-  margin-top: 0.75rem;
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
+  margin-top: 0.55rem;
   margin-left: 0;
 }
 
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-join-annotation {
     font-size: clamp(20px, 2.5vw, 28px);
-    margin-bottom: 4px;
-    margin-top: 0.35rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
   }
 }
 
@@ -1775,7 +1789,7 @@ body::before {
   .hero-join-annotation {
     font-size: clamp(26px, 7.8vw, 36px);
     text-align: left;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
     margin-top: 0.2rem;
     transform: rotate(-1deg);
   }

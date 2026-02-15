@@ -1,38 +1,34 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useCountdown } from "@/hooks/useCountdown";
 
 export function AnnouncementBar() {
   const [isDismissed, setIsDismissed] = useState(false);
-  const [electionDate, setElectionDate] = useState<Date | null>(null);
-  const barRef = useRef<HTMLDivElement | null>(null);
-
-  // Election date: env or default June 2, 2026, 6:00 AM Eastern (NJ polls open)
-  useEffect(() => {
+  const [electionDate] = useState<Date | null>(() => {
     const dateString = process.env.NEXT_PUBLIC_ELECTION_DATE;
     if (dateString) {
-      // If env is date-only (e.g. "2026-06-02"), append polls-open time (6 AM Eastern)
-      const iso = /^\d{4}-\d{2}-\d{2}$/.test(dateString.trim())
-        ? `${dateString.trim()}T10:00:00.000Z`
-        : dateString;
+      const normalized = dateString.trim();
+      const iso = /^\d{4}-\d{2}-\d{2}$/.test(normalized)
+        ? `${normalized}T10:00:00.000Z`
+        : normalized;
       const date = new Date(iso);
       if (!isNaN(date.getTime())) {
-        setElectionDate(date);
-        return;
+        return date;
       }
     }
-    setElectionDate(new Date("2026-06-02T10:00:00.000Z"));
-  }, []);
+    return new Date("2026-06-02T10:00:00.000Z");
+  });
+  const barRef = useRef<HTMLDivElement | null>(null);
 
   // Always call hook - use a far future date as fallback to avoid errors
   const defaultDate = new Date("2099-12-31");
   const countdown = useCountdown(electionDate || defaultDate);
 
-  // Update CSS variable for layout offset
-  useEffect(() => {
+  // Update CSS variable for layout offset before paint
+  useLayoutEffect(() => {
     const root = document.documentElement;
 
     if (isDismissed || !electionDate) {
