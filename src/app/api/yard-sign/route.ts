@@ -3,6 +3,7 @@ import { yardSignSchema } from "@/lib/validations";
 import { createServerClient } from "@/lib/integrations/supabase";
 import { sendYardSignConfirmation } from "@/lib/integrations/resend";
 import { signupRateLimit } from "@/lib/integrations/ratelimit";
+import { getCorsHeaders } from "@/lib/security/cors";
 
 /**
  * Get client IP address from request headers
@@ -68,6 +69,8 @@ async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
  */
 export async function POST(request: NextRequest) {
   try {
+    const corsHeaders = getCorsHeaders(request);
+
     // Get client IP for rate limiting
     const ip = getClientIP(request);
 
@@ -83,6 +86,7 @@ export async function POST(request: NextRequest) {
           {
             status: 429,
             headers: {
+              ...corsHeaders,
               "X-RateLimit-Limit": limit.toString(),
               "X-RateLimit-Remaining": remaining.toString(),
               "X-RateLimit-Reset": reset.toString(),
@@ -103,7 +107,7 @@ export async function POST(request: NextRequest) {
           error: "Validation failed",
           details: validationResult.error.flatten().fieldErrors,
         },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -129,7 +133,7 @@ export async function POST(request: NextRequest) {
         {
           error: "Invalid security verification. Please try again.",
         },
-        { status: 400 }
+        { status: 400, headers: corsHeaders }
       );
     }
 
@@ -171,7 +175,7 @@ export async function POST(request: NextRequest) {
         {
           error: "Failed to save yard sign request. Please try again.",
         },
-        { status: 500 }
+        { status: 500, headers: corsHeaders }
       );
     }
 
@@ -196,11 +200,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 200,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
+        headers: corsHeaders,
       }
     );
   } catch (error) {
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
       {
         error: "An unexpected error occurred. Please try again.",
       },
-      { status: 500 }
+      { status: 500, headers: getCorsHeaders(request) }
     );
   }
 }
@@ -218,13 +218,9 @@ export async function POST(request: NextRequest) {
 /**
  * Handle OPTIONS request for CORS
  */
-export async function OPTIONS() {
+export async function OPTIONS(request: NextRequest) {
   return new NextResponse(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
+    status: 204,
+    headers: getCorsHeaders(request),
   });
 }

@@ -135,7 +135,7 @@ export function VolunteerPageContent() {
         background="blush"
           className="section-spacing-top section-spacing-bottom !pt-0"
           style={{
-            paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(2rem, 4vw, 4rem))",
+            paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(1.5rem, 3vw, 3.5rem))",
           }}
       >
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
@@ -171,7 +171,7 @@ export function VolunteerPageContent() {
         className="section-spacing-bottom !pt-0 !pb-0"
         topFade={{ from: "#FFF5F5", to: "transparent" }}
         style={{
-          paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(1.5rem, 3vw, 3rem))",
+          paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(1rem, 2.5vw, 2.5rem))",
           paddingBottom: "clamp(2.5rem, 6vw, 3.5rem)",
         }}
       >
@@ -380,7 +380,7 @@ export function VolunteerPageContent() {
               variant="primary"
               size="lg"
               isLoading={isSubmitting}
-              disabled={isSubmitting || !turnstileToken}
+              disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
               className="w-full"
             >
               {isSubmitting ? "Submitting..." : "Sign Up to Volunteer"}

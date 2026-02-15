@@ -1,7 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -9,21 +7,6 @@ import { BUDGET_MILLIONS } from "@/lib/constants/copy";
 
 export function Commissioner() {
   const county = process.env.NEXT_PUBLIC_COUNTY || "Hudson";
-  const [mapLightboxOpen, setMapLightboxOpen] = useState(false);
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMapLightboxOpen(false);
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, []);
-
-  useEffect(() => {
-    if (mapLightboxOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mapLightboxOpen]);
 
   const services = [
     "Public parks & recreation",
@@ -119,61 +102,22 @@ export function Commissioner() {
           </div>
         </div>
 
-        {/* Right column - District Map (tappable on mobile for full-screen lightbox) */}
+        {/* Right column - District Map */}
         <div className="space-y-6 min-w-0">
           <div className="text-xl sm:text-2xl tracking-[0.15em] text-primary-600 font-accent font-bold -rotate-[2deg] ml-2 mt-5">
             District 4
           </div>
 
           <ScrollReveal variant="map" className="relative w-full">
-            <button
-              type="button"
-              onClick={() => setMapLightboxOpen(true)}
-              className="relative w-full photo-frame-standard bg-slate-50 overflow-hidden text-left block min-h-[280px] sm:min-h-0 aspect-square focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded-[inherit]"
-              aria-label="View District 4 map (tap to expand)"
-            >
+            <div className="relative w-full photo-frame-standard bg-slate-50 overflow-hidden block min-h-[280px] sm:min-h-0 aspect-square">
               <iframe
                 src="/arcgis-map.html"
                 title="Map of Hudson County District 4"
-                className="absolute inset-0 h-full w-full pointer-events-none sm:pointer-events-auto"
+                className="absolute inset-0 h-full w-full"
                 loading="lazy"
-                tabIndex={-1}
-                aria-hidden="true"
               />
-              <span className="absolute bottom-2 left-2 right-2 sm:hidden py-1.5 px-2 rounded bg-black/60 text-white text-xs font-subhead font-bold text-center">
-                Tap to expand map
-              </span>
-            </button>
-          </ScrollReveal>
-
-          {mapLightboxOpen && (
-            <div
-              className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-4"
-              role="dialog"
-              aria-modal="true"
-              aria-label="District 4 map (full screen)"
-            >
-              <button
-                type="button"
-                onClick={() => setMapLightboxOpen(false)}
-                className="absolute top-4 right-4 z-10 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
-                aria-label="Close map"
-              >
-                <X className="h-6 w-6" />
-              </button>
-              <div className="w-full max-w-2xl aspect-square max-h-[90vh] photo-frame-standard overflow-hidden bg-slate-50">
-                <iframe
-                  src="/arcgis-map.html"
-                  title="Hudson County District 4 Map (full screen)"
-                  className="absolute inset-0 h-full w-full"
-                  aria-label="Hudson County District 4 map"
-                />
-              </div>
-              <p className="mt-3 text-sm text-white/90">
-                District 4 includes the Heights, Journal Square, McGinley Square, and the West Side.
-              </p>
             </div>
-          )}
+          </ScrollReveal>
 
           <p className="text-sm text-slate-600 break-words">
             District 4 includes the Heights, Journal Square, McGinley Square,

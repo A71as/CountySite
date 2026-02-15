@@ -31,7 +31,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "organic-md bg-[#E92128] text-white hover:bg-[#DC2626] focus-visible:ring-[#E92128] active:scale-[0.98] active:translate-y-0.5",
+        "organic-md bg-[#C91B22] text-white hover:bg-[#B91C1C] focus-visible:ring-[#C91B22] active:scale-[0.98] active:translate-y-0.5",
       secondary:
         "organic-md border-2 border-black bg-white text-black hover:bg-slate-50 focus-visible:ring-accent-500 active:scale-[0.98] active:translate-y-0.5",
       accent:

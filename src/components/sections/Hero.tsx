@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { SignupForm } from "@/components/forms/SignupForm";
 import { Section } from "@/components/ui/Section";
+import { ACTBLUE_BASE_URL, isExternalDonateUrl } from "@/config/donate";
 
 const HERO_BIO =
   "David Sabry Guirgis is a social worker, organizer and democratic socialist running for Hudson County Commissioner to win for the working class.";
@@ -28,7 +29,8 @@ function HeroPhotoBackground() {
 export function Hero() {
   const cutoutRef = useRef<HTMLDivElement>(null);
   const [parallaxOffset, setParallaxOffset] = useState(0);
-  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#donate";
+  const actBlueUrl = ACTBLUE_BASE_URL;
+  const useExternalDonateLink = isExternalDonateUrl(actBlueUrl);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -115,8 +117,8 @@ export function Hero() {
               </Link>
               <a
                 href={actBlueUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={useExternalDonateLink ? "_blank" : undefined}
+                rel={useExternalDonateLink ? "noopener noreferrer" : undefined}
                 className="hero-quick-action hero-quick-action-solid"
               >
                 Donate

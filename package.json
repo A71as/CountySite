@@ -9,8 +9,9 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test": "npm run test:e2e",
-    "test:e2e": "playwright test",
-    "test:a11y": "playwright test tests/accessibility"
+    "test:e2e": "playwright test tests/e2e",
+    "test:a11y": "playwright test tests/accessibility",
+    "test:install": "playwright install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

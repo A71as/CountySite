@@ -168,7 +168,7 @@ export function YardSignForm() {
       )}
 
       {/* Hidden turnstile token field for validation */}
-      <input type="hidden" {...register("turnstileToken")} />
+      <input type="hidden" aria-label="Turnstile verification token" {...register("turnstileToken")} />
 
       {/* Row 1: First name, Last name */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -328,7 +328,7 @@ export function YardSignForm() {
         variant="primary"
         size="md"
         isLoading={isSubmitting}
-        disabled={isSubmitting || !turnstileToken}
+        disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
         className="w-full"
       >
         {isSubmitting ? "Submitting..." : "Request Yard Sign"}

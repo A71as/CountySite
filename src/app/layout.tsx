@@ -51,7 +51,7 @@ const homemadeApple = Homemade_Apple({
   display: "swap",
 });
 // Get environment variables for metadata
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
 const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
 const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
 const county = process.env.NEXT_PUBLIC_COUNTY || "County";
@@ -129,6 +129,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={`${gelica.className} bg-background text-foreground antialiased font-body text-base`}
       >
+        <a href="#main" className="skip-link">
+          Skip to main content
+        </a>
         <ClientLayout>
           <StructuredData />
           <AnnouncementBar />

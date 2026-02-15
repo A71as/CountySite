@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
 const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
 const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
 
@@ -38,10 +38,10 @@ export default function PrivacyPage() {
       <div className="prose prose-lg max-w-none font-body">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="font-display text-4xl font-bold text-primary-600 sm:text-5xl uppercase tracking-tight">
+          <h1 className="font-display text-4xl font-bold text-primary-on-light-pink sm:text-5xl uppercase tracking-tight">
             Privacy Policy
           </h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-700">
             Last updated: {lastUpdated}
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
             How We Use Your Information
           </h2>
           <p className="mt-4 leading-relaxed">
-            We use the information we collect for the following purposes:
+            We use collected information for the following purposes:
           </p>
           <ul className="mt-4 space-y-2">
             <li>

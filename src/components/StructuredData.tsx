@@ -5,7 +5,7 @@ export function StructuredData() {
   const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
   const county = process.env.NEXT_PUBLIC_COUNTY || "County";
   const state = process.env.NEXT_PUBLIC_STATE || "State";
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
   const baseUrl = siteUrl.replace(/\/$/, "");
 
   // Organization schema for the campaign

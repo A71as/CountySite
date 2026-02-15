@@ -7,8 +7,10 @@ const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
 const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
 const county = process.env.NEXT_PUBLIC_COUNTY || "County";
 const state = process.env.NEXT_PUBLIC_STATE || "State";
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
+const actBlueUrl =
+  process.env.NEXT_PUBLIC_ACTBLUE_URL?.trim() ||
+  "https://secure.actblue.com/donate/david-for-commissioner";
 
 if (!resendApiKey) {
   console.warn("RESEND_API_KEY is not set. Email functionality will be disabled.");

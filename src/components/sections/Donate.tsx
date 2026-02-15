@@ -16,12 +16,15 @@ export function Donate() {
   const [selectedAmount, setSelectedAmount] = useState<number>(DEFAULT_AMOUNT);
   const candidateName =
     process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
-  const actBlueBaseUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
+  const actBlueBaseUrl =
+    process.env.NEXT_PUBLIC_ACTBLUE_URL?.trim() ||
+    "https://secure.actblue.com/donate/david-for-commissioner";
+  const isExternalDonateUrl = /^https?:\/\//i.test(actBlueBaseUrl);
 
   const donationAmounts = [10, 25, 50, 100, 250, 500];
 
   const getActBlueUrl = (amount?: number) => {
-    if (!amount || actBlueBaseUrl === "#") {
+    if (!amount || !isExternalDonateUrl) {
       return actBlueBaseUrl;
     }
     try {
@@ -121,8 +124,8 @@ export function Donate() {
               {/* Main donate CTA — no text outline */}
               <a
                 href={getActBlueUrl(selectedAmount)}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={isExternalDonateUrl ? "_blank" : undefined}
+                rel={isExternalDonateUrl ? "noopener noreferrer" : undefined}
                 className={cn(
                   "w-full max-w-lg flex items-center justify-center organic-card-1 bg-[#E92128] text-white border-2 border-black px-8 py-6 sm:py-7 text-center font-display text-2xl sm:text-3xl font-bold block-shadow block-shadow-press transition-all duration-200 uppercase tracking-tight",
                   "hover:bg-[#DC2626] active:scale-[0.98]",

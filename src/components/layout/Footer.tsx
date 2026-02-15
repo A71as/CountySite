@@ -14,7 +14,9 @@ export function Footer() {
   const photographyCredit =
     process.env.NEXT_PUBLIC_PHOTOGRAPHY_CREDIT || "";
   const actBlueUrl =
-    process.env.NEXT_PUBLIC_ACTBLUE_URL || "#donate";
+    process.env.NEXT_PUBLIC_ACTBLUE_URL?.trim() ||
+    "https://secure.actblue.com/donate/david-for-commissioner";
+  const isExternalDonateUrl = /^https?:\/\//i.test(actBlueUrl);
   const currentYear = new Date().getFullYear();
 
   // Footer nav: same hierarchy as header — Volunteer, About, The Role, Issues, Donate
@@ -90,7 +92,7 @@ export function Footer() {
                   {link.label}
                 </Link>
               ))}
-              {actBlueUrl.startsWith("#") ? (
+              {!isExternalDonateUrl ? (
                 <Link
                   href={actBlueUrl}
                   className="text-primary-400 font-subhead font-bold text-sm hover:text-primary-300 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-footerWarm organic-sm"

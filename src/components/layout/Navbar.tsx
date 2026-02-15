@@ -125,7 +125,10 @@ export function Navbar() {
   }, [isMobileMenuOpen]);
 
   const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "David Guirgis";
-  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#donate";
+  const actBlueUrl =
+    process.env.NEXT_PUBLIC_ACTBLUE_URL?.trim() ||
+    "https://secure.actblue.com/donate/david-for-commissioner";
+  const isExternalDonateUrl = /^https?:\/\//i.test(actBlueUrl);
 
   return (
     <nav
@@ -181,14 +184,20 @@ export function Navbar() {
 
           {/* Right: Donate pill button */}
           <div className="nav-right hidden md:flex items-center justify-end gap-6 flex-1 min-w-0">
-            <a
-              href={actBlueUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-donate-pill"
-            >
-              Donate
-            </a>
+            {isExternalDonateUrl ? (
+              <a
+                href={actBlueUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-donate-pill"
+              >
+                Donate
+              </a>
+            ) : (
+              <Link href={actBlueUrl} className="nav-donate-pill">
+                Donate
+              </Link>
+            )}
           </div>
 
           {/* Mobile/tablet: hamburger (left), logo centered, Donate (right) — reliable touch targets */}
@@ -207,15 +216,25 @@ export function Navbar() {
               )}
             </button>
             <div className="w-12 flex-shrink-0" aria-hidden="true" />
-            <a
-              href={actBlueUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-donate-pill text-base px-5 py-3 min-h-[48px] min-w-[100px] inline-flex items-center justify-center touch-manipulation"
-              onClick={handleLinkClick}
-            >
-              Donate
-            </a>
+            {isExternalDonateUrl ? (
+              <a
+                href={actBlueUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="nav-donate-pill text-base px-5 py-3 min-h-[48px] min-w-[100px] inline-flex items-center justify-center touch-manipulation"
+                onClick={handleLinkClick}
+              >
+                Donate
+              </a>
+            ) : (
+              <Link
+                href={actBlueUrl}
+                className="nav-donate-pill text-base px-5 py-3 min-h-[48px] min-w-[100px] inline-flex items-center justify-center touch-manipulation"
+                onClick={handleLinkClick}
+              >
+                Donate
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -223,12 +242,13 @@ export function Navbar() {
       {/* Mobile/tablet: full-screen overlay menu — large, readable links */}
       {isMobileMenuOpen && (
         <div
+          id="mobile-menu"
           className="fixed inset-0 z-50 bg-white md:hidden flex flex-col items-center justify-center px-6 py-20"
           role="dialog"
           aria-modal="true"
           aria-label="Main menu"
         >
-          <nav className="flex flex-col items-center gap-2 w-full max-w-sm">
+          <nav role="menu" className="flex flex-col items-center gap-2 w-full max-w-sm">
             <Link
               href={pathname === "/" ? "#home" : "/#home"}
               onClick={handleLinkClick}
@@ -258,15 +278,25 @@ export function Navbar() {
               </Link>
             ))}
             <div className="w-full pt-6 mt-4 organic-divider-t">
-              <a
-                href={actBlueUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nav-donate-pill w-full min-h-[56px] flex items-center justify-center text-lg font-bold touch-manipulation"
-                onClick={handleLinkClick}
-              >
-                Donate
-              </a>
+              {isExternalDonateUrl ? (
+                <a
+                  href={actBlueUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="nav-donate-pill w-full min-h-[56px] flex items-center justify-center text-lg font-bold touch-manipulation"
+                  onClick={handleLinkClick}
+                >
+                  Donate
+                </a>
+              ) : (
+                <Link
+                  href={actBlueUrl}
+                  className="nav-donate-pill w-full min-h-[56px] flex items-center justify-center text-lg font-bold touch-manipulation"
+                  onClick={handleLinkClick}
+                >
+                  Donate
+                </Link>
+              )}
             </div>
           </nav>
         </div>

@@ -2,7 +2,11 @@
 // Uses a public env var so it can be safely consumed in client components.
 
 export const ACTBLUE_BASE_URL =
-  process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
+  process.env.NEXT_PUBLIC_ACTBLUE_URL?.trim() ||
+  "https://secure.actblue.com/donate/david-for-commissioner";
+
+export const isExternalDonateUrl = (url: string): boolean =>
+  /^https?:\/\//i.test(url);
 
 // Default donation amounts shown in the donate section and modal.
 export const DONATION_AMOUNTS = [5, 10, 25, 50, 100, 250] as const;
@@ -12,7 +16,7 @@ export const DONATION_AMOUNTS = [5, 10, 25, 50, 100, 250] as const;
  * Mirrors the behavior described in the MVP scope (Claire Valdez-style flow).
  */
 export const buildActBlueUrl = (amount?: number): string => {
-  if (!amount || ACTBLUE_BASE_URL === "#") {
+  if (!amount || !isExternalDonateUrl(ACTBLUE_BASE_URL)) {
     return ACTBLUE_BASE_URL;
   }
 

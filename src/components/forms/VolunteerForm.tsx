@@ -123,7 +123,7 @@ export function VolunteerForm() {
       )}
 
       {/* Hidden turnstile token field for validation */}
-      <input type="hidden" {...register("turnstileToken")} />
+      <input type="hidden" aria-label="Turnstile verification token" {...register("turnstileToken")} />
 
       {/* Name fields - two columns */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -287,7 +287,7 @@ export function VolunteerForm() {
         variant="accent"
         size="md"
         isLoading={isSubmitting}
-        disabled={isSubmitting || !turnstileToken}
+        disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
         className="w-full"
       >
         {isSubmitting ? "Submitting..." : "Sign Up to Volunteer"}

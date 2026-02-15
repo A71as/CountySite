@@ -117,7 +117,7 @@ export function ContactForm() {
       )}
 
       {/* Hidden turnstile token field for validation */}
-      <input type="hidden" {...register("turnstileToken")} />
+      <input type="hidden" aria-label="Turnstile verification token" {...register("turnstileToken")} />
 
       {/* Name */}
       <Input
@@ -222,7 +222,7 @@ export function ContactForm() {
         variant="primary"
         size="md"
         isLoading={isSubmitting}
-        disabled={isSubmitting || !turnstileToken}
+        disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
         className="w-full"
       >
         {isSubmitting ? "Sending..." : "Send Message"}

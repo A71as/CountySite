@@ -4,7 +4,11 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { DONATION_AMOUNTS, buildActBlueUrl } from "@/config/donate";
+import {
+  DONATION_AMOUNTS,
+  buildActBlueUrl,
+  isExternalDonateUrl,
+} from "@/config/donate";
 
 interface DonateModalProps {
   open: boolean;
@@ -12,6 +16,8 @@ interface DonateModalProps {
 }
 
 export function DonateModal({ open, onClose }: DonateModalProps) {
+  const primaryDonateUrl = buildActBlueUrl();
+
   // Accessibility: Escape to close + focus trap
   useEffect(() => {
     if (!open) return;
@@ -88,8 +94,8 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
               <div className="uppercase text-xs tracking-[0.2em] text-primary-500 font-subhead font-bold">
                 Quick Donate
               </div>
-              <h2 className="font-display text-2xl font-bold uppercase leading-tight text-slate-900 sm:text-3xl tracking-tight">
-                They have the money. <span className="text-primary-500">We have each other.</span>
+              <h2 className="font-display text-4xl font-bold uppercase leading-[1.02] text-slate-900 sm:text-5xl tracking-tight text-center">
+                They have the money.<br /> <span className="text-primary-500">We have each other.</span>
               </h2>
               <p className="font-body text-sm text-slate-600">
                 Every dollar helps us knock more doors, talk to more neighbors,
@@ -98,24 +104,27 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
 
               {/* Amount buttons */}
               <div className="grid grid-cols-3 gap-3">
-                {DONATION_AMOUNTS.map((amount) => (
-                  <Button
-                    key={amount}
-                    href={buildActBlueUrl(amount)}
-                    external
-                    variant="secondary"
-                    size="sm"
-                    className="w-full font-display text-base"
-                  >
-                    ${amount}
-                  </Button>
-                ))}
+                {DONATION_AMOUNTS.map((amount) => {
+                  const donateUrl = buildActBlueUrl(amount);
+                  return (
+                    <Button
+                      key={amount}
+                      href={donateUrl}
+                      external={isExternalDonateUrl(donateUrl)}
+                      variant="secondary"
+                      size="sm"
+                      className="w-full font-display text-base"
+                    >
+                      ${amount}
+                    </Button>
+                  );
+                })}
               </div>
 
               {/* Primary CTA */}
               <Button
-                href={buildActBlueUrl()}
-                external
+                href={primaryDonateUrl}
+                external={isExternalDonateUrl(primaryDonateUrl)}
                 variant="primary"
                 size="md"
                 className="w-full"

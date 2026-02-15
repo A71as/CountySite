@@ -42,7 +42,7 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://plausible.io https://cdnjs.cloudflare.com",
+              "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://plausible.io https://cdnjs.cloudflare.com",
               "frame-src 'self' https://www.youtube.com https://player.vimeo.com https://challenges.cloudflare.com https://secure.actblue.com",
               "connect-src 'self' https://plausible.io https://*.supabase.co https://*.supabase.in https://*.basemaps.cartocdn.com",
               "img-src 'self' blob: data: https:",

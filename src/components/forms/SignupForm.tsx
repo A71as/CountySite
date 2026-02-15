@@ -160,7 +160,7 @@ export function SignupForm({
         </div>
       )}
 
-      <input type="hidden" {...register("turnstileToken")} />
+      <input type="hidden" aria-label="Turnstile verification token" {...register("turnstileToken")} />
 
       {isHero ? (
         <div className="hero-form-fields">
@@ -258,7 +258,7 @@ export function SignupForm({
               variant="primary"
               size="sm"
               isLoading={isSubmitting}
-              disabled={isSubmitting || !turnstileToken}
+              disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
               className="shrink-0 font-subhead font-bold uppercase text-xs organic-sm"
             >
               {isSubmitting ? "…" : "Join"}
@@ -342,7 +342,7 @@ export function SignupForm({
       {variant === "hero" ? (
         <button
           type="submit"
-          disabled={isSubmitting || !turnstileToken}
+          disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
           className="count-me-in-button"
         >
           {isSubmitting ? (
@@ -360,7 +360,7 @@ export function SignupForm({
           variant="primary"
           size="md"
           isLoading={isSubmitting}
-          disabled={isSubmitting || !turnstileToken}
+          disabled={isSubmitting || (Boolean(turnstileSiteKey) && !turnstileToken)}
           className="w-full font-subhead font-bold uppercase tracking-wide organic-md"
         >
           {isSubmitting ? "Sending..." : submitLabel ?? "Get Campaign Updates"}

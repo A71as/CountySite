@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://davidguirgis.com";
 const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
 const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
 
@@ -31,7 +31,9 @@ export default function TermsPage() {
   const county = process.env.NEXT_PUBLIC_COUNTY || "County";
   const state = process.env.NEXT_PUBLIC_STATE || "State";
   const campaignEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@davidguirgis.com";
-  const actBlueUrl = process.env.NEXT_PUBLIC_ACTBLUE_URL || "#";
+  const actBlueUrl =
+    process.env.NEXT_PUBLIC_ACTBLUE_URL ||
+    "https://secure.actblue.com/donate/david-for-commissioner";
   const lastUpdated = "February 6, 2026";
 
   return (

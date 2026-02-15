@@ -179,7 +179,7 @@ export function About({
           {/* Bio paragraphs — Gelica (serif), key phrases bolded for scannable emphasis */}
           <div className="prose prose-lg max-w-none space-y-4 font-body">
             {displayBio.split("\n\n").map((paragraph, i) => (
-              <p key={i} className="font-body text-slate-700 leading-relaxed text-base sm:text-[17px]">
+              <p key={i} className="font-body text-slate-700 leading-relaxed text-lg sm:text-xl">
                 {bioWithBoldPhrases(paragraph)}
               </p>
             ))}
@@ -188,7 +188,7 @@ export function About({
           {/* Connection paragraph */}
           {displayConnection && (
             <div className="prose prose-lg max-w-none font-body">
-              <p className="font-body text-slate-700 leading-relaxed">
+              <p className="font-body text-slate-700 leading-relaxed text-lg sm:text-xl">
                 {displayConnection}
               </p>
             </div>
@@ -197,7 +197,7 @@ export function About({
           {/* Credentials list (optional) */}
           {credentials && credentials.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-lg font-heading font-bold text-slate-900 mb-4">
+              <h3 className="text-xl sm:text-2xl font-heading font-bold text-slate-900 mb-4">
                 Experience & Background
               </h3>
               <ul className="space-y-3">
@@ -214,7 +214,7 @@ export function About({
                         clipRule="evenodd"
                       />
                     </svg>
-                    <span className="text-slate-700">{credential}</span>
+                    <span className="text-lg sm:text-xl text-slate-700 leading-relaxed">{credential}</span>
                   </li>
                 ))}
               </ul>
