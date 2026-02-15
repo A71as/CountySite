@@ -1,11 +1,17 @@
-# Netlify configuration for Next.js campaign site
-# https://docs.netlify.com/frameworks/next-js/overview/
-# OpenNext adapter auto-provisions; zero config required.
+  # Netlify configuration for Next.js campaign site
+  # https://docs.netlify.com/frameworks/next-js/overview/
+  # OpenNext adapter auto-provisions; zero config required.
 
-[build]
-  command = "npm run build"
+  [build]
+    command = "npm run build"
 
-[build.environment]
-  NODE_VERSION = "20"
+  [build.environment]
+    NODE_VERSION = "20"
 
-# Set env vars in Netlify UI: NEXT_PUBLIC_*, Supabase, Turnstile, Resend, Upstash Redis
+  # Set env vars in Netlify UI: NEXT_PUBLIC_*, Supabase, Turnstile, Resend, Upstash Redis
+
+  [[redirects]]
+    from = "https://davidguirgis.com/*"
+    to = "https://www.davidguirgis.com/:splat"
+    status = 301
+    force = true
