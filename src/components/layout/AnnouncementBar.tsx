@@ -74,15 +74,15 @@ export function AnnouncementBar() {
           {/* Countdown — smaller on small screens */}
           <div className="min-w-0 flex-1 flex flex-col items-start gap-0.5 sm:flex-row sm:items-center sm:gap-2">
             {countdown.isExpired ? (
-              <span className="text-lg md:text-xl font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
+              <span className="text-xl md:text-2xl font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
                 Election Day is here!
               </span>
             ) : (
               <>
-                <span className="sm:hidden text-lg font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
+                <span className="sm:hidden text-xl font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
                   Election Day: {countdown.days}d {countdown.hours}h {countdown.minutes}m
                 </span>
-                <span className="hidden sm:inline text-lg md:text-xl font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
+                <span className="hidden sm:inline text-xl md:text-2xl font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
                   Election Day: {formatCountdown()}
                 </span>
               </>
@@ -92,7 +92,7 @@ export function AnnouncementBar() {
           {/* CTA link — tappable, readable */}
           <Link
             href="/volunteer"
-            className="accent-callout flex-shrink-0 text-xs md:text-sm font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 whitespace-nowrap py-1.5 md:py-2 min-h-[36px] md:min-h-[44px] inline-flex items-center"
+            className="accent-callout flex-shrink-0 text-sm md:text-base font-accent font-medium underline underline-offset-2 transition-opacity hover:opacity-80 whitespace-nowrap py-1.5 md:py-2 min-h-[40px] md:min-h-[46px] inline-flex items-center"
           >
             Join the movement
           </Link>
@@ -100,10 +100,10 @@ export function AnnouncementBar() {
           {/* Dismiss — touch target */}
           <button
             onClick={() => setIsDismissed(true)}
-            className="flex-shrink-0 organic-sm min-h-[36px] min-w-[36px] md:min-h-[44px] md:min-w-[44px] flex items-center justify-center p-2 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600 touch-manipulation"
+            className="flex-shrink-0 organic-sm min-h-[40px] min-w-[40px] md:min-h-[46px] md:min-w-[46px] flex items-center justify-center p-2 transition-colors hover:bg-primary-700/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-600 touch-manipulation"
             aria-label="Dismiss announcement"
           >
-            <X className="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+            <X className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
       </div>

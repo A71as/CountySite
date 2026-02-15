@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { yardSignSchema } from "@/lib/validations";
 import { createServerClient } from "@/lib/integrations/supabase";
-import { sendYardSignConfirmation } from "@/lib/integrations/resend";
+import { sendYardSignNotification } from "@/lib/integrations/resend";
 import { signupRateLimit } from "@/lib/integrations/ratelimit";
 import { getCorsHeaders } from "@/lib/security/cors";
 
@@ -179,15 +179,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send yard sign confirmation email (don't fail if email fails)
+    // Send campaign notification (don't fail if email fails)
     try {
-      await sendYardSignConfirmation(
+      await sendYardSignNotification({
+        name: `${first_name} ${last_name}`,
         email,
-        `${first_name} ${last_name}`,
-        fullAddress
-      );
+        phone: phone || null,
+        address: fullAddress,
+        quantity,
+      });
     } catch (emailError) {
-      console.error("Failed to send yard sign confirmation email:", emailError);
+      console.error("Failed to send yard sign notification email:", emailError);
       // Continue even if email fails - request was successful
     }
 

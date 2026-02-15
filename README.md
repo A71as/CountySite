@@ -108,6 +108,8 @@ TURNSTILE_SECRET_KEY=your-secret-key
 # Resend Email
 RESEND_API_KEY=your-resend-api-key
 EMAIL_FROM=noreply@yourdomain.com
+EMAIL_TO=hello@yourdomain.com
+EMAIL_NOTIFICATIONS_ENABLED=true
 
 # Analytics
 NEXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com
@@ -499,6 +501,8 @@ TURNSTILE_SECRET_KEY=xxx
 # Resend
 RESEND_API_KEY=xxx
 EMAIL_FROM=noreply@yourdomain.com
+EMAIL_TO=hello@yourdomain.com
+EMAIL_NOTIFICATIONS_ENABLED=true
 
 # Analytics (optional)
 NEXT_PUBLIC_PLAUSIBLE_DOMAIN=yourdomain.com

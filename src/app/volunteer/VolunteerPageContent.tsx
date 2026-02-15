@@ -171,7 +171,7 @@ export function VolunteerPageContent() {
         className="section-spacing-bottom !pt-0 !pb-0"
         topFade={{ from: "#FFF5F5", to: "transparent" }}
         style={{
-          paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(1rem, 2.5vw, 2.5rem))",
+          paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(2.5rem, 5vw, 5.5rem))",
           paddingBottom: "clamp(2.5rem, 6vw, 3.5rem)",
         }}
       >

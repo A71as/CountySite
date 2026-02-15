@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { signupSchema } from "@/lib/validations";
 import { createServerClient } from "@/lib/integrations/supabase";
-import { sendWelcomeEmail } from "@/lib/integrations/resend";
+import { sendSignupNotification } from "@/lib/integrations/resend";
 import { signupRateLimit } from "@/lib/integrations/ratelimit";
 import { getCorsHeaders } from "@/lib/security/cors";
 
@@ -164,11 +164,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send welcome email (don't fail if email fails)
+    // Send campaign notification (don't fail if email fails)
     try {
-      await sendWelcomeEmail(email);
+      await sendSignupNotification({
+        email,
+        firstName: first_name || null,
+        lastName: last_name || null,
+        phone: phone || null,
+        zipCode: zip_code || null,
+        source: source || null,
+        utmSource: utm_source || null,
+        utmMedium: utm_medium || null,
+        utmCampaign: utm_campaign || null,
+      });
     } catch (emailError) {
-      console.error("Failed to send welcome email:", emailError);
+      console.error("Failed to send signup notification email:", emailError);
       // Continue even if email fails - signup was successful
     }
 

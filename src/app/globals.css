@@ -288,7 +288,7 @@ body::before {
   }
 
   .announcement-bar-inner .countdown-pulse {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
 }
 
@@ -300,7 +300,7 @@ body::before {
   }
 
   .announcement-bar-inner .countdown-pulse {
-    font-size: 0.7rem;
+    font-size: 0.82rem;
   }
 }
 
@@ -311,14 +311,14 @@ body::before {
   }
 
   .announcement-bar-inner .accent-callout {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     padding-top: 0.2rem;
     padding-bottom: 0.2rem;
   }
 
   .announcement-bar-inner button {
-    min-height: 32px;
-    min-width: 32px;
+    min-height: 36px;
+    min-width: 36px;
     padding: 0.35rem;
   }
 }
@@ -1234,20 +1234,20 @@ body::before {
 
 /* Hero — content height; neutral background */
 .hero-splash-bg {
-  padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 20px);
+  padding-top: calc(var(--announcement-height, 0px) + var(--nav-height));
   background: #ffffff;
 }
 
 @media (max-width: 767px) {
   .hero-splash-bg {
-    padding-top: 0;
+    padding-top: calc(var(--announcement-height, 0px) + var(--nav-height));
   }
 }
 
 @media (max-width: 767px) {
   .hero-grid {
-    margin-top: calc(-1 * (var(--announcement-height, 0px) + var(--nav-height)));
-    padding-top: calc(var(--announcement-height, 0px) + var(--nav-height));
+    margin-top: 0;
+    padding-top: 0;
   }
 }
 
@@ -1464,10 +1464,21 @@ body::before {
   transform-origin: center;
 }
 
+@media (min-width: 1024px) {
+  .hero-cutout-wrapper .hero-cutout-image {
+    object-position: center top;
+  }
+
+  .hero-logo-image {
+    transform: scale(1.28);
+    transform-origin: center top;
+  }
+}
+
 @media (min-width: 1024px) and (max-width: 1536px) {
   .hero-cutout-wrapper .hero-cutout-image {
-    transform: scale(1.1);
-    transform-origin: center center;
+    transform: scale(1.18);
+    transform-origin: center top;
   }
 }
 
@@ -1746,8 +1757,9 @@ body::before {
   transform: rotate(-2deg);
   text-align: right;
   display: block;
+  line-height: 1.1;
   margin-bottom: 10px;
-  margin-top: 0.35rem;
+  margin-top: 0.75rem;
   margin-left: 0;
 }
 
@@ -1755,7 +1767,7 @@ body::before {
   .hero-join-annotation {
     font-size: clamp(20px, 2.5vw, 28px);
     margin-bottom: 4px;
-    margin-top: 0.1rem;
+    margin-top: 0.35rem;
   }
 }
 

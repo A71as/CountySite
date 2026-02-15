@@ -3,6 +3,8 @@ import { Resend } from "resend";
 // Initialize Resend client
 const resendApiKey = process.env.RESEND_API_KEY;
 const emailFrom = process.env.EMAIL_FROM || "Campaign <campaign@example.com>";
+const emailTo = process.env.EMAIL_TO || emailFrom;
+const emailNotificationsEnabled = process.env.EMAIL_NOTIFICATIONS_ENABLED !== "false";
 const candidateName = process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Candidate";
 const office = process.env.NEXT_PUBLIC_OFFICE || "Office";
 const county = process.env.NEXT_PUBLIC_COUNTY || "County";
@@ -25,11 +27,18 @@ async function sendEmail({
   to,
   subject,
   html,
+  replyTo,
 }: {
   to: string;
   subject: string;
   html: string;
+  replyTo?: string;
 }) {
+  if (!emailNotificationsEnabled) {
+    console.warn("Email notifications disabled via EMAIL_NOTIFICATIONS_ENABLED=false.");
+    return { success: false, error: "Email notifications disabled" };
+  }
+
   if (!resend) {
     console.error("Resend client not initialized. Check RESEND_API_KEY.");
     return { success: false, error: "Email service not configured" };
@@ -41,6 +50,7 @@ async function sendEmail({
       to,
       subject,
       html,
+      replyTo,
     });
 
     if (error) {
@@ -56,6 +66,199 @@ async function sendEmail({
       error: err instanceof Error ? err.message : "Unknown error",
     };
   }
+}
+
+function renderDetailRow(label: string, value?: string | null) {
+  if (!value) {
+    return "";
+  }
+
+  return `
+    <tr>
+      <td style="padding: 6px 10px; font-weight: bold; background: #f3f4f6; width: 160px;">${label}</td>
+      <td style="padding: 6px 10px;">${value}</td>
+    </tr>
+  `;
+}
+
+export async function sendSignupNotification({
+  email,
+  firstName,
+  lastName,
+  phone,
+  zipCode,
+  source,
+  utmSource,
+  utmMedium,
+  utmCampaign,
+}: {
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  phone?: string | null;
+  zipCode?: string | null;
+  source?: string | null;
+  utmSource?: string | null;
+  utmMedium?: string | null;
+  utmCampaign?: string | null;
+}) {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 640px; margin: 0 auto; padding: 20px;">
+        <h1 style="margin: 0 0 16px 0; color: #111827;">New Email Signup</h1>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb;">
+          ${renderDetailRow("Email", email)}
+          ${renderDetailRow("First name", firstName)}
+          ${renderDetailRow("Last name", lastName)}
+          ${renderDetailRow("Phone", phone)}
+          ${renderDetailRow("Zip", zipCode)}
+          ${renderDetailRow("Source", source)}
+          ${renderDetailRow("UTM source", utmSource)}
+          ${renderDetailRow("UTM medium", utmMedium)}
+          ${renderDetailRow("UTM campaign", utmCampaign)}
+        </table>
+      </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: emailTo,
+    subject: `New signup: ${email}`,
+    html,
+    replyTo: email,
+  });
+}
+
+export async function sendVolunteerNotification({
+  name,
+  email,
+  phone,
+  zipCode,
+  interests,
+  availability,
+}: {
+  name: string;
+  email: string;
+  phone?: string | null;
+  zipCode?: string | null;
+  interests?: string[] | null;
+  availability?: string | null;
+}) {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 640px; margin: 0 auto; padding: 20px;">
+        <h1 style="margin: 0 0 16px 0; color: #111827;">New Volunteer Signup</h1>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb;">
+          ${renderDetailRow("Name", name)}
+          ${renderDetailRow("Email", email)}
+          ${renderDetailRow("Phone", phone)}
+          ${renderDetailRow("Zip", zipCode)}
+          ${renderDetailRow("Interests", interests && interests.length > 0 ? interests.join(", ") : null)}
+          ${renderDetailRow("Availability", availability)}
+        </table>
+      </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: emailTo,
+    subject: `New volunteer: ${name}`,
+    html,
+    replyTo: email,
+  });
+}
+
+export async function sendYardSignNotification({
+  name,
+  email,
+  phone,
+  address,
+  quantity,
+}: {
+  name: string;
+  email: string;
+  phone?: string | null;
+  address: string;
+  quantity: number;
+}) {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 640px; margin: 0 auto; padding: 20px;">
+        <h1 style="margin: 0 0 16px 0; color: #111827;">New Yard Sign Request</h1>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb;">
+          ${renderDetailRow("Name", name)}
+          ${renderDetailRow("Email", email)}
+          ${renderDetailRow("Phone", phone)}
+          ${renderDetailRow("Address", address)}
+          ${renderDetailRow("Quantity", quantity.toString())}
+        </table>
+      </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: emailTo,
+    subject: `New yard sign request: ${name}`,
+    html,
+    replyTo: email,
+  });
+}
+
+export async function sendContactNotification({
+  name,
+  email,
+  subject,
+  message,
+}: {
+  name: string;
+  email: string;
+  subject?: string | null;
+  message: string;
+}) {
+  const emailSubject = subject
+    ? `New Contact Form: ${subject}`
+    : "New Contact Form Submission";
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; max-width: 640px; margin: 0 auto; padding: 20px;">
+        <h1 style="margin: 0 0 16px 0; color: #111827;">${emailSubject}</h1>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; margin-bottom: 20px;">
+          ${renderDetailRow("Name", name)}
+          ${renderDetailRow("Email", email)}
+          ${renderDetailRow("Subject", subject || null)}
+        </table>
+        <div style="border: 1px solid #e5e7eb; padding: 16px; white-space: pre-wrap;">${message}</div>
+      </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: emailTo,
+    subject: emailSubject,
+    html,
+    replyTo: email,
+  });
 }
 
 /**
