@@ -133,7 +133,7 @@ export function VolunteerPageContent() {
       <SectionWrapper
         id="volunteer-success"
         background="blush"
-          className="section-spacing-top section-spacing-bottom !pt-0"
+          className="section-spacing-top section-spacing-bottom"
           style={{
             paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(1.5rem, 3vw, 3.5rem))",
           }}
@@ -168,7 +168,7 @@ export function VolunteerPageContent() {
         id="volunteer"
         background="blush"
         fullBleed
-        className="section-spacing-bottom !pt-0 !pb-0"
+        className="section-spacing-bottom !pb-0"
         topFade={{ from: "#FFF5F5", to: "transparent" }}
         style={{
           paddingTop: "calc(var(--announcement-height, 0px) + var(--nav-height, 64px) + clamp(2.5rem, 5vw, 5.5rem))",
