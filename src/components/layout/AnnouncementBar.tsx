@@ -74,16 +74,15 @@ export function AnnouncementBar() {
           {/* Countdown — smaller on small screens */}
           <div className="min-w-0 flex-1 flex flex-col items-start gap-0.5 sm:flex-row sm:items-center sm:gap-2">
             {countdown.isExpired ? (
-              <span className="text-xs md:text-sm font-medium countdown-pulse">Election Day is here!</span>
+              <span className="text-base md:text-lg font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
+                Election Day is here!
+              </span>
             ) : (
               <>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] sm:hidden">
-                  Election Day
+                <span className="sm:hidden text-base font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
+                  Election Day: {countdown.days}d {countdown.hours}h {countdown.minutes}m
                 </span>
-                <span className="text-sm font-semibold countdown-pulse sm:hidden">
-                  {countdown.days}d {countdown.hours}h {countdown.minutes}m
-                </span>
-                <span className="hidden sm:inline text-xs md:text-sm font-medium countdown-pulse">
+                <span className="hidden sm:inline text-base md:text-lg font-subhead font-bold uppercase tracking-[0.08em] countdown-pulse">
                   Election Day: {formatCountdown()}
                 </span>
               </>

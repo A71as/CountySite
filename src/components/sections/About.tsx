@@ -99,7 +99,7 @@ export function About({
   const displayConnection = connection || defaultConnection;
 
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [revealVisible, setRevealVisible] = useState(false);
+  const [revealVisible, setRevealVisible] = useState(true);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -115,6 +115,7 @@ export function About({
       },
       { threshold: 0.15, rootMargin: "0px" }
     );
+    setRevealVisible(false);
     observer.observe(el);
     return () => observer.disconnect();
   }, []);

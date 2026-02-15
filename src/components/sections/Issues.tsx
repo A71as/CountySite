@@ -27,6 +27,7 @@ interface Issue {
   title: string;
   description: string;
   fullExplainer: string;
+  expandable?: boolean;
 }
 
 export function Issues() {
@@ -55,6 +56,7 @@ export function Issues() {
       description:
         "Childcare for all embedded in every county service and program — including onsite daycare for Hudson County Community College students.",
       fullExplainer: `I'll ensure childcare for all is embedded in all of our county's services and programs — including onsite daycare for Hudson County Community College students.`,
+      expandable: false,
     },
     {
       icon: GraduationCap,
@@ -62,6 +64,7 @@ export function Issues() {
       description:
         "We deserve to learn. Education is a right — Hudson County Community College has changed lives across this county, including my own mother. It should be free for everyone, no questions asked.",
       fullExplainer: `Education is a right. Hudson County Community College has changed the lives of millions of people in this county, including my own mother. It should be treated as the public good as it is —and it should be free for everyone, no questions asked.`,
+      expandable: false,
     },
   ];
 
@@ -224,6 +227,7 @@ export function Issues() {
         {branches.map((issue, index) => {
           const Icon = issue.icon;
           const isExpanded = expandedIndex === index;
+          const isExpandable = issue.expandable !== false;
           return (
             <motion.div
               key={index}
@@ -264,7 +268,7 @@ export function Issues() {
                   {issue.description}
                 </p>
 
-                {issue.title !== "Free HCCC" && (
+                {isExpandable && (
                   <>
                     <AnimatePresence initial={false}>
                       {isExpanded && (
