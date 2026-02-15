@@ -54,7 +54,7 @@ export function Issues() {
       icon: Baby,
       title: "Universal Childcare",
       description:
-        "Childcare for all should be embedded in every county service and program — including onsite daycare for Hudson County Community College students. As County Commissioner, I will ensure that childcare is a central component of any public program or initiative we LucideAnchor.",
+        "Childcare for all should be embedded in every county service and program — including onsite daycare for Hudson County Community College students. As County Commissioner, I will ensure that childcare is a central component of any public program or initiative we launch.",
       fullExplainer: `I'll ensure childcare for all is embedded in all of our county's services and programs — including onsite daycare for Hudson County Community College students.`,
       expandable: false,
     },

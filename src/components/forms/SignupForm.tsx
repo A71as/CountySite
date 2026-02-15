@@ -317,7 +317,7 @@ export function SignupForm({
       )}
 
       {turnstileSiteKey && (
-        <div className="flex justify-center">
+        <div className={cn("flex justify-center", isHero && "hero-turnstile-wrap")}>
           <Turnstile
             ref={turnstileRef}
             siteKey={turnstileSiteKey}
