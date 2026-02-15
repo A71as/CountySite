@@ -63,7 +63,7 @@ export function Footer() {
               aria-label="Back to top"
             >
               <Image
-                src={LOGO_ASSETS.horizontal}
+                src={LOGO_ASSETS.noBubble}
                 alt={`${candidateName} — Democratic Socialist for ${office}`}
                 width={560}
                 height={200}
@@ -157,7 +157,7 @@ export function Footer() {
             {/* Paid for by — required legal line */}
             <div className="text-sm text-slate-400">
               <p className="font-display font-bold text-slate-300 uppercase tracking-wide">
-                Paid for by {candidateName} for {office}
+                Paid for by David for Commissioner
               </p>
             </div>
 

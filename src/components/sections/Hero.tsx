@@ -12,7 +12,7 @@ const HERO_BIO =
 const DISTRICT_LABEL =
   "DISTRICT 4 · JOURNAL SQUARE · DOWNTOWN · THE HEIGHTS";
 
-const CANDIDATE_IMAGE = "/images/candidate/no-bg-final.png";
+const CANDIDATE_IMAGE = "/images/candidate/DG Logos and Horizontals.png";
 
 /** Photo area background: soft radial gradients + paper texture (no geometric rays) */
 function HeroPhotoBackground() {
@@ -58,13 +58,11 @@ export function Hero() {
       {/* Paper grain overlay — subtle texture */}
       <div className="hero-grain-overlay section-paper-texture" aria-hidden="true" />
 
-      {/* Two-column layout: left = sunburst + photo (contained), right = content; mobile: content leads */}
+      {/* Two-column layout: left = logo, right = content; mobile: content leads */}
       <div className="hero-grid">
         {/* LEFT COLUMN: Photo area (gradient bg + texture + right fade + photo), bottom mask */}
         <div className="hero-left-column order-1 lg:order-1">
           <div className="hero-photo-area">
-            {/* Soft radial rays behind David (client mockup): conic gradient, blurred, subtle */}
-            <div className="hero-ray-layer" aria-hidden="true" />
             <HeroPhotoBackground />
             <div
               ref={cutoutRef}
@@ -73,12 +71,13 @@ export function Hero() {
             >
               <Image
                 src={CANDIDATE_IMAGE}
-                alt="David Sabry Guirgis, candidate for Hudson County Commissioner"
-                width={4050}
-                height={5400}
-                className="hero-cutout-image"
+                alt="David Sabry Guirgis campaign logo"
+                width={2400}
+                height={800}
+                className="hero-cutout-image hero-logo-image"
                 priority
-                sizes="(max-width: 1023px) 100vw, 48vw"
+                quality={100}
+                sizes="(max-width: 1023px) 90vw, 42vw"
               />
             </div>
             <div className="hero-photo-area-right-fade" aria-hidden="true" />
@@ -138,17 +137,8 @@ export function Hero() {
           </div>
         </div>
       </div>
-      {/* White gradient overlay — replaces pink gradient above red line (photo fade area) */}
-      <div
-        className="absolute left-0 right-0 bottom-8 pointer-events-none z-[5]"
-        style={{
-          height: "clamp(60px, 10vh, 120px)",
-          background: "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.7))",
-        }}
-        aria-hidden="true"
-      />
       {/* Bold red separator line — spans full width, barrier between Hero and About */}
-      <div className="relative z-10 w-full h-2 bg-primary-500 mt-12" aria-hidden="true" />
+      <div className="relative z-10 w-full h-2 bg-primary-500" aria-hidden="true" />
     </Section>
   );
 }

@@ -19,19 +19,7 @@
 
 /* Avoid global zoom scaling so layouts remain consistent across devices */
 
-/* ── Poster frame: fixed 6px black border — signature zine/poster look, always visible ── */
-.poster-frame,
-.viewport-frame {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 6px solid #000000;
-  border-radius: 3px;
-  pointer-events: none;
-  z-index: 9999;
-  box-sizing: border-box;
-}
+/* Poster frame removed */
 
 /* Dark mode disabled - campaign site uses light backgrounds */
 
@@ -475,7 +463,9 @@ body::before {
 .nav-link {
   font-family: var(--font-section), sans-serif;
   font-size: clamp(14px, 1.5vw, 15px);
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 0.25px;
+  text-transform: uppercase;
   transition: font-size 0.3s ease;
 }
 
@@ -1153,6 +1143,48 @@ body::before {
   mask-size: 100% 100%;
 }
 
+/* Issues section: full-height diamond texture so it reaches the footer gradient */
+.issues-pattern::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.04'/%3E%3C/svg%3E"),
+    linear-gradient(45deg, rgba(255, 174, 174, 0.15) 25%, transparent 25%, transparent 75%, rgba(255, 174, 174, 0.15) 75%),
+    linear-gradient(-45deg, rgba(255, 174, 174, 0.15) 25%, transparent 25%, transparent 75%, rgba(255, 174, 174, 0.15) 75%);
+  background-size: 256px 256px, 24px 24px, 24px 24px;
+  background-position: 0 0, 0 0, 0 0;
+}
+
+/* Issues transition: soft blush veil + hairline red rule for a clean handoff */
+.issues-transition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: clamp(28px, 4vh, 56px);
+  z-index: 5;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 245, 245, 0.85) 0%,
+    rgba(255, 245, 245, 0.4) 35%,
+    rgba(255, 245, 245, 0.0) 100%
+  );
+}
+
+.issues-transition::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(233, 33, 40, 0.35);
+}
+
 /* ── Hero background — campaign poster match: warm, saturated, confident ── */
 
 /* Poster gradient — definitive pink top, warm mid-section, full red bottom */
@@ -1163,20 +1195,6 @@ body::before {
       #F48689 55%,
       #EE5A5D 75%,
       #E92128 100%);
-}
-
-/* Sunburst rays — poster match: emanates from behind David's photo (upper-right) */
-.hero-sunburst {
-  background: repeating-conic-gradient(from 0deg at 65% 76%,
-      rgba(255, 210, 212, 0.45) 0deg 6deg,
-      rgba(255, 185, 187, 0.2) 6deg 12deg);
-  opacity: 0.65;
-}
-
-@media (max-width: 767px) {
-  .hero-sunburst {
-    opacity: 0.5;
-  }
 }
 
 /* Speech bubble — election date callout; same organic shape as family (stroke from component) */
@@ -1214,10 +1232,10 @@ body::before {
   }
 }
 
-/* Hero — content height; pink background */
+/* Hero — content height; neutral background */
 .hero-splash-bg {
   padding-top: calc(var(--announcement-height, 0px) + var(--nav-height) + 20px);
-  background: #FFAEAE;
+  background: #ffffff;
 }
 
 @media (max-width: 767px) {
@@ -1321,33 +1339,27 @@ body::before {
 @media (max-width: 1023px) {
   .hero-left-column {
     min-height: auto;
-    padding: 0.35rem 0.35rem 0.6rem;
+    padding: 0;
     margin-right: 0;
   }
 }
 
 @media (max-width: 767px) {
   .hero-left-column {
-    padding: 0 0.3rem 0.4rem;
-    margin-top: -6px;
+    padding: 0;
+    margin-top: 0;
   }
 }
 
-/* Photo area — fills left column; bottom fade via mask (black 80% → transparent 100%) */
+/* Photo area — fills left column; no bottom fade so image reaches the separator */
 .hero-photo-area {
   position: relative;
   width: 100%;
   height: 100%;
   min-height: 0;
   background: none;
-  -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-position: 0 0;
-  mask-position: 0 0;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 @media (min-width: 1024px) {
@@ -1378,25 +1390,12 @@ body::before {
 
 @media (max-width: 767px) {
   .hero-photo-area {
-    -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 
-/* Sunburst (mockup): origin below bottom-left, rays fan up and right; muted coral + pale pink */
-.hero-ray-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: repeating-conic-gradient(from 0deg at -5% 108%,
-      #E92128 0deg 3deg,
-      #FFAEAE 3deg 6deg);
-  filter: blur(6px);
-  opacity: 0.6;
-}
-
-/* Background wrap (transparent; rays show through) */
+/* Background wrap (transparent; logo sits on hero background) */
 .hero-photo-bg-wrap {
   position: absolute;
   inset: 0;
@@ -1405,7 +1404,7 @@ body::before {
   background: transparent;
 }
 
-/* Left column: no local bg — section sunburst shows through */
+/* Left column: no local bg — uses hero background */
 .hero-photo-bg-base {
   display: none;
 }
@@ -1418,7 +1417,7 @@ body::before {
   display: none;
 }
 
-/* Right-side fade removed so sunburst stays visible behind David (no transparent white box) */
+/* Right-side fade removed so background stays clean behind the logo */
 .hero-photo-area-right-fade {
   display: none;
 }
@@ -1430,13 +1429,13 @@ body::before {
   z-index: 2;
   pointer-events: none;
   display: flex;
-  align-items: stretch;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   max-height: none;
   min-height: 0;
-  padding: 0;
+  padding: clamp(0.75rem, 2.5vw, 2.5rem);
   transform: translateY(var(--parallax-y, 0));
   will-change: transform;
   background: none;
@@ -1454,8 +1453,15 @@ body::before {
   min-height: 0;
   max-width: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center;
   will-change: transform;
+}
+
+.hero-logo-image {
+  max-width: 100%;
+  max-height: 100%;
+  transform: scale(1.12);
+  transform-origin: center;
 }
 
 @media (min-width: 1024px) and (max-width: 1536px) {
@@ -1482,7 +1488,7 @@ body::before {
     width: 100%;
     max-width: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center;
     will-change: auto;
   }
 }
@@ -1490,7 +1496,7 @@ body::before {
 @media (max-width: 767px) {
   .hero-cutout-wrapper .hero-cutout-image {
     max-height: 60vh;
-    object-position: center -130%;
+    object-position: center;
   }
 }
 

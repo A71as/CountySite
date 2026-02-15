@@ -89,7 +89,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 Quick Donate
               </div>
               <h2 className="font-display text-2xl font-bold uppercase leading-tight text-slate-900 sm:text-3xl tracking-tight">
-                They have the money. We have each other.
+                They have the money. <span className="text-primary-500">We have each other.</span>
               </h2>
               <p className="font-body text-sm text-slate-600">
                 Every dollar helps us knock more doors, talk to more neighbors,

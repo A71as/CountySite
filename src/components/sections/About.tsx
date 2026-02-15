@@ -124,17 +124,17 @@ export function About({
       id="about"
       className="relative overflow-hidden section-spacing-top section-spacing-bottom bg-white"
       innerClassName="min-h-0"
-      style={{ paddingBottom: "clamp(6rem, 12vw, 12rem)", scrollMarginTop: "var(--anchor-offset)" }}
+      style={{ paddingBottom: "clamp(4rem, 8vw, 8rem)", scrollMarginTop: "var(--anchor-offset)" }}
     >
-      {/* Pattern full-bleed — extends up to Hero's red line, down through About bottom padding (stops at Commissioner) */}
+      {/* Pattern full-bleed — ends sooner before Commissioner */}
       <div
         className="absolute left-0 right-0 texture-speckle pointer-events-none z-0"
-        style={{ top: "-5.5rem", bottom: "-17.5rem" }}
+        style={{ top: "-5.5rem", bottom: "-6rem", opacity: 0.5 }}
         aria-hidden="true"
       />
       <div
-        className="absolute left-0 right-0 brand-crosshatch-dark pointer-events-none opacity-80 z-0"
-        style={{ top: "-5.5rem", bottom: "-17.5rem" }}
+        className="absolute left-0 right-0 brand-crosshatch-dark pointer-events-none opacity-50 z-0"
+        style={{ top: "-5.5rem", bottom: "-6rem" }}
         aria-hidden="true"
       />
 
@@ -149,15 +149,15 @@ export function About({
               <MeetDavidUnderlineSvg />
             </>
           }
-          className="mb-20 max-w-5xl"
+          className="mb-12 max-w-5xl"
           titleClassName="meet-david-underline inline-block"
         />
 
         {/* Two-column layout — photo column 1.5x text column; items-start so photo sits at top */}
-        <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16 items-start">
-        {/* Left column - Family photo: hand-drawn organic red border (mailer aesthetic) */}
+        <div className="relative grid grid-cols-1 gap-4 lg:grid-cols-[2.5fr_2fr] lg:gap-4 items-start">
+        {/* Left column - Family photo: smaller frame to condense section */}
         <div className="about-reveal-item order-2 lg:order-1" style={{ transitionDelay: "300ms" }}>
-          <div className="relative slight-tilt-right" style={{ transform: "rotate(-2deg)" }}>
+          <div className="relative slight-tilt-right max-w-[340px] sm:max-w-[390px] lg:max-w-[420px] mx-auto lg:mx-0">
             <div className="relative photo-frame-standard overflow-hidden">
               <OptimizedImage
                 src={IMAGE_PATHS.candidate.about}
@@ -165,7 +165,7 @@ export function About({
                 width={600}
                 height={750}
                 priority={false}
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 1024px) 70vw, 38vw"
                 placeholder="blur"
                 className="w-full h-auto"
                 quality={82}
@@ -175,37 +175,14 @@ export function About({
         </div>
 
         {/* Right column - Bio */}
-        <div className="about-reveal-item order-1 space-y-6 lg:order-2" style={{ transitionDelay: "450ms" }}>
+        <div className="about-reveal-item order-1 space-y-4 lg:order-2" style={{ transitionDelay: "450ms" }}>
           {/* Bio paragraphs — Gelica (serif), key phrases bolded for scannable emphasis */}
           <div className="prose prose-lg max-w-none space-y-4 font-body">
             {displayBio.split("\n\n").map((paragraph, i) => (
-              <p key={i} className="font-body text-slate-700 leading-relaxed text-base sm:text-lg">
+              <p key={i} className="font-body text-slate-700 leading-relaxed text-base sm:text-[17px]">
                 {bioWithBoldPhrases(paragraph)}
               </p>
             ))}
-          </div>
-
-          {/* Pull quote — speech bubble callout (brand: white interior, #E92128 border, Gelica quote, red quotes) */}
-          <div className="relative my-8 slight-tilt-sm-right">
-            <div className="speech-bubble-accent bg-white px-3 py-2.5 sm:px-4 sm:py-3 shadow-soft">
-              <blockquote className="relative">
-                <span
-                  className="block font-display text-4xl sm:text-5xl text-primary-500 leading-none select-none mb-0 drop-shadow-sm"
-                  aria-hidden="true"
-                >
-                  &ldquo;
-                </span>
-                <p className="font-body text-lg leading-snug text-black sm:text-xl -mt-1">
-                  {displayQuote}
-                </p>
-                <span
-                  className="block font-display text-4xl sm:text-5xl text-primary-500 leading-none select-none mt-0 text-right drop-shadow-sm"
-                  aria-hidden="true"
-                >
-                  &rdquo;
-                </span>
-              </blockquote>
-            </div>
           </div>
 
           {/* Connection paragraph */}

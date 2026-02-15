@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { OptimizedImage } from "@/components/ui/OptimizedImage";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { HandDrawnDivider } from "@/components/ui/HandDrawnDivider";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { cn } from "@/lib/utils";
 import { IMAGE_PATHS } from "@/lib/constants/images";
@@ -37,29 +36,8 @@ export function Donate() {
   };
 
   return (
-    <SectionWrapper id="donate" background="transparent" fullBleed className="!p-0 overflow-hidden section-spacing-top section-spacing-bottom" bottomFade={{
-        from: "transparent",
-        to: "#FFF5F5",
-        height: "clamp(56px, 7vh, 120px)",
-        stops: [
-          { color: "rgba(255,245,245,0)", at: "0%" },
-          { color: "rgba(255,245,245,0)", at: "60%" },
-          { color: "rgba(255,245,245,0.5)", at: "80%" },
-          { color: "#FFF5F5", at: "100%" },
-        ],
-      }}>
-      {/* Diamond pattern in bottom gradient zone so transition into Issues is smooth */}
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none pattern-fade-in-from-top opacity-60"
-        style={{ height: "clamp(56px, 7vh, 120px)" }}
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 brand-crosshatch-pink" />
-      </div>
-      {/* Hand-drawn line at Commissioner|Donate boundary (within padding zone) */}
-      <div className="w-full px-4 flex justify-center pt-8">
-        <HandDrawnDivider variant="light" className="max-w-3xl h-7 -rotate-[0.3deg]" />
-      </div>
+    <SectionWrapper id="donate" background="white" fullBleed className="!p-0 overflow-hidden">
+      <div className="w-full bg-lightPink h-6" aria-hidden="true" />
       {/* Split background: left half red, right half white */}
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:min-h-[500px] w-full">
         {/* Left half — red background, all donation content; centered; top fade from white */}
@@ -186,6 +164,9 @@ export function Donate() {
           </div>
         </div>
       </div>
+
+      {/* Pink buffer now below Donate to bridge into Issues */}
+      <div className="w-full bg-lightPink h-6" aria-hidden="true" />
     </SectionWrapper>
   );
 }

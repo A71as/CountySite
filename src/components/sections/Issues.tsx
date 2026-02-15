@@ -70,12 +70,12 @@ export function Issues() {
   const cardRadii = ["organic-card-1", "organic-card-2", "organic-card-3"];
   const cardBorders = [
     "border-2 border-slate-200 border-l-4 border-l-primary-400",
-    "border-2 border-slate-200",
-    "border-2 border-slate-200 border-t-4 border-t-primary-400",
+    "border-2 border-slate-200 border-l-4 border-l-primary-400",
+    "border-2 border-slate-200 border-l-4 border-l-primary-400",
   ];
 
   return (
-    <SectionWrapper id="issues" background="blush" fullBleed className="relative overflow-hidden section-spacing-top section-spacing-bottom" topFade={{ from: "#FFF5F5", to: "transparent" }} bottomFade={{
+    <SectionWrapper id="issues" background="blush" fullBleed className="relative overflow-hidden section-spacing-bottom !pt-0 issues-pattern" bottomFade={{
         from: "rgba(61,26,30,0)",
         to: "#3D1A1E",
         height: "clamp(56px, 7vh, 120px)",
@@ -89,14 +89,9 @@ export function Issues() {
           { color: "#3D1A1E", at: "100%" },
         ],
       }}>
-      {/* Pattern full-bleed with gradient mask so it fades in from Donate gradient and out into footer */}
-      <div className="absolute inset-0 pattern-fade-vertical pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 texture-speckle" />
-        <div className="absolute inset-0 brand-crosshatch-dark" />
-        <div className="absolute inset-0 brand-crosshatch-pink opacity-70" />
-      </div>
+      <div className="issues-transition" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto w-full min-w-0 max-w-[min(1200px,calc(100vw-2rem))] px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
+      <div className="relative z-10 mx-auto w-full min-w-0 max-w-[min(1200px,calc(100vw-2rem))] px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
       {/* Section opener + header — SectionHeader is the single animation source; lead line static */}
       <div className="relative mb-14 max-w-5xl">
         <SectionHeader
@@ -269,40 +264,44 @@ export function Issues() {
                   {issue.description}
                 </p>
 
-                <AnimatePresence initial={false}>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 mt-4 organic-divider-t text-slate-700 leading-relaxed text-base font-body space-y-3">
-                        {issue.fullExplainer.split(/\n\n+/).map((para, i) => (
-                          <p key={i}>{para}</p>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {issue.title !== "Free HCCC" && (
+                  <>
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: "easeInOut" }}
+                          className="overflow-hidden"
+                        >
+                          <div className="pt-4 mt-4 organic-divider-t text-slate-700 leading-relaxed text-base font-body space-y-3">
+                            {issue.fullExplainer.split(/\n\n+/).map((para, i) => (
+                              <p key={i}>{para}</p>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                <button
-                  type="button"
-                  onClick={() => setExpandedIndex(isExpanded ? null : index)}
-                  className="mt-5 min-h-[48px] flex items-center gap-1.5 py-2 text-base font-subhead font-bold text-primary-600 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 organic-sm transition-colors"
-                  aria-expanded={isExpanded}
-                >
-                  {isExpanded ? (
-                    <>
-                      Read less <ChevronUp className="h-4 w-4" aria-hidden="true" />
-                    </>
-                  ) : (
-                    <>
-                      Read more <ChevronDown className="h-4 w-4" aria-hidden="true" />
-                    </>
-                  )}
-                </button>
+                    <button
+                      type="button"
+                      onClick={() => setExpandedIndex(isExpanded ? null : index)}
+                      className="mt-5 min-h-[48px] flex items-center gap-1.5 py-2 text-base font-subhead font-bold text-primary-600 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 organic-sm transition-colors"
+                      aria-expanded={isExpanded}
+                    >
+                      {isExpanded ? (
+                        <>
+                          Read less <ChevronUp className="h-4 w-4" aria-hidden="true" />
+                        </>
+                      ) : (
+                        <>
+                          Read more <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                        </>
+                      )}
+                    </button>
+                  </>
+                )}
               </div>
             </motion.div>
           );

@@ -129,7 +129,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body
         className={`${gelica.className} bg-background text-foreground antialiased font-body text-base`}
       >
-        <div className="poster-frame" aria-hidden="true" />
         <a
           href="#main"
           className="skip-link"
